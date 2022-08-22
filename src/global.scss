@@ -24,7 +24,7 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
+@import './theme/theme';
 /*
  * App CSS
  * ----------------------------------------------------------------------------
@@ -40,4 +40,27 @@
 // placed here instead of tutorial.scss due to slide els not getting ng scoping attribute
 .swiper-slide {
   display: block;
+}
+ion-input {
+  --placeholder-font-style: 'Roboto', sans-serif;
+  --placeholder-opacity: .4
+}
+
+.errors{
+  font-size: 12px;
+  color: var(--ion-color-danger) !important;
+  padding-left: 18px;
+}
+ion-item.forms {
+  --min-height: 16px;
+  position: relative;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  &:last-of-type {
+    --inner-padding-bottom: 11px;
+  }
+  &.no-items {
+    --inner-padding-top: 44px;
+    --inner-padding-bottom: 28px;
+  }
 }

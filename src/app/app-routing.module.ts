@@ -32,6 +32,38 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
     canLoad: [CheckTutorial]
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'requests',
+    loadChildren: () => import('./pages/requests/requests.module').then( m => m.RequestsPageModule)
+  },
+  {
+    path: 'services',
+    loadChildren: () => import('./pages/services/services.module').then( m => m.ServicesPageModule)
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./pages/faq/faq.module').then( m => m.FaqPageModule)
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+  },
+  {
+    path: 'sos',
+    loadChildren: () => import('./pages/sos/sos.module').then( m => m.SosPageModule)
+  },
+  {
+    path: 'nearest-places',
+    loadChildren: () => import('./pages/nearest-places/nearest-places.module').then( m => m.NearestPlacesPageModule)
+  },
+  {
+    path: 'general-form',
+    loadChildren: () => import('./pages/general-form/general-form.module').then( m => m.GeneralFormPageModule)
   }
 ];
 

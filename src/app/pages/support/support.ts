@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AlertController, ToastController } from '@ionic/angular';
+import { TranslateConfigService } from '../../translate-config.service';
 
 
 @Component({
@@ -12,10 +13,16 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class SupportPage {
   submitted = false;
   supportMessage: string;
+  applanguage = '';
+  customActionSheetOptions = {
+    header: 'Language',
+    subHeader: 'Change Langugae',
+  };
 
   constructor(
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private appT: TranslateConfigService
   ) { }
 
   async ionViewDidEnter() {
@@ -39,6 +46,10 @@ export class SupportPage {
       });
       await toast.present();
     }
+  }
+  langchange(evt) {
+    console.log(evt.detail.value);
+    this.appT.setLanguage(evt.detail.value);
   }
 
   // If the user enters text in the support question and then navigates

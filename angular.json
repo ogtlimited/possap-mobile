@@ -26,6 +26,11 @@
                 "output": "assets"
               },
               {
+                "glob": "**/*svg",
+                "input": "src/assets/custom-icons",
+                "output": "./svg"
+              },
+              {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
@@ -174,7 +179,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "analytics": false,
+    "defaultCollection": "@ionic/angular-toolkit"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

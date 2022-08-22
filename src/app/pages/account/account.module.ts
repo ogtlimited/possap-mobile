@@ -1,3 +1,4 @@
+import { SharedModule } from './../../components/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -9,6 +10,7 @@ import { AccountPageRoutingModule } from './account-routing.module';
   imports: [
     CommonModule,
     IonicModule,
+    SharedModule,
     AccountPageRoutingModule
   ],
   declarations: [

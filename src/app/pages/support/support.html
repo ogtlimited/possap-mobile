@@ -1,34 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Support</ion-title>
-  </ion-toolbar>
-
-</ion-header>
-
+<app-header title="Settings"></app-header>
 <ion-content>
-  <div class="support-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic Logo">
-  </div>
+  <ion-row class="mt-24">
+    <ion-col size="12" size-md="6">
+      <ion-card class="search-card mt-0">
+        <ion-card-content class="pl-2 pr-16">
+          <ion-list>
+            <ion-item>
+              <ion-icon slot="start" name="globe"></ion-icon>
+              <ion-label>Change Language</ion-label>
+              <ion-select value="en" (ionChange)="langchange($event)" [interfaceOptions]="customActionSheetOptions"
+                interface="action-sheet" placeholder="Change Language">
+                <ion-select-option value="en">English</ion-select-option>
+                <ion-select-option value="ha">Hausa</ion-select-option>
+                <ion-select-option value="ig">Igbo</ion-select-option>
+                <ion-select-option value="yo">Yoruba</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none" class="mt-5">
+              <ion-icon slot="start" name="bell-f"></ion-icon>
+              <ion-label>Notification</ion-label>
+              <ion-toggle color="primary"></ion-toggle>
+            </ion-item>
 
-  <form #submitForm="ngForm" novalidate (ngSubmit)="submit(submitForm)">
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label position="stacked" color="primary">Enter your support message below</ion-label>
-        <ion-textarea [(ngModel)]="supportMessage" name="supportQuestion" #supportQuestion="ngModel" rows="6" required></ion-textarea>
-      </ion-item>
-    </ion-list>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      
+    </ion-col>
+  </ion-row>
 
-    <ion-text color="danger">
-      <p [hidden]="supportQuestion.valid || submitted === false" class="ion-padding-start">
-        Support message is required
-      </p>
-    </ion-text>
 
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit">Submit</ion-button>
-    </div>
-  </form>
 </ion-content>

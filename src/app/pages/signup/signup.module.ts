@@ -1,3 +1,7 @@
+import { OfficerFormComponent } from './officer-form/officer-form.component';
+import { ResidentFormComponent } from './resident-form/resident-form.component';
+import { SharedModule } from './../../components/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,11 +14,15 @@ import { SignupPageRoutingModule } from './signup-routing.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
+    SharedModule,
     SignupPageRoutingModule
   ],
   declarations: [
     SignupPage,
+    ResidentFormComponent,
+    OfficerFormComponent
   ]
 })
 export class SignUpModule { }

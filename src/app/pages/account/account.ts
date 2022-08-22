@@ -1,7 +1,9 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 import { UserData } from '../../providers/user-data';
 
@@ -11,67 +13,144 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountPage implements AfterViewInit {
-  username: string;
+export class AccountPage implements OnInit {
+  file: File = null;
+  credentials: FormGroup;
+  addressForm: FormGroup;
+  user;
+  avater = 'assets/img/speakers/lion.jpg'
+  showAddressForm = false;
+  items = [
+    {
+      title: 'My Request',
+      url: '/menu/home/my-orders',
+      icon: 'file-plus',
+      autoNav: false
+    },
+  ];
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private alertController: AlertController,
+    private router: Router,
+    private modalController: ModalController,
+    private loadingController: LoadingController) {
+      this.credentials = this.fb.group({
+        fullName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.minLength(8)]],
+        address: ['', [Validators.required]],
+      });
 
-  constructor(
-    public alertCtrl: AlertController,
-    public router: Router,
-    public userData: UserData
-  ) { }
+    }
 
-  ngAfterViewInit() {
-    this.getUsername();
-  }
-
-  updatePicture() {
-    console.log('Clicked to update picture');
-  }
-
-  // Present an alert with the current username populated
-  // clicking OK will update the username and display it
-  // clicking Cancel will close the alert and do nothing
-  async changeUsername() {
-    const alert = await this.alertCtrl.create({
-      header: 'Change Username',
-      buttons: [
-        'Cancel',
-        {
-          text: 'Ok',
-          handler: (data: any) => {
-            this.userData.setUsername(data.username);
-            this.getUsername();
-          }
-        }
-      ],
-      inputs: [
-        {
-          type: 'text',
-          name: 'username',
-          value: this.username,
-          placeholder: 'username'
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  getUsername() {
-    this.userData.getUsername().then((username) => {
-      this.username = username;
+  ngOnInit() {
+    this.authService.currentUser().subscribe(str =>{
+      const user = JSON.parse(str.value);
+      console.log(user);
+      this.user = user;
+      this.credentials.patchValue({
+        email: user.email,
+        phone: user.phone,
+        fullName: user.fullName,
+        address: user.address,
+      });
     });
   }
+  onChange(event) {
+    this.file = event.target.files[0];
+    this.onUpload();
+}
+async onUpload() {
+  const data = new FormData();
+  data.append('upload', this.file);
+  console.log(this.file);
+  const loading = await this.loadingController.create();
+    await loading.present();
+  this.authService.uploadProfileImage(data).subscribe(
+      async (event: any) => {
+        console.log(event);
+        this.user.avater = event.images[0];
+        const update = {
+          avater: event.images[0]
+        };
+        this.authService.updateUser(this.user._id, update).subscribe(async e =>{
+         // this.user = e.userInfo;
+          console.log(e);
+          this.authService.currentUser().subscribe(user => {
+            this.user = JSON.parse(user.value);
+          });
+          //console.log(e?.userInfo);
+          await loading.dismiss();
+        });
+      },
+      async (res) => {
+        console.log(res);
+        await loading.dismiss();
+        this.reqFailed(res?.error?.error, 'Request failed');
+      }
+  );
+}
+async reqFailed(res, msg){
+  const alert = await this.alertController.create({
+    header: msg,
+    message: res,
+    buttons: ['OK'],
+  });
 
-  changePassword() {
-    console.log('Clicked to change password');
+  await alert.present();
+
+}
+  async presentModal(show) {
+    const modal = await this.modalController.create({
+      component: 'ProfileComponentsComponent',
+      cssClass: 'fullscreen',
+      componentProps: {
+        show
+      }
+    });
+    await modal.present();
+  }
+  async updateUser() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    this.authService.updateUser(this.user._id, this.credentials.value).subscribe(
+      async (res) => {
+        await loading.dismiss();
+        this.router.navigate(['menu/home']);
+      },
+      async (res) => {
+        console.log(res);
+        await loading.dismiss();
+        const alert = await this.alertController.create({
+          header: res.error.message,
+          message: res.error.error,
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+      }
+    );
+  }
+  back(){
+
+  }
+  navigate(path){
+    this.router.navigate(['menu/home/'+ path]);
+  }
+  // Easy access for form fields
+  get fullName() {
+    return this.credentials.get('fullName');
   }
 
-  logout() {
-    this.userData.logout();
-    this.router.navigateByUrl('/login');
+  get email() {
+    return this.credentials.get('email');
   }
 
-  support() {
-    this.router.navigateByUrl('/support');
+  get phone() {
+    return this.credentials.get('phone');
+  }
+  get address() {
+    return this.credentials.get('address');
   }
 }

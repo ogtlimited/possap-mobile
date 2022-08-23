@@ -1,0 +1,7 @@
+{
+  "name": "Possap",
+  "type": "angular",
+  "integrations": {
+    "capacitor": {}
+  }
+}

@@ -1,0 +1,46 @@
+<form (ngSubmit)="signup()" [formGroup]="officerForm" class="form-container">
+  <ion-item>
+    <ion-label position="floating">AP Number</ion-label>
+    <ion-input type="text" formControlName="apNumber"></ion-input>
+  </ion-item>
+  <div *ngIf="(apNumber.dirty || apNumber.touched) && apNumber.errors" class="errors">
+    <span *ngIf="apNumber.errors?.required">AP Number is required</span>
+  </div>
+  <ion-item>
+    <ion-label position="floating">Username</ion-label>
+    <ion-input type="text" formControlName="username"></ion-input>
+  </ion-item>
+  <div *ngIf="(username.dirty || username.touched) && username.errors" class="errors">
+    <span *ngIf="username.errors?.required">Username is required</span>
+  </div>
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+  </ion-item>
+  <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+    <span *ngIf="email.errors?.required">Email is required</span>
+    <span *ngIf="email.errors?.email">Email is invalid</span>
+  </div>
+  <ion-item>
+    <ion-label position="floating">Phone</ion-label>
+    <ion-input type="tel-country-code" formControlName="phone"></ion-input>
+  </ion-item>
+  <div *ngIf="(phone.dirty || phone.touched) && phone.errors" class="errors">
+    <span *ngIf="phone.errors?.required">Phone is required</span>
+    <span *ngIf="phone.errors?.minlength">Phone must be 11 digit</span>
+    <span *ngIf="phone.errors?.maxlength">Phone cannot exceed 11 digit</span>
+  </div>
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input [type]="hide ? 'password' : 'text'" formControlName="password"></ion-input>
+
+    <ion-icon class="mt-32" (click)="hide = !hide" name="eye" size="small" slot="end"></ion-icon>
+  </ion-item>
+  <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+    <span *ngIf="password.errors?.required">Password is required</span>
+    <span *ngIf="password.errors?.minlength">Password needs to be 6 characters</span>
+  </div>
+
+
+  <ion-button class="login mt-32" type="submit" expand="block" [disabled]="!officerForm.valid">Sign up</ion-button>
+</form>

@@ -49,9 +49,20 @@ export class ServicesPage implements OnInit {
    
     {
       title: 'Incident Booking',
-      subtitle: 'Apply for police clearance certificate using your NIN',
+      subtitle: 'Book your Incidents',
       icon: 'PCC'
     },
+    {
+      title: 'Vehicle Service',
+      subtitle: 'Get Vehicle Information using your vehicle ID',
+      icon: 'PCC'
+    },
+    {
+      title: 'Esignal',
+      subtitle: 'Broadcast messages to your fellow police colleagues',
+      icon: 'PCC'
+    },
+
    
    
   ]

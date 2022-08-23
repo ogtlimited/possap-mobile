@@ -11,7 +11,7 @@ export class ServicesPage implements OnInit {
   services = [
     {
       title: 'Character Certificate',
-      code: 'PS-101',
+      code: 'cc',
       subtitle: 'Apply for character certificate',
       icon: 'CC'
     },
@@ -19,20 +19,20 @@ export class ServicesPage implements OnInit {
       title: 'Police Clearance Certificate',
       subtitle: 'Apply for police clearance certificate using your NIN',
       icon: 'PCC',
-      code: 'PS-102',
+      code: 'pcc',
 
     },
     {
       title: 'Escort and Guard Services',
       subtitle: 'Apply for escort ad guard services',
       icon: 'EGS',
-      code: 'PS-103',
+      code: 'egs',
     },
     {
       title: 'Central Motor Registry',
       subtitle: 'Apply for escort ad guard services',
       icon: 'CMR',
-      code: 'PS-104',
+      code: 'cmr',
     }
   ]
   infoServices = [
@@ -46,16 +46,14 @@ export class ServicesPage implements OnInit {
       subtitle: 'Apply for police clearance certificate using your NIN',
       icon: 'PCC'
     },
+   
     {
-      title: 'Police Related News',
-      subtitle: 'Apply for escort ad guard services',
-      icon: 'EGS'
+      title: 'Incident Booking',
+      subtitle: 'Apply for police clearance certificate using your NIN',
+      icon: 'PCC'
     },
-    {
-      title: 'Central Motor Registry',
-      subtitle: 'Apply for escort ad guard services',
-      icon: 'CMR'
-    }
+   
+   
   ]
   constructor(private router: Router, private route: ActivatedRoute) { }
 

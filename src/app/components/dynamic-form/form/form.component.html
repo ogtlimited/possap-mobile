@@ -1,6 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <ion-item *ngFor="let control of jsonFormData?.controls">
-    <ion-label *ngIf="control.label !== ''">{{ control.label }}</ion-label>
+    <ion-label position="floating" *ngIf="control.label !== ''">{{ control.label }}</ion-label>
     <ion-input
       *ngIf="
         [

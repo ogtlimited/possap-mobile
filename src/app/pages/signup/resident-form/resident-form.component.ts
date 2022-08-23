@@ -1,5 +1,5 @@
 import { LoadingController } from "@ionic/angular";
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth/auth.service";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -11,6 +11,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 })
 export class ResidentFormComponent implements OnInit {
   residentForm: FormGroup;
+  @Output() emitFormValue: EventEmitter<any> = new EventEmitter();
   hide = false;
   gotNIN = false;
   ninData: any = {};
@@ -61,7 +62,7 @@ export class ResidentFormComponent implements OnInit {
 
           this.residentForm.patchValue({
             fullName: this.ninData.surname + " " + this.ninData.firstname,
-            dob: new Date(dob),
+            dob: this.ninData.birthdate,
             email: this.ninData.email,
             phone: this.ninData.telephoneno,
           });
@@ -86,6 +87,7 @@ export class ResidentFormComponent implements OnInit {
 
   signup() {
     console.log(this.residentForm.value);
+    this.emitFormValue.emit(this.residentForm.value);
   }
   get nin() {
     return this.residentForm.get("nin");

@@ -9,7 +9,7 @@
     <span *ngIf="nin.errors?.maxlength">NIN can not exceed 11 digit</span>
   </div>
  <ion-row>
-  <!-- <ion-col> -->
+  <ion-col>
     <ion-card *ngIf="gotNIN"  class="mx-0">
       <div class="overlay"></div>
       <ion-card-header>
@@ -72,7 +72,7 @@
        
       </ion-card-content>
     </ion-card>
-  <!-- </ion-col> -->
+  </ion-col>
  </ion-row>
   <ion-item class="form" mode="md">
     <ion-label position="floating">Full Name</ion-label>
@@ -98,7 +98,7 @@
   </div>
   <ion-item class="form" mode="md">
     <ion-label position="stacked">Date of birth</ion-label>
-    <ion-input type="date" formControlName="dob"></ion-input>
+    <ion-input type="text" formControlName="dob"></ion-input>
   </ion-item>
   <div *ngIf="(dob.dirty || dob.touched) && dob.errors" class="errors">
     <span *ngIf="dob.errors?.required">Date of birth is required</span>

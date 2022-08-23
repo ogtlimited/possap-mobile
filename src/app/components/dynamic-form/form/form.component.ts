@@ -24,9 +24,12 @@ export class FormComponent implements OnChanges {
   @Output() emitForm: EventEmitter<any> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({});
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    // console.log(this)
+  }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
     if (!changes.jsonFormData.firstChange) {
       this.createForm(this.jsonFormData.controls);
     }

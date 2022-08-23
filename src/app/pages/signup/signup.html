@@ -54,8 +54,8 @@
 
 
   <div *ngIf="!showVerify" class="container pb-32">
-    <app-officer-form *ngIf="userType === 'officer'"></app-officer-form>
-    <app-resident-form *ngIf="userType === 'resident'" ></app-resident-form>
+    <app-officer-form (emitFormValue)="signup($event)" *ngIf="userType === 'officer'"></app-officer-form>
+    <app-resident-form (emitFormValue)="signup($event)" *ngIf="userType === 'resident'" ></app-resident-form>
   </div>
   <ion-row *ngIf="showVerify" class="px-32 h-100 pt-8 pb-7">
     <ion-col>

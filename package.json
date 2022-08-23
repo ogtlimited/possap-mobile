@@ -1,7 +1,7 @@
 {
   "name": "Possap",
   "version": "0.0.0",
-  "description": "Possap mobil",
+  "description": "Possap mobile",
   "author": "Outsource Global",
   "license": "Apache-2.0",
   "scripts": {
@@ -10,11 +10,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "npx webdriver-manager update --standalone false --gecko false --versions.chrome=99.0.4844.83 && ng e2e --no-webdriver-update"
+    "e2e": "ng e2e"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/ionic-conference-app.git"
+    "url": "https://github.com/ogtlimited/possap-mobile.git"
   },
   "private": true,
   "dependencies": {

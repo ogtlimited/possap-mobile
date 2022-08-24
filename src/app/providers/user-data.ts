@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Preferences as Storage } from '@capacitor/preferences';
 
 
 @Injectable({
@@ -11,7 +11,6 @@ export class UserData {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
   constructor(
-    public storage: Storage
   ) { }
 
   hasFavorite(sessionName: string): boolean {
@@ -30,46 +29,46 @@ export class UserData {
   }
 
   login(username: string): Promise<any> {
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+    return Storage.set({key: this.HAS_LOGGED_IN, value: 'true'}).then(() => {
       this.setUsername(username);
       return window.dispatchEvent(new CustomEvent('user:login'));
     });
   }
 
   signup(username: string): Promise<any> {
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+    return Storage.set({key: this.HAS_LOGGED_IN, value: 'true'}).then(() => {
       this.setUsername(username);
       return window.dispatchEvent(new CustomEvent('user:signup'));
     });
   }
 
   logout(): Promise<any> {
-    return this.storage.remove(this.HAS_LOGGED_IN).then(() => {
-      return this.storage.remove('username');
+    return Storage.remove({key: this.HAS_LOGGED_IN}).then(() => {
+      return Storage.remove({key:'username'});
     }).then(() => {
       window.dispatchEvent(new CustomEvent('user:logout'));
     });
   }
 
   setUsername(username: string): Promise<any> {
-    return this.storage.set('username', username);
+    return Storage.set({key: 'username', value: username});
   }
 
   getUsername(): Promise<string> {
-    return this.storage.get('username').then((value) => {
-      return value;
+    return Storage.get({key: 'username'}).then((value) => {
+      return value.value;
     });
   }
 
   isLoggedIn(): Promise<boolean> {
-    return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-      return value === true;
+    return Storage.get({key: this.HAS_LOGGED_IN}).then((value) => {
+      return value.value === 'true';
     });
   }
 
   checkHasSeenTutorial(): Promise<string> {
-    return this.storage.get(this.HAS_SEEN_TUTORIAL).then((value) => {
-      return value;
+    return Storage.get({key: this.HAS_SEEN_TUTORIAL}).then((value) => {
+      return value.value;
     });
   }
 }

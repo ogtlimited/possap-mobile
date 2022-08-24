@@ -6,23 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./faq.page.scss'],
 })
 export class FaqPage implements OnInit {
-
-  constructor() { }
   faqData = [
     {
       question: 'Request Duration',
-      answer: 'Request takes two days to process'
+      answer: 'Request takes two days to process',
     },
     {
       question: 'Request verification error',
-      answer: 'Check that the application ref id is correct'
+      answer: 'Check that the application ref id is correct',
     },
     {
       question: 'Change request info',
-      answer: 'You can edit a request before it status changed to processing'
+      answer: 'You can edit a request before it status changed to processing',
     },
   ];
-  ngOnInit() {
-  }
-
+  constructor() {}
+  ngOnInit() {}
 }

@@ -1,5 +1,3 @@
-import { MyMapComponent } from './components/my-map/my-map.component';
-import { ReportIncidenceComponent } from './components/report-incidence/report-incidence.component';
 import { SharedModule } from './../../components/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +9,8 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { MostUsedComponent } from './components/most-used/most-used.component';
+import { MyMapComponent } from './components/my-map/my-map.component';
+import { ReportIncidenceComponent } from './components/report-incidence/report-incidence.component';
 
 @NgModule({
   imports: [
@@ -20,6 +20,6 @@ import { MostUsedComponent } from './components/most-used/most-used.component';
     HomePageRoutingModule,
     SharedModule
   ],
-  declarations: [HomePage, MostUsedComponent, ReportIncidenceComponent, MyMapComponent]
+  declarations: [HomePage, MostUsedComponent, MyMapComponent, ReportIncidenceComponent]
 })
 export class HomePageModule {}

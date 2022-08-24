@@ -3,7 +3,7 @@ import { RequestService } from './../../request/request.service';
 import { Injectable } from '@angular/core';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { Storage } from '@capacitor/storage';
+import { Preferences as Storage } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 

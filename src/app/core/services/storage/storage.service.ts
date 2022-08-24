@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class StorageService {
-  private storage: Storage;
+  private storage;
   private subjects: Map<string, BehaviorSubject<any>>;
 
   /**

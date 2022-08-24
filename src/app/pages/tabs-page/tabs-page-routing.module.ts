@@ -14,7 +14,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: HomePage,
+            loadChildren: () => import('../home/home.module').then(m => m.HomePageModule),
           },
         ]
       },
@@ -47,7 +47,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/app/tabs/schedule',
+        redirectTo: '/app/tabs/home',
         pathMatch: 'full'
       }
     ]

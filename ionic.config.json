@@ -1,7 +1,7 @@
 {
-  "name": "Possap",
-  "type": "angular",
+  "name": "latest-templat",
   "integrations": {
     "capacitor": {}
-  }
+  },
+  "type": "angular"
 }

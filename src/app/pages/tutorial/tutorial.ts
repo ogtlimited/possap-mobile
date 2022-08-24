@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { MenuController } from '@ionic/angular';
 
-import { Storage } from '@ionic/storage';
+import { Preferences as Storage } from '@capacitor/preferences';
 import Swiper from 'swiper';
 
 @Component({
@@ -18,14 +18,13 @@ export class TutorialPage {
   constructor(
     public menu: MenuController,
     public router: Router,
-    public storage: Storage,
     private cd: ChangeDetectorRef
   ) {}
 
   startApp() {
     this.router
       .navigateByUrl('/app/tabs/home', { replaceUrl: true })
-      .then(() => this.storage.set('ion_did_tutorial', true));
+      .then(() => Storage.set({key:'ion_did_tutorial', value: 'true'}));
   }
 
   setSwiperInstance(swiper: Swiper) {
@@ -38,8 +37,8 @@ export class TutorialPage {
   }
 
   ionViewWillEnter() {
-    this.storage.get('ion_did_tutorial').then(res => {
-      if (res === true) {
+    Storage.get({key: 'ion_did_tutorial'}).then(res => {
+      if (res.value === 'true') {
         this.router.navigateByUrl('/app/tabs/home', { replaceUrl: true });
       }
     });

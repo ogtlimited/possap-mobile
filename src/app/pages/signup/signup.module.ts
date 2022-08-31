@@ -1,5 +1,4 @@
 import { OfficerFormComponent } from './officer-form/officer-form.component';
-import { ResidentFormComponent } from './resident-form/resident-form.component';
 import { SharedModule } from './../../components/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -21,7 +20,6 @@ import { SignupPageRoutingModule } from './signup-routing.module';
   ],
   declarations: [
     SignupPage,
-    ResidentFormComponent,
     OfficerFormComponent
   ]
 })

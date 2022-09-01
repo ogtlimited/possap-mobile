@@ -1,0 +1,9 @@
+{
+    "appName": "POSSAP",
+    "home": "Home",
+    "service": "Service",
+    "about": "About",
+    "reportIncidence": "Report Incidence",
+    "reportIncidencePoliceBrutality": "Report Incidence Police Brutality",
+    "reportIncidencePoliceBrutalityLabel": "Report incidence of police brutality, fill a simple form"
+}

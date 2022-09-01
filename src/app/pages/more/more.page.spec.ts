@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ResidentFormComponent } from './resident-form.component';
+import { MorePage } from './more.page';
 
-describe('ResidentFormComponent', () => {
-  let component: ResidentFormComponent;
-  let fixture: ComponentFixture<ResidentFormComponent>;
+describe('MorePage', () => {
+  let component: MorePage;
+  let fixture: ComponentFixture<MorePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResidentFormComponent ],
+      declarations: [ MorePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ResidentFormComponent);
+    fixture = TestBed.createComponent(MorePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

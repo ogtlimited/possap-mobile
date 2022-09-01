@@ -42,6 +42,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/requests/requests.module').then( m => m.RequestsPageModule)
   },
   {
+    path: 'more',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutModule)
+  },
+  {
     path: 'services',
     loadChildren: () => import('./pages/services/services.module').then( m => m.ServicesPageModule)
   },
@@ -64,6 +68,10 @@ const routes: Routes = [
   {
     path: 'general-form',
     loadChildren: () => import('./pages/general-form/general-form.module').then( m => m.GeneralFormPageModule)
+  },
+  {
+    path: 'more',
+    loadChildren: () => import('./pages/more/more.module').then( m => m.MorePageModule)
   }
 ];
 

@@ -9,31 +9,29 @@ import { Component, OnInit } from '@angular/core';
 export class MostUsedComponent implements OnInit {
   services = [
     {
-      title: 'Police Character Certificate',
-      subtitle: 'Apply for character certificate',
+      title: 'E-signaling',
+      subtitle: 'Apply for E-signaling',
       icon: 'CC',
-      code: 'pcc',
     },
     {
-      title: 'Police Extract',
-      subtitle: 'Apply for police extract using your NIN',
+      title: 'Incident Booking',
+      subtitle: 'Apply for Incident Booking',
       icon: 'PCC',
-      code: 'pe'
     },
     {
-      title: 'Escort and Guard Services',
-      subtitle: 'Apply for escort ad guard services',
+      title: 'Vehicle Services',
+      subtitle: 'Apply for Vehicle Services',
       icon: 'EGS',
-      code: 'egs'
-    }
+    },
   ];
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
-  navigate(path, title){
+  navigate(path, title) {
     console.log(path);
-    this.router.navigate(['/general-form'], {queryParams: {service: path, title} });
+    this.router.navigate(['/general-form'], {
+      queryParams: { service: path, title },
+    });
   }
-
 }

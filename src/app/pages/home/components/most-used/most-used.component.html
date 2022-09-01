@@ -1,12 +1,13 @@
 <ion-row>
   <ion-col size="12">
     <ion-card class="search-card mt-0">
-      
       <ion-card-header>
         <ion-card-subtitle>Most Used</ion-card-subtitle>
         <ion-card-title>
-          <ion-label class="serviceTitle">Possap Services</ion-label>
-          <ion-label routerLink="/app/tabs/services" color="primary">See All</ion-label>
+          <ion-label class="serviceTitle">POSSAP Services</ion-label>
+          <ion-label routerLink="/app/tabs/services" color="primary"
+            >See All</ion-label
+          >
         </ion-card-title>
       </ion-card-header>
       <!-- <ion-item-divider class="h-0" mode="md">
@@ -16,14 +17,15 @@
         <ion-list>
           <ion-item (click)="navigate(service.code, service.title)" *ngFor="let service of services">
             <ion-avatar slot="start">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+              <img
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw=="
+              />
             </ion-avatar>
             <ion-label class="ion-text-wrap">
               <ion-text>
-                <h5>{{service.title}}</h5>
+                <h5>{{ service.title }}</h5>
               </ion-text>
-              <p>{{service.subtitle}}</p>
-
+              <p>{{ service.subtitle }}</p>
             </ion-label>
           </ion-item>
         </ion-list>

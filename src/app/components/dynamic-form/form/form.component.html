@@ -1,6 +1,14 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <ion-item *ngFor="let control of jsonFormData?.controls">
-    <ion-label position="floating" *ngIf="control.label !== ''">{{ control.label }}</ion-label>
+  <!-- <ion-slides [pager]="true" >
+    <ion-slide *ngFor="let slide of slides.slice(0,6)">
+      <h1 *ngFor="let i of slides.slice(0, 6)" >Slide 1</h1>
+    </ion-slide>
+  </ion-slides>
+     <ion-button (click)="slideNext()">
+
+     </ion-button> -->
+  <ion-item [lines]="control.type === 'file' ? 'none' :'full'" *ngFor="let control of jsonFormData?.controls">
+    <ion-label position="stacked" *ngIf="control.type !== 'file'">{{ control.label }}</ion-label>
     <ion-input
       *ngIf="
         [
@@ -9,14 +17,23 @@
           'email',
           'number',
           'search',
+          'date',
           'tel',
           'url'
         ].includes(control.type)
       "
       [type]="control.type"
       [formControlName]="control.name"
+      [placeholder]="control.label"
       [value]="control.value"
     ></ion-input>
+    <div class="flex flex-column my-8" *ngIf="control.type === 'file'" >
+      <ion-label class="file-label">{{control.label}}</ion-label>
+        <div class="file">
+          <ion-icon name="camera"></ion-icon>
+
+        </div>
+    </div>
     <ion-textarea
       *ngIf="control.type === 'textarea'"
       [formControlName]="control.name"

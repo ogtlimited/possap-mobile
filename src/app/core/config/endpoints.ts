@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export const serverBaseUrl = 'http://localhost:3000/api/v1';
 // export const serverBaseUrl = 'https://possap.herokuapp.com/api/v1';
-
+export const GoogleMapUrl = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=';
 export const baseEndpoints = {
     auth: serverBaseUrl + '/auth',
     user: serverBaseUrl + '/users',

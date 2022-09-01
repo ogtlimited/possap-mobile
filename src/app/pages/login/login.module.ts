@@ -8,7 +8,6 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPage } from './login';
 import { LoginPageRoutingModule } from './login-routing.module';
 import { OfficerFormComponent } from './officer-form/officer-form.component';
-import { ResidentFormComponent } from './resident-form/resident-form.component';
 
 @NgModule({
   imports: [
@@ -17,12 +16,11 @@ import { ResidentFormComponent } from './resident-form/resident-form.component';
     IonicModule,
     ReactiveFormsModule,
     LoginPageRoutingModule,
-    
+
   ],
   declarations: [
     LoginPage,
     OfficerFormComponent,
-    ResidentFormComponent
   ]
 })
 export class LoginModule { }

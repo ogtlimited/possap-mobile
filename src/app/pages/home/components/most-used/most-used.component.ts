@@ -8,18 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class MostUsedComponent implements OnInit {
   services = [
     {
-      title: 'Character Certificate',
-      subtitle: 'Apply for character certificate',
+      title: 'E-signaling',
+      subtitle: 'Apply for E-signaling',
       icon: 'CC'
     },
     {
-      title: 'Police Clearance Certificate',
-      subtitle: 'Apply for police clearance certificate using your NIN',
+      title: 'Incident Booking',
+      subtitle: 'Apply for Incident Booking',
       icon: 'PCC'
     },
     {
-      title: 'Escort and Guard Services',
-      subtitle: 'Apply for escort ad guard services',
+      title: 'Vehicle Services',
+      subtitle: 'Apply for Vehicle Services',
       icon: 'EGS'
     }
   ]

@@ -10,10 +10,28 @@ import { Component, OnInit } from '@angular/core';
 export class ServicesPage implements OnInit {
   services = [
     {
-      title: 'Character Certificate',
+      title: 'Police Extract',
       code: 'cc',
       subtitle: 'Apply for character certificate',
-      icon: 'CC'
+      icon: 'pe'
+    },
+    {
+      title: 'Tint Permit',
+      subtitle: 'Apply for tint permit',
+      icon: 'tpermit',
+      code: 'tp',
+    },
+    {
+      title: 'SPY',
+      subtitle: 'Apply for spy',
+      icon: 'spy',
+      code: 'spy',
+    },
+    {
+      title: 'Central Motor Registry',
+      subtitle: 'Apply for escort ad guard services',
+      icon: 'cmr',
+      code: 'cmr',
     },
     {
       title: 'Police Clearance Certificate',
@@ -25,16 +43,10 @@ export class ServicesPage implements OnInit {
     {
       title: 'Escort and Guard Services',
       subtitle: 'Apply for escort ad guard services',
-      icon: 'EGS',
+      icon: 'egs',
       code: 'egs',
     },
-    {
-      title: 'Central Motor Registry',
-      subtitle: 'Apply for escort ad guard services',
-      icon: 'CMR',
-      code: 'cmr',
-    }
-  ]
+  ];
   infoServices = [
     {
       title: 'E-signaling',
@@ -47,22 +59,23 @@ export class ServicesPage implements OnInit {
       subtitle: 'Check Vehicle Information during routine checks',
       icon: 'PCC'
     },
-   
+
     {
       title: 'Incident Booking',
       subtitle: 'Book an Incident',
       icon: 'PCC'
     },
-   
-   
-  ]
+
+
+  ];
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
 
-  navigate(path){
-    this.router.navigate(['/general-form'], {queryParams: {service: path} })
+  navigate(path, title){
+    console.log(path);
+    this.router.navigate(['/general-form'], {queryParams: {service: path, title} });
   }
 
 }

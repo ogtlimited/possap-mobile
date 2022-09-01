@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,21 +11,27 @@ export class MostUsedComponent implements OnInit {
     {
       title: 'E-signaling',
       subtitle: 'Apply for E-signaling',
-      icon: 'CC'
+      icon: 'CC',
     },
     {
       title: 'Incident Booking',
       subtitle: 'Apply for Incident Booking',
-      icon: 'PCC'
+      icon: 'PCC',
     },
     {
       title: 'Vehicle Services',
       subtitle: 'Apply for Vehicle Services',
-      icon: 'EGS'
-    }
-  ]
-  constructor() { }
+      icon: 'EGS',
+    },
+  ];
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
+  navigate(path, title) {
+    console.log(path);
+    this.router.navigate(['/general-form'], {
+      queryParams: { service: path, title },
+    });
+  }
 }

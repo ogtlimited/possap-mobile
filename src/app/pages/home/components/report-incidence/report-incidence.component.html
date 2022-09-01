@@ -3,7 +3,7 @@
         <ion-label class="mt-10">Report Incident</ion-label>
       </ion-list-header>
       
-      <ion-item>
+      <ion-item (click)="navigate('pb', 'Police Brutality')">
         <ion-avatar class="icon-bg" slot="start">
           <ion-icon name="brutality"></ion-icon>
         </ion-avatar>
@@ -13,7 +13,7 @@
         </ion-label>
         <ion-button fill="outline" > Open</ion-button>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item (click)="navigate('sa', 'Simple Accident')" lines="none">
         <ion-avatar class="icon-bg" slot="start">
           <ion-icon name="accident-car"></ion-icon>
         </ion-avatar>

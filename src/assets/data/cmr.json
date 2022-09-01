@@ -29,7 +29,7 @@
         },
         {
             "name": "carModel",
-            "label": "Modal",
+            "label": "Model",
             "value": "",
             "type": "text",
             "validators": {

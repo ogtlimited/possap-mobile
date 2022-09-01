@@ -68,6 +68,10 @@ const routes: Routes = [
   {
     path: 'general-form',
     loadChildren: () => import('./pages/general-form/general-form.module').then( m => m.GeneralFormPageModule)
+  },
+  {
+    path: 'more',
+    loadChildren: () => import('./pages/more/more.module').then( m => m.MorePageModule)
   }
 ];
 

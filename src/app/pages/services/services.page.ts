@@ -39,7 +39,8 @@ export class ServicesPage implements OnInit {
     {
       title: 'E-signaling',
       subtitle: 'Broadcast to fellow police officers',
-      icon: 'CC'
+      icon: 'CC',
+      code: 'es',
     },
     {
       title: 'Vehicle Services',

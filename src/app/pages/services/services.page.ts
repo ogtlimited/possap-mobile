@@ -57,13 +57,15 @@ export class ServicesPage implements OnInit {
     {
       title: 'Vehicle Services',
       subtitle: 'Check Vehicle Information during routine checks',
-      icon: 'PCC'
+      icon: 'PCC',
+      code: 'vs',
     },
 
     {
       title: 'Incident Booking',
       subtitle: 'Book an Incident',
-      icon: 'PCC'
+      icon: 'PCC',
+      code: 'ib',
     },
 
 

@@ -17,6 +17,8 @@ export class HeaderComponent implements OnInit {
   @Input() cart;
   @Input() dismiss = false;
   @Input() showProfile = false;
+  @Input() showBack = false;
+  @Input() isHome = false;
   @Input() showSos = false;
   cartTotal;
   constructor(

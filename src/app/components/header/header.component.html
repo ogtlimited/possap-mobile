@@ -1,9 +1,9 @@
 <ion-header [translucent]="true" no-shadow no-border>
   <ion-toolbar>
-    <!-- <ion-button *ngIf="title !== 'home'" (click)="back()" fill="clear" slot="start">
+    <ion-button *ngIf="showBack" (click)="back()" fill="clear" slot="start">
       <ion-icon  color="dark" name="arrow-left"></ion-icon>
-    </ion-button> -->
-    <ion-buttons  slot="start">
+    </ion-button>
+    <ion-buttons *ngIf="isHome"  slot="start">
       <ion-menu-button>
         <ion-icon name="align-left" color="dark" ></ion-icon>
       </ion-menu-button>
@@ -11,7 +11,9 @@
 
 
     <ion-title>
-     {{title}}
+     <div class="ion-text-wrap text-nowrap">
+      {{title}}
+     </div>
     </ion-title>
     <ion-buttons slot="primary">
       <ion-button *ngIf="showProfile"  (click)="goToCart()" style="width: 40px;">

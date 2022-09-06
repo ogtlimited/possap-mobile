@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ResidentFormComponent } from './resident-form.component';
+import { PrivacyPage } from './privacy.page';
 
-describe('ResidentFormComponent', () => {
-  let component: ResidentFormComponent;
-  let fixture: ComponentFixture<ResidentFormComponent>;
+describe('PrivacyPage', () => {
+  let component: PrivacyPage;
+  let fixture: ComponentFixture<PrivacyPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResidentFormComponent ],
+      declarations: [ PrivacyPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ResidentFormComponent);
+    fixture = TestBed.createComponent(PrivacyPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

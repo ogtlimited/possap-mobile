@@ -5,8 +5,12 @@ ion-card {
     font-weight: 700;
   }
   ion-text, span {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 0;
+  }
+  ion-icon{
+    font-size: 18px;
+    color: #fff;
   }
 }
 

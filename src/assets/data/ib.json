@@ -9,51 +9,7 @@
             "required": true
           }
         },
-        {
-          "name": "description2",
-          "label": "Description of Incident",
-          "value": "",
-          "type": "text",
-          "validators": {
-            "required": true
-          }
-        },
-        {
-          "name": "description3",
-          "label": "Description of Incident",
-          "value": "",
-          "type": "text",
-          "validators": {
-            "required": true
-          }
-        },
-        {
-          "name": "description4",
-          "label": "Description of Incident",
-          "value": "",
-          "type": "text",
-          "validators": {
-            "required": true
-          }
-        },
-        {
-          "name": "description5",
-          "label": "Description of Incident",
-          "value": "",
-          "type": "text",
-          "validators": {
-            "required": true
-          }
-        },
-        {
-          "name": "description6",
-          "label": "Description of Incident",
-          "value": "",
-          "type": "text",
-          "validators": {
-            "required": true
-          }
-        },
+       
         {
           "name": "dateTime",
           "label": "Date and time",

@@ -27,9 +27,14 @@ export class MorePage implements OnInit {
       icon: 'cash-outline'
     },
     {
-      title: 'Legal',
-      path: '/legal',
+      title: 'Privacy Policy',
+      path: '/privacy',
       icon: 'book-outline'
+    },
+    {
+      title: 'FAQs',
+      path: '/faq',
+      icon: 'help-circle-outline'
     },
   ];
   constructor(

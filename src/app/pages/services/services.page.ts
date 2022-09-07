@@ -49,23 +49,23 @@ export class ServicesPage implements OnInit {
   ];
   infoServices = [
     {
-      title: 'Citizen Report',
-      subtitle: 'Apply for character certificate',
-      icon: 'creport',
-      code: 'citizensreport',
+      title: 'E-signaling',
+      subtitle: 'Broadcast to fellow police officers',
+      icon: 'CC',
+      code: 'es',
     },
     {
-      title: 'SOS',
-      subtitle: 'Apply for police clearance certificate using your NIN',
-      icon: 'sos',
-      code: 'sos'
+      title: 'Vehicle Services',
+      subtitle: 'Check Vehicle Information during routine checks',
+      icon: 'PCC',
+      code: 'vs',
     },
 
     {
       title: 'Incident Booking',
-      subtitle: 'Apply for police clearance certificate using your NIN',
-      code: 'incidentbooking',
-      icon: 'ibooking'
+      subtitle: 'Book an Incident',
+      icon: 'PCC',
+      code: 'ib',
     },
 
 

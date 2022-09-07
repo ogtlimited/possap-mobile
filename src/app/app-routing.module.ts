@@ -72,7 +72,12 @@ const routes: Routes = [
   {
     path: 'more',
     loadChildren: () => import('./pages/more/more.module').then( m => m.MorePageModule)
-  }
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+
 ];
 
 @NgModule({

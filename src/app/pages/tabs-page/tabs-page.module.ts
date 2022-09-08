@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { PossapEyeComponent } from './possap-eye/possap-eye.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +14,8 @@ import { AboutModule } from '../about/about.module';
     AboutModule,
     CommonModule,
     IonicModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    TranslateModule
   ],
   declarations: [
     TabsPage,

@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from './../../components/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,8 @@ import { AboutPageRoutingModule } from './about-routing.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    AboutPageRoutingModule
+    AboutPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [AboutPage, PopoverPage],
   entryComponents: [PopoverPage],

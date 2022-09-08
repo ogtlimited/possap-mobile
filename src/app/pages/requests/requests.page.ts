@@ -11,6 +11,7 @@ export class RequestsPage implements OnInit {
 
   speakers: any[] = [];
   letters = '0123456789ABCDEF';
+  segment = 'completed';
 
   constructor(public confData: ConferenceData) {}
 
@@ -24,10 +25,10 @@ export class RequestsPage implements OnInit {
   }
   getRandomColor() {
     let color = '#'; // <-----------
-    for (var i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i++) {
         color += this.letters[Math.floor(Math.random() * 16)];
     }
-    return color
+    return color;
 }
   favorite(){
 
@@ -37,6 +38,10 @@ export class RequestsPage implements OnInit {
   }
   unread(){
 
+  }
+
+  segmentChanged(event){
+    console.log(event.detail.value);
   }
 
 }

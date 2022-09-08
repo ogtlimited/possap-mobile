@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { SupportPage } from './support';
 import { SupportPageRoutingModule } from './support-routing.module';
 import { SharedModule } from '../../components/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { SharedModule } from '../../components/shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    SupportPageRoutingModule
+    SupportPageRoutingModule,
+    TranslateModule
   ],
   declarations: [
     SupportPage,

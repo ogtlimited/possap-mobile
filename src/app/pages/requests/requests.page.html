@@ -1,11 +1,22 @@
-<app-header title="Request"></app-header>
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Request</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)"  [value]="segment">
+      <ion-segment-button value="processed">
+        <ion-label>To be proccesssed</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="completed">
+        <ion-label>Completed</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content fullscreen="true">
-
-
+<ion-content>
   <ion-grid fixed>
-
-
+   
     <ion-list>
       <!-- Sliding item with text options on both sides -->
       <ion-item *ngFor="let item of speakers; let i = index" class="ion-no-padding py-12">

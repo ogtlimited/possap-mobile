@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { OfficerFormComponent } from './officer-form/officer-form.component';
 import { SharedModule } from './../../components/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,7 +17,8 @@ import { SignupPageRoutingModule } from './signup-routing.module';
     ReactiveFormsModule,
     IonicModule,
     SharedModule,
-    SignupPageRoutingModule
+    SignupPageRoutingModule,
+    TranslateModule
   ],
   declarations: [
     SignupPage,

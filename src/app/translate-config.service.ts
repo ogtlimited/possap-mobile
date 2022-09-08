@@ -25,8 +25,8 @@ export class TranslateConfigService {
   }
 
   setLanguage(lang) {
+    console.log(lang);
     this.localS.set('applanguage', lang);
     this.translate.use(lang);
   }
-
 }

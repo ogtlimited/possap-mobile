@@ -13,7 +13,7 @@ import { TranslateConfigService } from '../../translate-config.service';
 export class SupportPage {
   submitted = false;
   supportMessage: string;
-  applanguage = '';
+  applanguage = this.appT.getDefaultLanguage() || 'en';
   customActionSheetOptions = {
     header: 'Language',
     subHeader: 'Change Langugae',
@@ -26,6 +26,8 @@ export class SupportPage {
   ) { }
 
   async ionViewDidEnter() {
+    console.log(this.applanguage);
+    this.appT.setLanguage(this.applanguage);
     const toast = await this.toastCtrl.create({
       message: 'This does not actually send a support request.',
       duration: 3000
@@ -49,6 +51,7 @@ export class SupportPage {
   }
   langchange(evt) {
     console.log(evt.detail.value);
+    this.applanguage = evt.detail.value;
     this.appT.setLanguage(evt.detail.value);
   }
 

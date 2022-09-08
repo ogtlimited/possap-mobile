@@ -3,13 +3,14 @@ import { RequestService } from './../../request/request.service';
 import { GoogleMapUrl, serverBaseUrl } from './../../config/endpoints';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalService {
   ABSOLUTE_URL_REGEX = /^(?:[a-z]+:)?\/\//;
-  constructor(private reqS: RequestService) {}
+  constructor(private reqS: RequestService, private alertController: AlertController) {}
 
   nearestPlaces(searchText){
    const key =  environment.mapsKey;
@@ -72,5 +73,16 @@ export class GlobalService {
       })
       .filter((part) => part != null && part !== '')
       .join(separator);
+  }
+
+  async simpleAlert(header, subHeader, message) {
+    const alert = await this.alertController.create({
+      header,
+      subHeader,
+      message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 }

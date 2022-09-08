@@ -9,32 +9,34 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import { Preferences as Storage } from '@capacitor/preferences';
 
 import { UserData } from './providers/user-data';
+import { TranslateConfigService } from './translate-config.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
   appPages = [
     {
       title: 'Home',
       url: '/app/tabs/home',
-      icon: 'calendar'
+      icon: 'calendar',
     },
     {
       title: 'Request',
       url: '/app/tabs/requests',
-      icon: 'people'
+      icon: 'people',
     },
     {
       title: 'About',
       url: '/app/tabs/about',
-      icon: 'information-circle'
-    }
+      icon: 'information-circle',
+    },
   ];
   loggedIn = false;
+  applanguage = this.appT.getDefaultLanguage() || 'en';
   dark = false;
 
   constructor(
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private userData: UserData,
     private toastCtrl: ToastController,
+    private appT: TranslateConfigService
   ) {
     this.initializeApp();
   }
@@ -50,6 +53,8 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     this.checkLoginStatus();
     this.listenForLoginEvents();
+    console.log(this.applanguage);
+    this.appT.setLanguage(this.applanguage);
   }
 
   initializeApp() {
@@ -62,9 +67,9 @@ export class AppComponent implements OnInit {
   }
 
   checkLoginStatus() {
-    return this.userData.isLoggedIn().then(loggedIn => {
-      return this.updateLoggedInStatus(loggedIn);
-    });
+    return this.userData
+      .isLoggedIn()
+      .then((loggedIn) => this.updateLoggedInStatus(loggedIn));
   }
 
   updateLoggedInStatus(loggedIn: boolean) {
@@ -88,14 +93,14 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.userData.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/schedule');
-    });
+    this.userData
+      .logout()
+      .then(() => this.router.navigateByUrl('/app/tabs/schedule'));
   }
 
   openTutorial() {
     this.menu.enable(false);
-    Storage.set({key:'ion_did_tutorial', value: 'true'})
+    Storage.set({ key: 'ion_did_tutorial', value: 'true' });
     this.router.navigateByUrl('/tutorial');
   }
 }

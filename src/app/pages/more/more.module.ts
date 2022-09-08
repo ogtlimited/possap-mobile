@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MorePageRoutingModule } from './more-routing.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { MorePage } from './more.page';
 
 @NgModule({
@@ -15,7 +15,8 @@ import { MorePage } from './more.page';
     FormsModule,
     IonicModule,
     MorePageRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
   declarations: [MorePage]
 })

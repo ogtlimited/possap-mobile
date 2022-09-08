@@ -3,7 +3,7 @@ import { SharedModule } from './../../components/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { RequestsPageRoutingModule } from './requests-routing.module';
@@ -16,7 +16,8 @@ import { RequestsPage } from './requests.page';
     FormsModule,
     IonicModule,
     RequestsPageRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
   declarations: [RequestsPage, AbbrevPipe]
 })

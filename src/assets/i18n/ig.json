@@ -58,5 +58,8 @@
   "checkApplicationId": "Lelee na ngwa ref id ziri ezi",
   "editRequest": "Ị nwere ike dezie arịrịọ tupu agbanwee ọnọdụ ya ka ọ bụrụ nhazi",
   "SOS": "SOS",
-  "sendSOS": "Ziga SOS"
+  "sendSOS": "Ziga SOS",
+  "legal": "Iwu",
+  "beProcessed": "A ga-ahazi ya",
+  "completed": "Emechara"
 }

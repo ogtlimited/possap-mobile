@@ -58,5 +58,8 @@
   "checkApplicationId": "Check that the application ref id is correct",
   "editRequest": "You can edit a request before it status changed to processing",
   "SOS": "SOS",
-  "sendSOS": "Send SOS"
+  "sendSOS": "Send SOS",
+  "legal": "Legal",
+  "beProcessed": "To be processed",
+  "completed": "Completed"
 }

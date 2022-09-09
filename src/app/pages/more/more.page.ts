@@ -9,32 +9,31 @@ import { UserData } from 'src/app/providers/user-data';
   styleUrls: ['./more.page.scss'],
 })
 export class MorePage implements OnInit {
-
   items = [
     {
-      title: 'Profile',
+      title: 'profile',
       path: '/account',
       icon: 'person-circle-outline',
     },
     {
-      title: 'Settings',
+      title: 'settings',
       path: '/support',
-      icon: 'settings-outline'
+      icon: 'settings-outline',
     },
     {
-      title: 'Salary Payments',
+      title: 'salaryPayments',
       path: '/salary-payment',
-      icon: 'cash-outline'
+      icon: 'cash-outline',
     },
     {
-      title: 'Privacy Policy',
+      title: 'privacyPolicy',
       path: '/privacy',
-      icon: 'book-outline'
+      icon: 'book-outline',
     },
     {
-      title: 'FAQs',
+      title: 'FAQS',
       path: '/faq',
-      icon: 'help-circle-outline'
+      icon: 'help-circle-outline',
     },
   ];
   constructor(

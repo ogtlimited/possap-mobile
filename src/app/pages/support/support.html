@@ -7,7 +7,7 @@
           <ion-list>
             <ion-item>
               <ion-icon slot="start" name="globe"></ion-icon>
-              <ion-label>{{ 'changeLang' | translate}}</ion-label> {{applanguage}}
+              <ion-label>{{ 'changeLang' | translate}}</ion-label>
               <ion-select [value]="applanguage" (ionChange)="langchange($event)" [interfaceOptions]="customActionSheetOptions"
                 interface="action-sheet" placeholder="Change Language">
                 <ion-select-option value="en">English</ion-select-option>

@@ -1,25 +1,125 @@
-
-ion-content{
-    --background: #F4F6F8
+ion-content {
+  --background: #f4f6f8;
+  background: #ebf0f6;
 }
 
-ion-segment{
-    // padding: 0 7px;
+ion-segment {
+  // padding: 0 7px;
 
-    ion-segment-button{
-        padding: 0 7px;
-    }
+  ion-segment-button {
+    padding: 0 7px;
+  }
 }
 
-.abbrev{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.abbrev {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+ion-searchbar {
+  --background: #fff !important;
+}
+
+.filter-btn {
+  background: #fff;
+  border-radius: 8px;
+  height: 38px;
+  margin-top: 12px;
+}
+
+
+
+.step {
+  padding: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  background-color: cream;
+}
+
+.v-stepper {
+  position: relative;
+  /*   visibility: visible; */
+}
+
+/* regular step */
+.step .circle {
+  background-color: white;
+  border: 3px solid gray;
+  border-radius: 100%;
+  width: 10px; /* +6 for border */
+  height: 10px;
+  display: inline-block;
+}
+
+.step .line {
+  top: 23px;
+  left: 4px;
+  /*   height: 120px; */
+  height: 100%;
+
+  position: absolute;
+  border-left: 2px dotted gray;
+}
+
+.step.completed .circle {
+  visibility: visible;
+  background-color: #C58F69;
+  border-color: #C58F69;
+}
+
+.step.completed .line {
+  border-left: 1px dotted #2f4cb0;
+}
+
+.step.active .circle {
+  visibility: visible;
+  border-color: #2f4cb0;
+}
+
+.step.empty .circle {
+  visibility: hidden;
+}
+
+.step.empty .line {
+  top: 0;
+  height: 150%;
+}
+
+.step:last-child .line {
+  border-left: 3px dotted white;
+  z-index: -1; /* behind the circle to completely hide */
+}
+
+.content {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+/* codepen override */
+html * {
+  font-size: 15px !important;
+  color: #000 !important;
+  font-family: Arial !important;
+}
+
+.btn-success{
+    --background: #57BEA2;
     color: #fff;
+    font-size: 14px;
 }
-
-
-
+.btn-danger{
+   --background: #FEECE0;
+    color: #C58F69;
+    font-size: 14px;
+}
+.fs13{
+    font-size: 13px;
+}

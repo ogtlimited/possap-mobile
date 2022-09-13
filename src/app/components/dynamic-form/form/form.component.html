@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<form class="mx-10 pt-10" [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <!-- <ion-slides [pager]="true" >
     <ion-slide *ngFor="let slide of slides.slice(0,6)">
       <h1 *ngFor="let i of slides.slice(0, 6)" >Slide 1</h1>
@@ -7,7 +7,7 @@
      <ion-button (click)="slideNext()">
 
      </ion-button> -->
-  <ion-item [lines]="control.type === 'file' ? 'none' :'full'" *ngFor="let control of jsonFormData?.controls">
+  <ion-item class="mb-10" [lines]="control.type === 'file' ? 'none' :'full'" *ngFor="let control of jsonFormData?.controls">
     <ion-label position="stacked" *ngIf="control.type !== 'file'">{{ control.label }}</ion-label>
     <ion-input
       *ngIf="
@@ -63,5 +63,5 @@
       <ion-icon slot="end" [name]="control.options.icon"></ion-icon>
     </ion-range>
   </ion-item>
-  <ion-button expand="full" type="submit">Submit</ion-button>
+  <ion-button class="mt-24" shape="round" expand="full" type="submit">Submit</ion-button>
 </form>

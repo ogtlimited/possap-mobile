@@ -1,9 +1,9 @@
 <ion-header translucent>
-  <ion-toolbar>
+  <ion-toolbar class="py-16">
     <ion-title>Request</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment (ionChange)="segmentChanged($event)"  [value]="segment">
+    <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
       <ion-segment-button value="processed">
         <ion-label>To be proccesssed</ion-label>
       </ion-segment-button>
@@ -14,32 +14,77 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-grid fixed>
-   
-    <ion-list>
-      <!-- Sliding item with text options on both sides -->
-      <ion-item *ngFor="let item of speakers; let i = index" class="ion-no-padding py-12">
-        <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
-          {{item.name | abbrev}}
-        </div>
-        <ion-label>
-          <ion-text color="dark">
-            <h5>{{item.name}}</h5>
-          </ion-text>
-          <p>Paragraph line 1</p>
-        </ion-label>
-        <ion-icon name="info" >
+    <ion-row>
+      <ion-col size="10">
+        <ion-searchbar placeholder="search for request"></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button fill="clear" class="filter-btn">
+          <ion-icon name="filter"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-slides pager="false" [options]="slideOpts">
+        <ion-slide *ngFor="let item of speakers; let i = index">
+          <ion-card>
+            <ion-item lines="none">
+              <ion-icon color="warning" name="file-text" slot="start"></ion-icon>
+              <ion-label>{{item.name | abbrev}}</ion-label>
+            </ion-item>
+            <ion-card-content class="pt-0">
+              <div class="container">
+                <!-- completed -->
+                <div class="step completed">
+                  <div class="v-stepper">
+                    <div class="circle"></div>
+                    <div class="line"></div>
+                  </div>
 
-        </ion-icon>
-        <!-- <ion-badge [color]="i % 2 === 0 ? 'success' : i % 3 === 0 ? 'warning' : 'primary'">
-          {{i % 2 === 0 ? 'Approved' : i % 3 === 0 ? 'Pending' : 'Rejected'}}
-        </ion-badge> -->
-      </ion-item>
+                  <div class="content">
+                    <div class="ion-text-left"><span class="fs13">Approval Stage: Processing</span></div>
+                    <div class="ion-text-left"><b><small>Approved: 09/09/2022</small></b></div>
 
+                  </div>
+                </div>
 
-
-
-    </ion-list>
+                <!-- active -->
+                <div class="step active">
+                  <div class="v-stepper">
+                    <div class="circle"></div>
+                    <div class="line"></div>
+                  </div>
+                  <div class="content">
+                    <div class="ion-text-left"><span class="fs13">Next Stage: End</span></div>
+                    <div class="ion-text-left"><b><small>Approved: pending</small></b></div>
+                  </div>
+                </div>
+              </div>
+             <ion-row class="ion-justify-content-between">
+              <ion-button class="btn-success">Approve</ion-button>
+              <ion-button class="btn-danger">Reject</ion-button>
+             </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+    <ion-card *ngFor="let item of speakers; let i = index">
+      <ion-card-content>
+        <ion-item lines="none">
+          <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
+            {{item.name | abbrev}}
+          </div>
+          <ion-label class="ion-text-wrap">
+            <b>{{item.name}}</b>
+            <h6>{{item.location}}</h6>
+            <p>Date: {{date | date}}</p>
+          </ion-label>
+          <ion-button fill="outline"> Open</ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
   </ion-grid>
 </ion-content>

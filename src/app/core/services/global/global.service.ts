@@ -1,3 +1,4 @@
+import { TranslateConfigService } from './../../../translate-config.service';
 import { RequestService } from './../../request/request.service';
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GoogleMapUrl, serverBaseUrl } from './../../config/endpoints';
@@ -10,7 +11,13 @@ import { AlertController } from '@ionic/angular';
 })
 export class GlobalService {
   ABSOLUTE_URL_REGEX = /^(?:[a-z]+:)?\/\//;
-  constructor(private reqS: RequestService, private alertController: AlertController) {}
+  constructor(private reqS: RequestService, private alertController: AlertController, private appT: TranslateConfigService) {}
+
+  getTranslateObject(){
+    const lang = this.appT.getDefaultLanguage();
+    return this.reqS.get('/assets/i18n/' + lang + '.json' ).toPromise();
+
+  }
 
   nearestPlaces(searchText){
    const key =  environment.mapsKey;

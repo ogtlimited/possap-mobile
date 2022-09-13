@@ -1,3 +1,6 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable @angular-eslint/component-selector */
+/* eslint-disable @typescript-eslint/member-ordering */
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,12 +25,12 @@ export class AccountPage implements OnInit {
   credentials: FormGroup;
   addressForm: FormGroup;
   user;
-  avater = 'assets/img/speakers/lion.jpg'
+  avater = 'assets/img/speakers/lion.jpg';
   showAddressForm = false;
   items = [
     {
       title: 'My Request',
-      url: '/menu/home/my-orders',
+      url: '/app/tabs/requests',
       icon: 'file-plus',
       autoNav: false
     },
@@ -137,7 +140,7 @@ async reqFailed(res, msg){
     );
   }
   back(){
-
+    this.router.navigate(['app/tabs/more']);
   }
   navigate(path){
     this.router.navigate(['menu/home/'+ path]);

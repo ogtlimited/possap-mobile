@@ -19,7 +19,8 @@ export class OfficerFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private authS: AuthService,
     private _sanitizer: DomSanitizer,
     private globalS: GlobalService,
-    private loadS: LoadingController) { }
+    private loadS: LoadingController
+    ) { }
 
   ngOnInit() {
     this.officerForm = this.fb.group({
@@ -38,23 +39,16 @@ export class OfficerFormComponent implements OnInit {
         this.authS.getAPNumber(e).subscribe((val) => {
           // this.apNumber = val.data;
           console.log(val.data.ResponseObject.ReportRecords[0]);
-          if(val.data.ResponseObject.ReportRecords.length > 0){
+          const record = val.data.ResponseObject.ReportRecords[0];
+          if(record){
+            this.officerForm.patchValue({
+              email: record.Email,
+              phone: record.PhoneNumber,
+            });
           }else{
             this.globalS.simpleAlert('Error', '', 'This APNumber is not correct');
 
           }
-          // this.userImage = this._sanitizer.bypassSecurityTrustResourceUrl(
-          //   'data:image/jpg;base64,' + this.ninData.photo
-          // );
-          // const dob = this.ninData.birthdate.split('-').reverse().join('-');
-
-          // this.residentForm.patchValue({
-          //   fullName: this.ninData.surname + ' ' + this.ninData.firstname,
-          //   dob: this.ninData.birthdate,
-          //   email: this.ninData.email,
-          //   phone: this.ninData.telephoneno,
-          // });
-          // this.gotNIN = true;
           this.loadS.dismiss();
         });
       } else {

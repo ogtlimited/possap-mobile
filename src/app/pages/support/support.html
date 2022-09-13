@@ -7,9 +7,15 @@
           <ion-list>
             <ion-item>
               <ion-icon slot="start" name="globe"></ion-icon>
-              <ion-label>{{ 'changeLang' | translate}}</ion-label> {{applanguage}}
-              <ion-select [value]="applanguage" (ionChange)="langchange($event)" [interfaceOptions]="customActionSheetOptions"
-                interface="action-sheet" placeholder="Change Language">
+              <ion-label>{{ 'changeLanguage' | translate}}</ion-label>
+              {{applanguage}}
+              <ion-select
+                [value]="applanguage"
+                (ionChange)="langchange($event)"
+                [interfaceOptions]="customActionSheetOptions"
+                interface="action-sheet"
+                placeholder="Change Language"
+              >
                 <ion-select-option value="en">English</ion-select-option>
                 <ion-select-option value="ha">Hausa</ion-select-option>
                 <ion-select-option value="ig">Igbo</ion-select-option>
@@ -21,13 +27,9 @@
               <ion-label>{{'notification' | translate}}</ion-label>
               <ion-toggle color="primary"></ion-toggle>
             </ion-item>
-
           </ion-list>
         </ion-card-content>
       </ion-card>
-      
     </ion-col>
   </ion-row>
-
-
 </ion-content>

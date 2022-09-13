@@ -1,4 +1,9 @@
-<app-header [isHome]="true" [showProfile]="true" [showSos]="true" title="Home"></app-header>
+<app-header
+  [isHome]="true"
+  [showProfile]="true"
+  [showSos]="true"
+  title="Home"
+></app-header>
 
 <ion-content>
   <ion-grid>
@@ -36,8 +41,8 @@
                 <ion-icon name="file-plus"></ion-icon>
               </ion-avatar>
               <ion-label>
-                <h3>Application Status</h3>
-                <span>search & find your application status</span>
+                <h3>{{'applicationStatus' | translate}}</h3>
+                <span>{{'searchFindYourApplicationStatus' | translate}} </span>
               </ion-label>
             </ion-item>
           </ion-card-header>

@@ -59,5 +59,8 @@
   "checkApplicationId": "Ṣayẹwo pe ohun elo atunṣe id jẹ deede",
   "editRequest": "O le ṣatunkọ ibeere ṣaaju ki ipo rẹ yipada si sisẹ",
   "SOS": "ifihan agbara wahala",
-  "sendSOS": "fi wahala ifihan agbara"
+  "sendSOS": "fi wahala ifihan agbara",
+  "legal": "Ofin",
+  "beProcessed": "Lati ṣe ilana",
+  "completed": "Ti pari"
 }

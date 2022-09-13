@@ -36,6 +36,7 @@ export class RequestsPage implements OnInit {
   async ngOnInit() {
     this.languaageObj = await this.globalS.getTranslateObject();
     console.log(this.languaageObj);
+
   }
   getRandomColor() {
     let color = '#'; // <-----------
@@ -51,4 +52,6 @@ export class RequestsPage implements OnInit {
   segmentChanged(event) {
     console.log(event.detail.value);
   }
+
+  
 }

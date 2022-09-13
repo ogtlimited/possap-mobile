@@ -13,35 +13,34 @@ export class ServicesPage implements OnInit {
       title: 'Police Extract',
       code: 'cc',
       subtitle: 'Apply for character certificate',
-      icon: 'pe'
+      icon: 'pe',
     },
     {
-      title: 'Tint Permit',
+      title: 'tintPermit',
       subtitle: 'Apply for tint permit',
       icon: 'tpermit',
       code: 'tp',
     },
     {
-      title: 'SPY',
+      title: 'spy',
       subtitle: 'Apply for spy',
       icon: 'spy',
       code: 'spy',
     },
     {
-      title: 'Central Motor Registry',
+      title: 'centralMotorRegistry',
       subtitle: 'Apply for escort ad guard services',
       icon: 'cmr',
       code: 'cmr',
     },
     {
-      title: 'Police Clearance Certificate',
+      title: 'policeClearanceCertificate',
       subtitle: 'Apply for police clearance certificate using your NIN',
       icon: 'PCC',
       code: 'pcc',
-
     },
     {
-      title: 'Escort and Guard Services',
+      title: 'escortAndGuardServices',
       subtitle: 'Apply for escort ad guard services',
       icon: 'egs',
       code: 'egs',
@@ -49,35 +48,33 @@ export class ServicesPage implements OnInit {
   ];
   infoServices = [
     {
-      title: 'E-signaling',
+      title: 'esignalling',
       subtitle: 'Broadcast to fellow police officers',
       icon: 'CC',
       code: 'es',
     },
     {
-      title: 'Vehicle Services',
+      title: 'vehicleServices',
       subtitle: 'Check Vehicle Information during routine checks',
       icon: 'PCC',
       code: 'vs',
     },
 
     {
-      title: 'Incident Booking',
+      title: 'incidentBooking',
       subtitle: 'Book an Incident',
       icon: 'PCC',
       code: 'ib',
     },
-
-
   ];
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  navigate(path, title){
+  navigate(path, title) {
     console.log(path);
-    this.router.navigate(['/general-form'], {queryParams: {service: path, title} });
+    this.router.navigate(['/general-form'], {
+      queryParams: { service: path, title },
+    });
   }
-
 }

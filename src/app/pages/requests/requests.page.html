@@ -1,14 +1,14 @@
 <ion-header translucent>
-  <ion-toolbar class="py-16">
-    <ion-title>Request</ion-title>
+  <ion-toolbar>
+    <ion-title>{{'request' | translate}}</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
       <ion-segment-button value="processed">
-        <ion-label>To be proccesssed</ion-label>
+        <ion-label>{{'beProcessed' | translate}}</ion-label>
       </ion-segment-button>
       <ion-segment-button value="completed">
-        <ion-label>Completed</ion-label>
+        <ion-label>{{'completed' | translate}}</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

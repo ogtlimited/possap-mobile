@@ -8,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class FaqPage implements OnInit {
   faqData = [
     {
-      question: 'Request Duration',
-      answer: 'Request takes two days to process',
+      question: 'requestDuration',
+      answer: 'requestProcess',
     },
     {
-      question: 'Request verification error',
-      answer: 'Check that the application ref id is correct',
+      question: 'requestVerificationError',
+      answer: 'checkApplicationId',
     },
     {
-      question: 'Change request info',
-      answer: 'You can edit a request before it status changed to processing',
+      question: 'changeRequestInfo',
+      answer: 'editRequest',
     },
   ];
   constructor() {}

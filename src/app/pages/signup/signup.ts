@@ -19,7 +19,7 @@ export class SignupPage implements OnInit {
   pwd = 'password';
   hide = true;
   hideConfirm = true;
-  showVerify = true;
+  showVerify = false;
   userType = 'resident';
   errorLogin = false;
   InvalidCode = false;

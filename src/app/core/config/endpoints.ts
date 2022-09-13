@@ -7,6 +7,7 @@ export const baseEndpoints = {
     user: serverBaseUrl + '/users',
     upload: serverBaseUrl + '/upload',
     nin: serverBaseUrl + '/helper/verifyNIN',
+    apNumber: serverBaseUrl + '/helper/verifyAPNumber',
     eag: serverBaseUrl + '/eag'
   };
 export const authEndpoints = {

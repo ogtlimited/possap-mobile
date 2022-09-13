@@ -1,0 +1,86 @@
+{
+  "controls": [
+    {
+      "name": "photo",
+      "label": "Photo",
+      "value": "",
+      "type": "file",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "rank",
+      "label": "Rank",
+      "value": "",
+      "type": "text",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "accEmail",
+      "label": "Account email address",
+      "value": "",
+      "type": "text",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "password",
+      "label": "Password",
+      "value": "",
+      "type": "password",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "phoneNumber",
+      "label": "Phone number",
+      "value": "",
+      "type": "tel",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "formation",
+      "label": "Formation",
+      "value": "",
+      "type": "text",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "department",
+      "label": "Department",
+      "value": "",
+      "type": "text",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "section",
+      "label": "Section",
+      "value": "",
+      "type": "text",
+      "validators": {
+        "required": true
+      }
+    },
+    {
+      "name": "subSection",
+      "label": "Subsection",
+      "value": "",
+      "type": "text",
+      "validators": {
+        "required": true
+      }
+    }
+  ]
+  
+}

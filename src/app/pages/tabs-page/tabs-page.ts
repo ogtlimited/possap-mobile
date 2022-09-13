@@ -20,8 +20,8 @@ export class TabsPage {
     const modal = await this.modal.create({
       component: PossapEyeComponent,
 
-    })
+    });
 
-    modal.present()
+    modal.present();
   }
 }

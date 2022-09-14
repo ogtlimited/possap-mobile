@@ -8,6 +8,7 @@ import { PrivacyPageRoutingModule } from './privacy-routing.module';
 
 import { PrivacyPage } from './privacy.page';
 import { SharedModule } from 'src/app/components/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SharedModule } from 'src/app/components/shared.module';
     FormsModule,
     IonicModule,
     PrivacyPageRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
   declarations: [PrivacyPage]
 })

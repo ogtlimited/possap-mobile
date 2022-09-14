@@ -77,6 +77,10 @@ const routes: Routes = [
     path: 'privacy',
     loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
   },
+  {
+    path: 'salary-payment',
+    loadChildren: () => import('./pages/salary-payments/salary-payments.module').then( m => m.SalaryPaymentsPageModule)
+  },
 
 ];
 

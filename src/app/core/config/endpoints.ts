@@ -4,7 +4,7 @@ export const serverBaseUrl = 'http://localhost:3000/api/v1';
 export const GoogleMapUrl = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=';
 export const baseEndpoints = {
     auth: serverBaseUrl + '/auth',
-    user: serverBaseUrl + '/users',
+    officer: serverBaseUrl + '/officers',
     upload: serverBaseUrl + '/upload',
     nin: serverBaseUrl + '/helper/verifyNIN',
     apNumber: serverBaseUrl + '/helper/verifyAPNumber',
@@ -12,7 +12,7 @@ export const baseEndpoints = {
   };
 export const authEndpoints = {
     login: baseEndpoints.auth + '/login',
-    signup: baseEndpoints.auth + '/signup',
+    signup: baseEndpoints.officer + '/signup',
     activate: baseEndpoints.auth + '/register/activate',
     forgotPasswordInitiate: baseEndpoints.auth + '/forgot-password/initiate',
     forgotPasswordComplete: baseEndpoints.auth + '/forgot-password/complete',

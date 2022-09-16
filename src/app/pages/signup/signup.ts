@@ -46,11 +46,11 @@ export class SignupPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
     console.log(val);
-    setTimeout(async () => {
-      await loading.dismiss();
-      this.showVerify = true;
-    }, 2500);
-    return;
+    // setTimeout(async () => {
+    //   await loading.dismiss();
+    //   this.showVerify = true;
+    // }, 2500);
+    // return;
     this.authService.signup(val).subscribe(
       async (res) => {
         await loading.dismiss();

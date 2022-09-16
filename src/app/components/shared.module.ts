@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { SlideToConfirmComponent } from './slide-to-confirm/slide-to-confirm.component';
 import { PasscodeComponent } from './passcode/passcode.component';
 import { NgModule } from "@angular/core";
@@ -11,7 +12,7 @@ import { FormComponent } from './dynamic-form/form/form.component';
 
 @NgModule({
   declarations: [HeaderComponent, PasscodeComponent, SlideToConfirmComponent, FormComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonicModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonicModule, TranslateModule],
   exports: [HeaderComponent, PasscodeComponent, SlideToConfirmComponent, FormComponent],
 })
 export class SharedModule {}

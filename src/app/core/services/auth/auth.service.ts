@@ -113,7 +113,7 @@ export class AuthService {
     return this.reqS.post(authEndpoints.changePassword, credentials);
   }
   updateUser(id, credentials): Observable<any> {
-    return this.reqS.put(baseEndpoints.user + '/' + id, credentials).pipe(
+    return this.reqS.put(baseEndpoints.officer + '/' + id, credentials).pipe(
       switchMap((res: any) => {
         console.log(res);
         this.currentUser$.next(res.data);

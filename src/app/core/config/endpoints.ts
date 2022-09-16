@@ -8,7 +8,7 @@ export const baseEndpoints = {
     upload: serverBaseUrl + '/upload',
     nin: serverBaseUrl + '/helper/verifyNIN',
     apNumber: serverBaseUrl + '/helper/verifyAPNumber',
-    eag: serverBaseUrl + '/eag'
+    services: serverBaseUrl + '/possap-services'
   };
 export const authEndpoints = {
     login: baseEndpoints.auth + '/login',

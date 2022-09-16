@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class ServicesPage implements OnInit {
   services = [
     {
-      title: 'Police Extract',
+      title: 'policeExtract',
       code: 'cc',
       subtitle: 'Apply for character certificate',
       icon: 'pe',

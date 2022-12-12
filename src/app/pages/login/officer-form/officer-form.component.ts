@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/member-ordering */
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-officer-form',
@@ -8,26 +12,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class OfficerFormComponent implements OnInit {
   officerForm: FormGroup;
+  @Output() emitForm: EventEmitter<any> = new EventEmitter();
   hide = false;
-  showForgotPasswordPage = false;
+  showOtpP = false;
   showForgotPasswordPageComplete = false;
-  constructor(private fb: FormBuilder,) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private loadingController: LoadingController,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
     this.officerForm = this.fb.group({
       apNumber: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
   get apNumber() {
     return this.officerForm.get('apNumber');
   }
 
-  get password() {
-    return this.officerForm.get('password');
+  async login() {
+    this.emitForm.emit(this.officerForm.value);
   }
-  login(){
-
-  }
-
 }

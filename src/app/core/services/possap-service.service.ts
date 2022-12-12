@@ -1,3 +1,4 @@
+import { requestEndpoints } from './../config/endpoints';
 import { Injectable } from '@angular/core';
 import { RequestService } from '../request/request.service';
 import { GlobalService } from './global/global.service';
@@ -11,5 +12,8 @@ export class PossapServiceService {
 
   getAllServices(){
     return this.reqS.get('');
+  }
+  getOfficerRequests(officerId){
+    return this.reqS.get(requestEndpoints.officerRequest + '/' + officerId);
   }
 }

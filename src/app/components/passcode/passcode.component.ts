@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -12,7 +13,7 @@ export class PasscodeComponent implements OnInit {
   passForm: FormGroup;
   savePin = [];
   digitsLength = 0;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.passForm = this.formBuilder.group({
@@ -23,6 +24,7 @@ export class PasscodeComponent implements OnInit {
     });
 
     this.passForm.valueChanges.subscribe((value) => {
+      console.log(value);
       if (this.digitsLength === 6) {
         this.emitForm();
       }
@@ -39,7 +41,7 @@ export class PasscodeComponent implements OnInit {
       const value = this.passCode.value ? this.passCode.value : '';
       try {
         this.passCode.setValue(value.substring(0, 6), { emitEvent: false });
-      } catch (e) { }
+      } catch (e) {}
     }
   }
   get passCode() {
@@ -66,5 +68,4 @@ export class PasscodeComponent implements OnInit {
   public emitForm(): void {
     this.doPassForm.emit(this.passForm);
   }
-
 }

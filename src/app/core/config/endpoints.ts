@@ -8,8 +8,20 @@ export const baseEndpoints = {
     upload: serverBaseUrl + '/upload',
     nin: serverBaseUrl + '/helper/verifyNIN',
     apNumber: serverBaseUrl + '/helper/verifyAPNumber',
-    services: serverBaseUrl + '/possap-services'
+    services: serverBaseUrl + '/possap-services',
+    possapSserviceFields: serverBaseUrl + '/possap-service-fields'
   };
+
+export const requestEndpoints = {
+    officerRequest: baseEndpoints.possapSserviceFields + '/officer-request',
+    approveReject: baseEndpoints.possapSserviceFields + '/approve-reject',
+
+};
+export const officerEndpoints = {
+    login: baseEndpoints.officer + '/login',
+    signup: baseEndpoints.officer + '/signup',
+    validate: baseEndpoints.officer + '/validate-otp',
+};
 export const authEndpoints = {
     login: baseEndpoints.auth + '/login',
     signup: baseEndpoints.officer + '/signup',

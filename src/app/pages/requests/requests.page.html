@@ -3,8 +3,8 @@
     <ion-title>{{'request' | translate}}</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
-      <ion-segment-button value="processed">
+    <ion-segment (ionChange)="segmentChanged($event)" [value]="currentTab">
+      <ion-segment-button value="inProgress">
         <ion-label>{{'beProcessed' | translate}}</ion-label>
       </ion-segment-button>
       <ion-segment-button value="completed">
@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-grid fixed>
+  <ion-grid fixed *ngIf="currentTab === 'inProgress'">
     <ion-row>
       <ion-col size="10">
         <ion-searchbar placeholder="search for request"></ion-searchbar>
@@ -27,8 +27,8 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-slides pager="false" [options]="slideOpts">
-        <ion-slide *ngFor="let item of speakers; let i = index">
+      <ion-slides *ngIf="inProgress.length > 0 " pager="false" [options]="slideOpts">
+        <ion-slide *ngFor="let item of inProgress; let i = index">
           <ion-card>
             <ion-item lines="none">
               <ion-icon
@@ -36,7 +36,7 @@
                 name="file-text"
                 slot="start"
               ></ion-icon>
-              <ion-label>{{item.name | abbrev}}</ion-label>
+              <ion-label>{{item.service.slug}}</ion-label>
             </ion-item>
             <ion-card-content class="pt-0">
               <div class="container">
@@ -49,10 +49,10 @@
 
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13">Approval Stage: Processing</span>
+                      <span class="fs13">Approval Stage: {{item.approvalLevel | slice:0:30}}</span>
                     </div>
                     <div class="ion-text-left">
-                      <b><small>Approved: 09/09/2022</small></b>
+                      <b><small>Approved: {{item.updatedAt | date}}</small></b>
                     </div>
                   </div>
                 </div>
@@ -88,16 +88,40 @@
         </ion-slide>
       </ion-slides>
     </ion-row>
-    <ion-card *ngFor="let item of speakers; let i = index">
+    <ion-card *ngFor="let item of pending; let i = index">
       <ion-card-content>
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
-            {{item.name | abbrev}}
+            {{item.service.slug}}
           </div>
           <ion-label class="ion-text-wrap">
-            <b>{{item.name}}</b>
+            <b>{{item.service.name}}</b>
             <h6>{{item.location}}</h6>
-            <p>Date: {{date | date}}</p>
+            <p>Date: {{item?.createdAt | date}}</p>
+          </ion-label>
+          <ion-button fill="outline"> Open</ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-grid>
+
+  <ion-grid fixed *ngIf="currentTab === 'completed'">
+    <ion-card *ngFor="let item of completed; let i = index">
+      <ion-card-content>
+        <ion-label class="pos-absolute">
+          <ion-badge color="success">
+            Completed
+          </ion-badge>
+        </ion-label>
+      
+        <ion-item lines="none">
+          <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
+            {{item.service.slug}}
+          </div>
+          <ion-label class="ion-text-wrap">
+            <b>{{item.service.name}}</b>
+            <h6>{{item.location}}</h6>
+            <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
           <ion-button fill="outline"> Open</ion-button>
         </ion-item>

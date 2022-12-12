@@ -19,7 +19,7 @@ export class RequestsPage implements OnInit {
   pending: any[] = [];
   letters = '0123456789ABCDEF';
   segment = 'completed';
-  user = null;
+  officer = null;
   handlerMessage = '';
   date = new Date();
   currentTab = 'inProgress';
@@ -40,6 +40,7 @@ export class RequestsPage implements OnInit {
   ionViewDidEnter() {
     this.authS.currentUser$.subscribe((val) => {
       console.log(val);
+      this.officer = val;
       this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
         console.log(req.data);
         this.pending = req.data.filter((e) => e.status === 'pending').map((e) => ({

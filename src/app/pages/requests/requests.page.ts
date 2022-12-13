@@ -43,15 +43,19 @@ export class RequestsPage implements OnInit {
       this.officer = val;
       this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
         console.log(req.data);
-        this.pending = req.data.filter((e) => e.status === 'pending').map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+        this.pending = req.data
+          .filter((e) => e.status === 'pending')
+          .map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
         this.inProgress = req.data.filter((e) => e.status === 'in progress');
-        this.completed = req.data.filter((e) => e.status === 'approved').map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+        this.completed = req.data
+          .filter((e) => e.status === 'approved')
+          .map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
       });
     });
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
@@ -99,6 +103,13 @@ export class RequestsPage implements OnInit {
             this.handlerMessage = `${val} submitted`;
             console.log(this.handlerMessage);
           },
+        },
+      ],
+      inputs: [
+        {
+          type: 'textarea',
+          name: 'comment',
+          placeholder: 'comment',
         },
       ],
     });

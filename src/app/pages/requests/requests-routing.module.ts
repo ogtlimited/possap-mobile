@@ -1,3 +1,4 @@
+import { RequestDetailsComponent } from './request-details/request-details.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,6 +8,10 @@ const routes: Routes = [
   {
     path: '',
     component: RequestsPage
+  },
+  {
+    path: ':id',
+    component: RequestDetailsComponent
   }
 ];
 

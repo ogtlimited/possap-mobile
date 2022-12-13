@@ -116,4 +116,7 @@ export class RequestsPage implements OnInit {
 
     await alert.present();
   }
+  navigate(item) {
+    console.log(item);
+  }
 }

@@ -17,17 +17,27 @@
 <ion-content class="ion-padding">
   <ion-grid fixed *ngIf="currentTab === 'inProgress'">
     <ion-row>
-      <ion-col size="10">
+      <ion-col size="8">
         <ion-searchbar placeholder="search for request"></ion-searchbar>
       </ion-col>
+
       <ion-col size="2">
-        <ion-button fill="clear" class="filter-btn">
+        <ion-button fill="clear" class="filter-btn mr-2" (click)="openModal()">
           <ion-icon name="filter"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2" *ngIf="selectedFilter">
+        <ion-button fill="clear" class="filter-btn" (click)="clearFilter()">
+          <ion-icon name="remove"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-slides *ngIf="inProgress.length > 0 " pager="false" [options]="slideOpts">
+      <ion-slides
+        *ngIf="inProgress.length > 0 "
+        pager="false"
+        [options]="slideOpts"
+      >
         <ion-slide *ngFor="let item of inProgress; let i = index">
           <ion-card>
             <ion-item lines="none">
@@ -49,7 +59,10 @@
 
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13">Approval Stage: {{item.approvalLevel | slice:0:30}}</span>
+                      <span class="fs13"
+                        >Approval Stage: {{item.approvalLevel |
+                        slice:0:30}}</span
+                      >
                     </div>
                     <div class="ion-text-left">
                       <b><small>Approved: {{item.updatedAt | date}}</small></b>
@@ -88,7 +101,7 @@
         </ion-slide>
       </ion-slides>
     </ion-row>
-    <ion-card *ngFor="let item of pending; let i = index">
+    <ion-card *ngFor="let item of filteredData; let i = index">
       <ion-card-content>
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
@@ -109,11 +122,9 @@
     <ion-card *ngFor="let item of completed; let i = index">
       <ion-card-content>
         <ion-label class="pos-absolute">
-          <ion-badge color="success">
-            Completed
-          </ion-badge>
+          <ion-badge color="success"> Completed </ion-badge>
         </ion-label>
-      
+
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.service.slug}}

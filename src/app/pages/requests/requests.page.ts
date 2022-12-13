@@ -59,10 +59,12 @@ export class RequestsPage implements OnInit {
           bg: this.getRandomColor(),
         }));
         this.inProgress = req.data.filter((e) => e.status === 'in progress');
-        this.completed = req.data.filter((e) => e.status === 'approved').map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+        this.completed = req.data
+          .filter((e) => e.status === 'approved')
+          .map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
       });
     });
     this.confData.getSpeakers().subscribe((speakers: any[]) => {

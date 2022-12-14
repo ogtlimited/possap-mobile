@@ -43,15 +43,19 @@ export class RequestsPage implements OnInit {
       this.officer = val;
       this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
         console.log(req.data);
-        this.pending = req.data.filter((e) => e.status === 'pending').map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+        this.pending = req.data
+          .filter((e) => e.status === 'pending')
+          .map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
         this.inProgress = req.data.filter((e) => e.status === 'in progress');
-        this.completed = req.data.filter((e) => e.status === 'approved').map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+        this.completed = req.data
+          .filter((e) => e.status === 'approved')
+          .map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
       });
     });
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
@@ -81,7 +85,7 @@ export class RequestsPage implements OnInit {
     console.log(event.detail.value);
     this.currentTab = event.detail.value;
   }
-  async presentAlert(val) {
+  async presentAlert(val, id) {
     const alert = await this.alertController.create({
       header: val,
       buttons: [
@@ -95,14 +99,31 @@ export class RequestsPage implements OnInit {
         {
           text: 'Submit',
           role: 'confirm',
-          handler: () => {
+          handler: (data) => {
+            const date = new Date();
+            const payload = {
+              officerId: '',
+              status: `${val}`,
+              timeOfApproval: date,
+              comment: data.message,
+            };
             this.handlerMessage = `${val} submitted`;
-            console.log(this.handlerMessage);
+            console.log(payload);
           },
+        },
+      ],
+      inputs: [
+        {
+          type: 'textarea',
+          name: 'message',
+          placeholder: 'message',
         },
       ],
     });
 
     await alert.present();
+  }
+  navigate(item) {
+    console.log(item);
   }
 }

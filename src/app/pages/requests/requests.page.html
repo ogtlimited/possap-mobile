@@ -36,6 +36,12 @@
                 name="file-text"
                 slot="start"
               ></ion-icon>
+              <ion-icon
+                color="primary"
+                name="eye"
+                slot="end"
+                [routerLink]="['/requests' , item.id]"
+              ></ion-icon>
               <ion-label>{{item.service.slug}}</ion-label>
             </ion-item>
             <ion-card-content class="pt-0">
@@ -76,10 +82,11 @@
               <ion-row class="ion-justify-content-between">
                 <ion-button
                   class="btn-success"
-                  (click)="presentAlert('Approve')"
+                  [disabled]="officer.access.accessType !== 'Approver'"
+                  (click)="presentAlert('Approve', item.id)"
                   >Approve</ion-button
                 >
-                <ion-button class="btn-danger" (click)="presentAlert('Reject')"
+                <ion-button [disabled]="officer.access.accessType !== 'Approver'" class="btn-danger" (click)="presentAlert('Reject', item.id)"
                   >Reject</ion-button
                 >
               </ion-row>
@@ -90,6 +97,7 @@
     </ion-row>
     <ion-card *ngFor="let item of pending; let i = index">
       <ion-card-content>
+        <ion-button [routerLink]="['/requests' , item.id]" fill="outline"> View Request</ion-button>
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.service.slug}}
@@ -99,7 +107,7 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          <ion-button fill="outline"> Open</ion-button>
+          
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -123,7 +131,7 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          <ion-button fill="outline"> Open</ion-button>
+          <ion-button [routerLink]="['/requests' , item.id]" fill="outline"> Open</ion-button>
         </ion-item>
       </ion-card-content>
     </ion-card>

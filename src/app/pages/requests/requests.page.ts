@@ -16,6 +16,7 @@ export class RequestsPage implements OnInit {
   requests: any[] = [];
   completed: any[] = [];
   inProgress: any[] = [];
+  searchText = '';
   pending: any[] = [];
   letters = '0123456789ABCDEF';
   segment = 'completed';
@@ -103,13 +104,6 @@ export class RequestsPage implements OnInit {
             this.handlerMessage = `${val} submitted`;
             console.log(this.handlerMessage);
           },
-        },
-      ],
-      inputs: [
-        {
-          type: 'textarea',
-          name: 'comment',
-          placeholder: 'comment',
         },
       ],
     });

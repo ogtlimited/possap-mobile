@@ -18,7 +18,10 @@
   <ion-grid fixed *ngIf="currentTab === 'inProgress'">
     <ion-row>
       <ion-col size="10">
-        <ion-searchbar placeholder="search for request"></ion-searchbar>
+        <ion-searchbar
+          placeholder="search for request"
+          [(ngModel)]="searchText"
+        ></ion-searchbar>
       </ion-col>
       <ion-col size="2">
         <ion-button fill="clear" class="filter-btn">
@@ -27,8 +30,14 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-slides *ngIf="inProgress.length > 0 " pager="false" [options]="slideOpts">
-        <ion-slide *ngFor="let item of inProgress; let i = index">
+      <ion-slides
+        *ngIf="inProgress.length > 0 "
+        pager="false"
+        [options]="slideOpts"
+      >
+        <ion-slide
+          *ngFor="let item of inProgress | appFilter: searchText; let i = index"
+        >
           <ion-card>
             <ion-item lines="none">
               <ion-icon
@@ -55,7 +64,10 @@
 
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13">Approval Stage: {{item.approvalLevel | slice:0:30}}</span>
+                      <span class="fs13"
+                        >Approval Stage: {{item.approvalLevel |
+                        slice:0:30}}</span
+                      >
                     </div>
                     <div class="ion-text-left">
                       <b><small>Approved: {{item.updatedAt | date}}</small></b>
@@ -86,7 +98,10 @@
                   (click)="presentAlert('Approve')"
                   >Approve</ion-button
                 >
-                <ion-button [disabled]="officer.access.accessType !== 'Approver'" class="btn-danger" (click)="presentAlert('Reject')"
+                <ion-button
+                  [disabled]="officer.access.accessType !== 'Approver'"
+                  class="btn-danger"
+                  (click)="presentAlert('Reject')"
                   >Reject</ion-button
                 >
               </ion-row>
@@ -95,9 +110,13 @@
         </ion-slide>
       </ion-slides>
     </ion-row>
-    <ion-card *ngFor="let item of pending; let i = index">
+    <ion-card
+      *ngFor="let item of pending | appFilter: searchText; let i = index"
+    >
       <ion-card-content>
-        <ion-button [routerLink]="['/requests' , item.id]" fill="outline"> View Request</ion-button>
+        <ion-button [routerLink]="['/requests' , item.id]" fill="outline">
+          View Request</ion-button
+        >
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.service.slug}}
@@ -107,21 +126,20 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          
         </ion-item>
       </ion-card-content>
     </ion-card>
   </ion-grid>
 
   <ion-grid fixed *ngIf="currentTab === 'completed'">
-    <ion-card *ngFor="let item of completed; let i = index">
+    <ion-card
+      *ngFor="let item of completed | appFilter: searchText; let i = index"
+    >
       <ion-card-content>
         <ion-label class="pos-absolute">
-          <ion-badge color="success">
-            Completed
-          </ion-badge>
+          <ion-badge color="success"> Completed </ion-badge>
         </ion-label>
-      
+
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.service.slug}}
@@ -131,7 +149,9 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          <ion-button [routerLink]="['/requests' , item.id]" fill="outline"> Open</ion-button>
+          <ion-button [routerLink]="['/requests' , item.id]" fill="outline">
+            Open</ion-button
+          >
         </ion-item>
       </ion-card-content>
     </ion-card>

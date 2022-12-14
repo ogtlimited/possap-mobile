@@ -18,4 +18,7 @@ export class PossapServiceService {
   getOfficerRequests(officerId) {
     return this.reqS.get(requestEndpoints.officerRequest + '/' + officerId);
   }
+  approveRequests(officerId, data) {
+    return this.reqS.put(requestEndpoints.approveReject + '/' + officerId, [data]);
+  }
 }

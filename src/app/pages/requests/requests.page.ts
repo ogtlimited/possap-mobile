@@ -102,11 +102,14 @@ export class RequestsPage implements OnInit {
           handler: (data) => {
             const date = new Date();
             const payload = {
-              officerId: '',
+              officerId: id,
               status: `${val}`,
               timeOfApproval: date,
               comment: data.message,
             };
+            this.possapS.approveRequests(id, payload).subscribe((res) => {
+              console.log(res);
+            });
             this.handlerMessage = `${val} submitted`;
             console.log(payload);
           },

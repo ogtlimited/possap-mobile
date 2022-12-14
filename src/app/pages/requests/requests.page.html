@@ -49,7 +49,8 @@
                 color="primary"
                 name="eye"
                 slot="end"
-                [routerLink]="['/requests' , item.id]"
+                [state]="item"
+                [routerLink]="['/app/tabs/requests' , item.id]"
               ></ion-icon>
               <ion-label>{{item.service.slug}}</ion-label>
             </ion-item>
@@ -83,7 +84,10 @@
                   </div>
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13">Next Stage: End</span>
+                      <span class="fs13"
+                        >Next Stage: {{item.approvalLevel | nextApprovalLevel:
+                        item.service.approvalWorkFlow}}</span
+                      >
                     </div>
                     <div class="ion-text-left">
                       <b><small>Approved: pending</small></b>
@@ -114,7 +118,11 @@
       *ngFor="let item of pending | appFilter: searchText; let i = index"
     >
       <ion-card-content>
-        <ion-button [routerLink]="['/requests' , item.id]" fill="outline">
+        <ion-button
+          [routerLink]="['/app/tabs/requests' , item.id]"
+          [state]="item"
+          fill="outline"
+        >
           View Request</ion-button
         >
         <ion-item lines="none">
@@ -149,7 +157,11 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          <ion-button [routerLink]="['/requests' , item.id]" fill="outline">
+          <ion-button
+            [routerLink]="['/app/tabs/requests' , item.id]"
+            [state]="item"
+            fill="outline"
+          >
             Open</ion-button
           >
         </ion-item>

@@ -1,3 +1,5 @@
+import { PreviewTableComponent } from './preview-table/preview-table.component';
+import { RequestDetailsComponent } from './request-details/request-details.component';
 import { AbbrevPipe } from './../../core/pipes/abbrev.pipe';
 import { SharedModule } from './../../components/shared.module';
 import { NgModule } from '@angular/core';
@@ -20,6 +22,12 @@ import { FilterPipe } from './../../core/pipes/filter.pipe';
     SharedModule,
     TranslateModule,
   ],
-  declarations: [RequestsPage, AbbrevPipe, FilterPipe],
+  declarations: [
+    RequestsPage,
+    AbbrevPipe,
+    RequestDetailsComponent,
+    PreviewTableComponent,
+    FilterPipe,
+  ],
 })
 export class RequestsPageModule {}

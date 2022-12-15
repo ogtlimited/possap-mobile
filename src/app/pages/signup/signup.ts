@@ -46,11 +46,11 @@ export class SignupPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
     console.log(val);
-    setTimeout(async () => {
-      await loading.dismiss();
-      this.showVerify = true;
-    }, 2500);
-    return;
+    // setTimeout(async () => {
+    //   await loading.dismiss();
+    //   this.showVerify = true;
+    // }, 2500);
+    // return;
     this.authService.signup(val).subscribe(
       async (res) => {
         await loading.dismiss();
@@ -102,22 +102,22 @@ export class SignupPage implements OnInit {
       email: this.email.value,
     };
     console.log(value); //30919176644
-    this.authService.activateAccount(obj).subscribe(
-      async (res) => {
-        await loading.dismiss();
-        this.router.navigate(['menu/home']);
-      },
-      async (res) => {
-        console.log(res);
-        await loading.dismiss();
-        const alert = await this.alertController.create({
-          header: res.error.message,
-          message: res.error.error,
-          buttons: ['OK'],
-        });
+  //   this.authService.validateOTP(obj).subscribe(
+  //     async (res) => {
+  //       await loading.dismiss();
+  //       this.router.navigate(['menu/home']);
+  //     },
+  //     async (res) => {
+  //       console.log(res);
+  //       await loading.dismiss();
+  //       const alert = await this.alertController.create({
+  //         header: res.error.message,
+  //         message: res.error.error,
+  //         buttons: ['OK'],
+  //       });
 
-        await alert.present();
-      }
-    );
+  //       await alert.present();
+  //     }
+  //   );
   }
 }

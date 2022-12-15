@@ -1,3 +1,5 @@
+import { PreviewTableComponent } from './preview-table/preview-table.component';
+import { RequestDetailsComponent } from './request-details/request-details.component';
 import { AbbrevPipe } from './../../core/pipes/abbrev.pipe';
 import { SharedModule } from './../../components/shared.module';
 import { NgModule } from '@angular/core';
@@ -19,6 +21,6 @@ import { RequestsPage } from './requests.page';
     SharedModule,
     TranslateModule
   ],
-  declarations: [RequestsPage, AbbrevPipe]
+  declarations: [RequestsPage, AbbrevPipe, RequestDetailsComponent, PreviewTableComponent]
 })
 export class RequestsPageModule {}

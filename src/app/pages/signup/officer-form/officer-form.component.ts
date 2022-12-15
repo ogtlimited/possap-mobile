@@ -25,9 +25,10 @@ export class OfficerFormComponent implements OnInit {
   ngOnInit() {
     this.officerForm = this.fb.group({
       apNumber: ['', [Validators.required]],
-      username: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.min(11),Validators.maxLength(11) ]],
+      phoneNumber: ['', [Validators.required, Validators.min(11),Validators.maxLength(11) ]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
@@ -43,7 +44,8 @@ export class OfficerFormComponent implements OnInit {
           if(record){
             this.officerForm.patchValue({
               email: record.Email,
-              phone: record.PhoneNumber,
+              phoneNumber: record.PhoneNumber,
+              fullName: record.FirstName + ' ' + record.Surname + ' ' + record?.OtherName
             });
           }else{
             this.globalS.simpleAlert('Error', '', 'This APNumber is not correct');
@@ -77,13 +79,13 @@ export class OfficerFormComponent implements OnInit {
     return this.officerForm.get('apNumber');
   }
    get username() {
-    return this.officerForm.get('username');
+    return this.officerForm.get('userName');
   }
   get email() {
     return this.officerForm.get('email');
   }
   get phone() {
-    return this.officerForm.get('phone');
+    return this.officerForm.get('phoneNumber');
   }
 
   get password() {

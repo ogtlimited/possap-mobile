@@ -1,3 +1,4 @@
+import { PasscodeComponent } from './../../components/passcode/passcode.component';
 import { SharedModule } from './../../components/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,7 @@ import { OfficerFormComponent } from './officer-form/officer-form.component';
     ReactiveFormsModule,
     LoginPageRoutingModule,
     TranslateModule,
+    SharedModule
 
   ],
   declarations: [

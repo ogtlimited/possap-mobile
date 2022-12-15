@@ -3,6 +3,7 @@ import {
   authEndpoints,
   baseEndpoints,
   miscEndpoint,
+  officerEndpoints,
 } from './../../config/endpoints';
 import { RequestService } from './../../request/request.service';
 import { Injectable } from '@angular/core';
@@ -46,18 +47,17 @@ export class AuthService {
     return token && token.value ? token.value : null;
   }
 
-  login(credentials: { email; password }): Observable<any> {
-    return this.reqS.post(authEndpoints.login, credentials).pipe(
+  login(credentials: { apNumber }): Observable<any> {
+    return this.reqS.post(officerEndpoints.login, credentials).pipe(
       switchMap((res: any) => {
-        console.log(res.token);
+        console.log(res);
         this.currentUser$.next(res.data);
-        from(
+        return from(
           Storage.set({ key: CURRENT_USER, value: JSON.stringify(res.data) })
         );
-        return from(Storage.set({ key: TOKEN_KEY, value: res.token }));
       }),
       tap((_) => {
-        this.isAuthenticated.next(true);
+        this.isAuthenticated.next(false);
       })
     );
   }
@@ -86,13 +86,17 @@ export class AuthService {
     };
     return this.reqS.post(baseEndpoints.apNumber, obj);
   }
-  activateAccount(credentials: { email; verificationCode }): Observable<any> {
-    return this.reqS.post(authEndpoints.activate, credentials).pipe(
-      switchMap((data: any) => {
+  validateOTP(credentials: { apNumber; code; phone }): Observable<any> {
+    return this.reqS.post(officerEndpoints.validate, credentials).pipe(
+      switchMap((res: any) => {
+        console.log(res.data);
         from(
-          Storage.set({ key: CURRENT_USER, value: JSON.stringify(data.user) })
+          Storage.set({
+            key: CURRENT_USER,
+            value: JSON.stringify(res.data.officer),
+          })
         );
-        return from(Storage.set({ key: TOKEN_KEY, value: data.token }));
+        return from(Storage.set({ key: TOKEN_KEY, value: res.data.token.token }));
       }),
       tap((_) => {
         this.isAuthenticated.next(true);
@@ -113,7 +117,7 @@ export class AuthService {
     return this.reqS.post(authEndpoints.changePassword, credentials);
   }
   updateUser(id, credentials): Observable<any> {
-    return this.reqS.put(baseEndpoints.user + '/' + id, credentials).pipe(
+    return this.reqS.put(baseEndpoints.officer + '/' + id, credentials).pipe(
       switchMap((res: any) => {
         console.log(res);
         this.currentUser$.next(res.data);

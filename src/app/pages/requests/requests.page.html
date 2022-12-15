@@ -41,17 +41,8 @@
         <ion-slide *ngFor="let item of inProgress; let i = index">
           <ion-card>
             <ion-item lines="none">
-              <ion-icon
-                color="warning"
-                name="file-text"
-                slot="start"
-              ></ion-icon>
-              <ion-icon
-                color="primary"
-                name="eye"
-                slot="end"
-                [routerLink]="['/requests' , item.id]"
-              ></ion-icon>
+              <ion-icon color="warning" name="file-text" slot="start"></ion-icon>
+              <ion-icon color="primary" name="eye" slot="end" [state]="item" [routerLink]="['/app/tabs/requests' , item.id]"></ion-icon>
               <ion-label>{{item.service.slug}}</ion-label>
             </ion-item>
             <ion-card-content class="pt-0">
@@ -84,7 +75,7 @@
                   </div>
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13">Next Stage: End</span>
+                      <span class="fs13">Next Stage: {{item.approvalLevel | nextApprovalLevel: item.service.approvalWorkFlow}}</span>
                     </div>
                     <div class="ion-text-left">
                       <b><small>Approved: pending</small></b>
@@ -110,20 +101,20 @@
     </ion-row>
     <ion-card *ngFor="let item of filteredData; let i = index">
       <ion-card-content>
-        <ion-button [routerLink]="['/requests' , item.id]" fill="outline"> View Request</ion-button>
+        <ion-button [routerLink]="['/app/tabs/requests' , item.id]" [state]="item"  fill="outline"> View Request</ion-button>
         <ion-item lines="none">
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.service.slug}}
-          </div>
-          <ion-label class="ion-text-wrap">
-            <b>{{item.service.name}}</b>
-            <h6>{{item.location}}</h6>
-            <p>Date: {{item?.createdAt | date}}</p>
-          </ion-label>
-          
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+                    </div>
+                    <ion-label class="ion-text-wrap">
+                      <b>{{item.service.name}}</b>
+                      <h6>{{item.location}}</h6>
+                      <p>Date: {{item?.createdAt | date}}</p>
+                    </ion-label>
+
+                    </ion-item>
+            </ion-card-content>
+          </ion-card>
   </ion-grid>
 
   <ion-grid fixed *ngIf="currentTab === 'completed'">
@@ -142,7 +133,7 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          <ion-button [routerLink]="['/requests' , item.id]" fill="outline"> Open</ion-button>
+          <ion-button [routerLink]="['/app/tabs/requests' , item.id]" [state]="item"  fill="outline"> Open</ion-button>
         </ion-item>
       </ion-card-content>
     </ion-card>

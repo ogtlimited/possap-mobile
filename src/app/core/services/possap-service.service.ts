@@ -1,19 +1,21 @@
-import { requestEndpoints } from './../config/endpoints';
+import { requestEndpoints, baseEndpoints } from './../config/endpoints';
 import { Injectable } from '@angular/core';
 import { RequestService } from '../request/request.service';
 import { GlobalService } from './global/global.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PossapServiceService {
+  constructor(private reqS: RequestService, private globalS: GlobalService) {}
 
-  constructor(private reqS: RequestService, private globalS: GlobalService) { }
-
-  getAllServices(){
+  getAllServices() {
     return this.reqS.get('');
   }
-  getOfficerRequests(officerId){
+  getRequest(id) {
+    return this.reqS.get(baseEndpoints.possapSserviceFields + '/' + id);
+  }
+  getOfficerRequests(officerId) {
     return this.reqS.get(requestEndpoints.officerRequest + '/' + officerId);
   }
 }

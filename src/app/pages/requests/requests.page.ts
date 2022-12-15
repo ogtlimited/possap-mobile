@@ -49,16 +49,17 @@ export class RequestsPage implements OnInit {
       console.log(val);
       this.officer = val;
       this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
-
         this.data = req.data.map((e) => ({
-          ...e,
-          bg:this.getRandomColor()
-        }));
-        this.filteredData = this.data;
-        this.pending = req.data.filter((e) => e.status === 'pending').map((e) => ({
           ...e,
           bg: this.getRandomColor(),
         }));
+        this.filteredData = this.data;
+        this.pending = req.data
+          .filter((e) => e.status === 'pending')
+          .map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
         this.inProgress = req.data.filter((e) => e.status === 'in progress');
         this.completed = req.data
           .filter((e) => e.status === 'approved')
@@ -144,17 +145,20 @@ export class RequestsPage implements OnInit {
       breakpoints: [0.25],
       componentProps: {
         selected: this.selected,
-      }
-
+      },
     });
     modal.present();
     const selectedData = await modal.onWillDismiss();
     this.selectedFilter = selectedData.data;
-    this.filteredData = selectedData.data ? this.data.filter((e) => e.status.toLowerCase() === this.selectedFilter.toLowerCase()) : this.data;
+    this.filteredData = selectedData.data
+      ? this.data.filter(
+          (e) => e.status.toLowerCase() === this.selectedFilter.toLowerCase()
+        )
+      : this.data;
   }
 
-  clearFilter(){
-    this.selectedFilter =null;
+  clearFilter() {
+    this.selectedFilter = null;
     this.filteredData = this.data;
   }
 }

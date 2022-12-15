@@ -2,9 +2,10 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PossapServiceService } from './../../core/services/possap-service.service';
 import { GlobalService } from './../../core/services/global/global.service';
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { SelectModalComponent } from 'src/app/components/select-modal/select-modal.component';
 
 @Component({
   selector: 'app-requests',
@@ -12,12 +13,16 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./requests.page.scss'],
 })
 export class RequestsPage implements OnInit {
+  @Input() selected = null;
   speakers: any[] = [];
   requests: any[] = [];
   completed: any[] = [];
   inProgress: any[] = [];
   searchText = '';
   pending: any[] = [];
+  data: any[] = [];
+  filteredData: any[] = [];
+  selectedFilter: string = null;
   letters = '0123456789ABCDEF';
   segment = 'completed';
   officer = null;
@@ -35,6 +40,7 @@ export class RequestsPage implements OnInit {
     private globalS: GlobalService,
     private alertController: AlertController,
     private possapS: PossapServiceService,
+    private modal: ModalController,
     private authS: AuthService
   ) {}
 
@@ -43,13 +49,16 @@ export class RequestsPage implements OnInit {
       console.log(val);
       this.officer = val;
       this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
-        console.log(req.data);
-        this.pending = req.data
-          .filter((e) => e.status === 'pending')
-          .map((e) => ({
-            ...e,
-            bg: this.getRandomColor(),
-          }));
+
+        this.data = req.data.map((e) => ({
+          ...e,
+          bg:this.getRandomColor()
+        }));
+        this.filteredData = this.data;
+        this.pending = req.data.filter((e) => e.status === 'pending').map((e) => ({
+          ...e,
+          bg: this.getRandomColor(),
+        }));
         this.inProgress = req.data.filter((e) => e.status === 'in progress');
         this.completed = req.data
           .filter((e) => e.status === 'approved')
@@ -86,7 +95,7 @@ export class RequestsPage implements OnInit {
     console.log(event.detail.value);
     this.currentTab = event.detail.value;
   }
-  async presentAlert(val) {
+  async presentAlert(val, id) {
     const alert = await this.alertController.create({
       header: val,
       buttons: [
@@ -100,17 +109,52 @@ export class RequestsPage implements OnInit {
         {
           text: 'Submit',
           role: 'confirm',
-          handler: () => {
+          handler: (data) => {
+            const date = new Date();
+            const payload = {
+              officerId: id,
+              status: `${val}`,
+              timeOfApproval: date,
+              comment: data.message,
+            };
+            this.possapS.approveRequests(id, payload).subscribe((res) => {
+              console.log(res);
+            });
             this.handlerMessage = `${val} submitted`;
-            console.log(this.handlerMessage);
+            console.log(payload);
           },
+        },
+      ],
+      inputs: [
+        {
+          type: 'textarea',
+          name: 'message',
+          placeholder: 'message',
         },
       ],
     });
 
     await alert.present();
   }
-  navigate(item) {
-    console.log(item);
+
+  async openModal() {
+    const modal = await this.modal.create({
+      component: SelectModalComponent,
+      cssClass: 'select-modal',
+      breakpoints: [0.25],
+      componentProps: {
+        selected: this.selected,
+      }
+
+    });
+    modal.present();
+    const selectedData = await modal.onWillDismiss();
+    this.selectedFilter = selectedData.data;
+    this.filteredData = selectedData.data ? this.data.filter((e) => e.status.toLowerCase() === this.selectedFilter.toLowerCase()) : this.data;
+  }
+
+  clearFilter(){
+    this.selectedFilter =null;
+    this.filteredData = this.data;
   }
 }

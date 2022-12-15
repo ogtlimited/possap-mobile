@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="ion-text-center">Select Filter</ion-label>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="save()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item (click)="selectItem(i)" *ngFor="let i of list">
+    <ion-label>{{ i }}</ion-label>
+    <ion-checkbox [value]="i" slot="end"></ion-checkbox>
+  </ion-item>
+</ion-content>

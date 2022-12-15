@@ -23,9 +23,15 @@
           [(ngModel)]="searchText"
         ></ion-searchbar>
       </ion-col>
+
       <ion-col size="2">
-        <ion-button fill="clear" class="filter-btn">
+        <ion-button fill="clear" class="filter-btn mr-2" (click)="openModal()">
           <ion-icon name="filter"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2" *ngIf="selectedFilter">
+        <ion-button fill="clear" class="filter-btn" (click)="clearFilter()">
+          <ion-icon name="remove"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
@@ -99,13 +105,10 @@
                 <ion-button
                   class="btn-success"
                   [disabled]="officer.access.accessType !== 'Approver'"
-                  (click)="presentAlert('Approve')"
+                  (click)="presentAlert('Approve', item.id)"
                   >Approve</ion-button
                 >
-                <ion-button
-                  [disabled]="officer.access.accessType !== 'Approver'"
-                  class="btn-danger"
-                  (click)="presentAlert('Reject')"
+                <ion-button [disabled]="officer.access.accessType !== 'Approver'" class="btn-danger" (click)="presentAlert('Reject', item.id)"
                   >Reject</ion-button
                 >
               </ion-row>

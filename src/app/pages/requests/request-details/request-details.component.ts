@@ -1,5 +1,5 @@
-import { PossapServiceService } from './../../../core/services/possap-service.service';
 import { Component, OnInit } from '@angular/core';
+import { PossapServiceService } from './../../../core/services/possap-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

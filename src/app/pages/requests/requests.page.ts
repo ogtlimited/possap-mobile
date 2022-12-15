@@ -94,7 +94,7 @@ export class RequestsPage implements OnInit {
     console.log(event.detail.value);
     this.currentTab = event.detail.value;
   }
-  async presentAlert(val) {
+  async presentAlert(val, id) {
     const alert = await this.alertController.create({
       header: val,
       buttons: [
@@ -108,10 +108,27 @@ export class RequestsPage implements OnInit {
         {
           text: 'Submit',
           role: 'confirm',
-          handler: () => {
+          handler: (data) => {
+            const date = new Date();
+            const payload = {
+              officerId: id,
+              status: `${val}`,
+              timeOfApproval: date,
+              comment: data.message,
+            };
+            this.possapS.approveRequests(id, payload).subscribe((res) => {
+              console.log(res);
+            });
             this.handlerMessage = `${val} submitted`;
-            console.log(this.handlerMessage);
+            console.log(payload);
           },
+        },
+      ],
+      inputs: [
+        {
+          type: 'textarea',
+          name: 'message',
+          placeholder: 'message',
         },
       ],
     });

@@ -14,7 +14,7 @@ export const baseEndpoints = {
 
 export const requestEndpoints = {
     officerRequest: baseEndpoints.possapSserviceFields + '/officer-request',
-    approveReject: baseEndpoints.possapSserviceFields + '/approve-reject',
+    approveReject: baseEndpoints.possapSserviceFields + '/approver',
 
 };
 export const officerEndpoints = {

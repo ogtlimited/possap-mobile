@@ -87,10 +87,10 @@
                 <ion-button
                   class="btn-success"
                   [disabled]="officer.access.accessType !== 'Approver'"
-                  (click)="presentAlert('Approve')"
+                  (click)="presentAlert('Approve', item.id)"
                   >Approve</ion-button
                 >
-                <ion-button [disabled]="officer.access.accessType !== 'Approver'" class="btn-danger" (click)="presentAlert('Reject')"
+                <ion-button [disabled]="officer.access.accessType !== 'Approver'" class="btn-danger" (click)="presentAlert('Reject', item.id)"
                   >Reject</ion-button
                 >
               </ion-row>

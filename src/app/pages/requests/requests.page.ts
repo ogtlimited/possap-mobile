@@ -18,6 +18,7 @@ export class RequestsPage implements OnInit {
   requests: any[] = [];
   completed: any[] = [];
   inProgress: any[] = [];
+  searchText = '';
   pending: any[] = [];
   data: any[] = [];
   filteredData: any[] = [];

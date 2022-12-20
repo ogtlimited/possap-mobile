@@ -12,6 +12,7 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { Preferences as Storage } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const TOKEN_KEY = 'my-token';
 const CURRENT_USER = 'current-user';
@@ -35,9 +36,14 @@ export class AuthService {
 
   async loadToken() {
     const token = await Storage.get({ key: TOKEN_KEY });
+    const jwtHelper = new JwtHelperService();
+
     if (token && token.value) {
       this.token = token.value;
-      this.isAuthenticated.next(true);
+      const expirationDate = jwtHelper.getTokenExpirationDate(this.token);
+      console.log(expirationDate instanceof Date, 'expiration Date');
+      const isExpired = expirationDate < new Date();
+      this.isAuthenticated.next(!isExpired);
     } else {
       this.isAuthenticated.next(false);
     }
@@ -96,7 +102,9 @@ export class AuthService {
             value: JSON.stringify(res.data.officer),
           })
         );
-        return from(Storage.set({ key: TOKEN_KEY, value: res.data.token.token }));
+        return from(
+          Storage.set({ key: TOKEN_KEY, value: res.data.token.token })
+        );
       }),
       tap((_) => {
         this.isAuthenticated.next(true);

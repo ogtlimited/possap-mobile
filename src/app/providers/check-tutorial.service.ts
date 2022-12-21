@@ -9,7 +9,8 @@ export class CheckTutorial implements CanLoad {
 
   canLoad() {
     return Storage.get({key: 'ion_did_tutorial'}).then(res => {
-      if (res) {
+      console.log(res);
+      if (res.value) {
         this.router.navigate(['/app', 'tabs', 'home']);
         return false;
       } else {

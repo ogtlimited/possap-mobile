@@ -113,7 +113,7 @@ export class RequestsPage implements OnInit {
           handler: (data) => {
             const date = new Date();
             const payload = {
-              officerId: id,
+              officerId: this.officer.id,
               status: `${val}`,
               timeOfApproval: date,
               comment: data.message,

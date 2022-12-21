@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UserData } from 'src/app/providers/user-data';
 
 @Component({
@@ -39,14 +40,15 @@ export class MorePage implements OnInit {
   constructor(
     public popoverCtrl: PopoverController,
     private router: Router,
-    private userData: UserData
+    private userData: UserData,
+    private authS: AuthService
   ) {}
 
   ngOnInit() {}
 
   logout() {
-    this.userData
+    this.authS
       .logout()
-      .then(() => this.router.navigateByUrl('/app/tabs/schedule'));
+      .then(() => this.router.navigateByUrl('/app/tabs/home'));
   }
 }

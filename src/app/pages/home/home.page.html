@@ -7,6 +7,17 @@
 
 <ion-content>
   <ion-grid>
+    <ion-item class="welcome" lines="none">
+      <ion-label color="dark" lines="none">
+        <h2>
+          <ion-text color="dark" weight="bold"
+            >Hello, {{user?.fullName}}</ion-text
+          >
+        </h2>
+        <p><ion-text color="dark">Good to see you again!</ion-text></p>
+      </ion-label>
+    </ion-item>
+
     <ion-slides pager="false" [options]="slideOpts">
       <ion-slide *ngFor="let speaker of speakers; let i = index">
         <ion-card class="item-card" [ngStyle]="{background: getBg(i)}">
@@ -34,7 +45,7 @@
     </ion-slides>
     <ion-row>
       <ion-col size="12">
-        <ion-card>
+        <!-- <ion-card>
           <ion-card-header>
             <ion-card-title class="ion-text-center"
               >{{user?.fullName}}</ion-card-title
@@ -61,7 +72,7 @@
               </ion-item>
             </ion-list>
           </ion-card-content>
-        </ion-card>
+        </ion-card> -->
       </ion-col>
     </ion-row>
     <app-my-map></app-my-map>

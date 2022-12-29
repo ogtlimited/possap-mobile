@@ -34,40 +34,34 @@
     </ion-slides>
     <ion-row>
       <ion-col size="12">
-        <!-- <ion-card class="search-card mt-0">
-          <ion-card-header class="pb-0 pl-2">
-            <ion-item detail="false" lines="none" class="speaker-item">
-              <ion-avatar slot="start">
-                <ion-icon name="file-plus"></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h3>{{'applicationStatus' | translate}}</h3>
-                <span>{{'searchFindYourApplicationStatus' | translate}} </span>
-              </ion-label>
-            </ion-item>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ion-text-center"
+              >{{user?.fullName}}</ion-card-title
+            >
           </ion-card-header>
 
-          <ion-card-content class="pl-2 pr-16">
-            <ion-row>
-              <ion-col size="9">
-                <ion-searchbar
-                  searchIcon="none"
-                  mode="ios"
-                  [(ngModel)]="searchTerm"
-                ></ion-searchbar>
-              </ion-col>
-              <ion-col size="1">
-                <ion-button
-                  (click)="submit()"
-                  class="ion-text-capitalize searchBtn"
-                >
-                  <ion-icon name="search-f"></ion-icon>
-                </ion-button>
-              </ion-col>
-              <ion-col></ion-col>
-            </ion-row>
+          <ion-card-content class="ion-text-start-center">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-icon name="apnumber" color="dark" slot="start"> </ion-icon>
+                <ion-label color="dark">{{user?.apNumber}} </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="mail" color="dark" slot="start"> </ion-icon>
+                <ion-text color="dark" style="margin-inline-start: 10px"
+                  >{{user?.email}}
+                </ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="rank" color="dark" slot="start"> </ion-icon>
+                <ion-text color="dark" style="margin-inline-start: 10px"
+                  >{{user?.access?.role}}
+                </ion-text>
+              </ion-item>
+            </ion-list>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
       </ion-col>
     </ion-row>
     <app-my-map></app-my-map>

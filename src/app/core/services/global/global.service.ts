@@ -5,12 +5,16 @@ import { GoogleMapUrl, serverBaseUrl } from './../../config/endpoints';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { AlertController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalService {
   ABSOLUTE_URL_REGEX = /^(?:[a-z]+:)?\/\//;
+  showTabs$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    true
+  );
   constructor(private reqS: RequestService, private alertController: AlertController, private appT: TranslateConfigService) {}
 
   getTranslateObject(){

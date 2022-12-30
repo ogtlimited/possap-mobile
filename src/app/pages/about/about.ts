@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PopoverController } from '@ionic/angular';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UserData } from '../../providers/user-data';
 
 import { PopoverPage } from '../about-popover/about-popover';
@@ -21,10 +22,12 @@ export class AboutPage {
 
   constructor(public popoverCtrl: PopoverController,
     private router: Router,
-    private userData: UserData) { }
+    private authS: AuthService) { }
 
     logout() {
-      this.userData.logout().then(() => this.router.navigateByUrl('/app/tabs/schedule'));
+      console.log('hello');
+      // .then(() => this.router.navigateByUrl('/login')
+      this.authS.logout();
     }
   async presentPopover(event: Event) {
     const popover = await this.popoverCtrl.create({

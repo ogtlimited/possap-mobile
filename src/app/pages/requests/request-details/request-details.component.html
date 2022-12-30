@@ -11,11 +11,11 @@
   <ion-row class="info">
     <ion-item lines="none">
       <ion-icon name="time-outline"></ion-icon>
-      <ion-label class="ml-2">Created: {{request.createdAt | date}}</ion-label>
+      <ion-label class="ml-2">Created: {{request?.createdAt | date}}</ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-icon name="location-outline"></ion-icon>
-      <ion-label class="ml-2">Processesor: {{request.processor}}</ion-label>
+      <ion-label class="ml-2">Processesor: {{request?.processor}}</ion-label>
     </ion-item>
   </ion-row>
   <ion-row>
@@ -25,7 +25,8 @@
       </ion-item>
 
 
-      <app-preview-table [data]="request.formFields[0]" [service]="request.service"></app-preview-table>
+      <app-preview-table *ngIf="request" [data]="request?.formFields[0]" [service]="request.service">
+      </app-preview-table>
 
     </ion-card>
   </ion-row>
@@ -78,23 +79,22 @@
       <H6 class="h2C"> Approval Proccess </H6>
     </ion-item>
   </ion-list>
-
   <ion-list>
     <ion-radio-group value="second">
       <div class="container">
         <!-- completed -->
         <div [ngClass]="
-            item === request.approvalLevel ? 'step active completed' : 'step'
-          " *ngFor="let item of request?.service?.approvalWorkFlow; let i = index">
+            item.id === request.approvalLevel ? 'step active completed' : 'step'
+          " *ngFor="let item of request?.service?.workFlow[0]?.WorkFlowApprovalLevel; let i = index">
           <div class="v-stepper">
             <div class="circle"></div>
             <div class="line"></div>
           </div>
 
-          <ion-item lines="none" class="content">
-            <ion-label [color]="request.approvalLevel === item ? 'primary' : 'secondary'">{{ item }}</ion-label>
+          <div class="content">
+            <ion-label [color]="request.approvalLevel === item.id ? 'primary' : 'dark'">{{ item.name }}</ion-label>
             <ion-radio slot="end" value="first"></ion-radio>
-          </ion-item>
+          </div>
         </div>
 
         <!-- active -->
@@ -122,4 +122,17 @@
       </div>
     </ion-radio-group>
   </ion-list>
+
 </ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button  (click)="presentAlert('Approve', request.id)" expand="block" color="primary" fill="solid">Approve</ion-button>
+
+    </ion-col>
+    <ion-col>
+
+      <ion-button  (click)="presentAlert('Reject', request.id)" color="danger" fill="outline" expand="block">Reject</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

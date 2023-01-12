@@ -1,0 +1,26 @@
+.custom-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 80px;
+}
+
+.icon-header {
+  justify-content: center;
+  display: flex;
+  // flex-direction: column;
+}
+
+.icon-content {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ion-card {
+  justify-content: center;
+}

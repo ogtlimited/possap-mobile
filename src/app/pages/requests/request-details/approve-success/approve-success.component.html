@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ message | titlecase }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="py-12">
+    <div class="icon-header">
+      <div class="custom-header">
+        <ion-icon name="success"></ion-icon>
+      </div>
+    </div>
+    <h3 class="ion-text-center">Success</h3>
+    <p class="ion-text-center">
+      <ion-text class="ion-text-center">
+        {{ message }}
+      </ion-text>
+    </p>
+    <div class="icon-content">
+      <ion-button
+        shape="round"
+        fill="outline"
+        color="success"
+        (click)="navigate()"
+        >Continue</ion-button
+      >
+    </div>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-card-header class="custom-header"
+      ><ion-icon name="error"></ion-icon> Error!</ion-header
+    >
+
+    <ion-label>You have {{}} your request </ion-label>
+    <ion-button class="error"></ion-button>
+  </ion-card> -->
+</ion-content>

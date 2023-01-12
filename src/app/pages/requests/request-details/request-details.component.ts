@@ -1,11 +1,12 @@
 import { AuthService } from './../../../core/services/auth/auth.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { GlobalService } from './../../../core/services/global/global.service';
 import { Component, OnInit } from '@angular/core';
 import { PossapServiceService } from './../../../core/services/possap-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApproveSuccessComponent } from './approve-success/approve-success.component';
 
 @Component({
   selector: 'app-request-details',
@@ -19,7 +20,9 @@ export class RequestDetailsComponent implements OnInit {
   officer: any;
   constructor(
     public activatedRoute: ActivatedRoute,
+    public router: Router,
     public alertController: AlertController,
+    public modalController: ModalController,
     private possapS: PossapServiceService,
     private globalS: GlobalService,
     private authS: AuthService
@@ -66,9 +69,20 @@ export class RequestDetailsComponent implements OnInit {
               timeOfApproval: date,
               comment: data.message,
             };
-            this.possapS.approveRequests(id, payload).subscribe((res) => {
-              console.log(res);
-            });
+            this.possapS.approveRequests(id, payload).subscribe(
+              (res: any) => {
+                console.log(res);
+                const message = res?.data?.message;
+                this.presentModal(message);
+              },
+              (error) => {
+                this.alertController.create({
+                  header: 'error',
+                  message: 'Something went wrong',
+                  buttons: ['OK'],
+                });
+              }
+            );
             this.handlerMessage = `${val} submitted`;
             console.log(payload);
           },
@@ -84,6 +98,17 @@ export class RequestDetailsComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentModal(message) {
+    const modal = await this.modalController.create({
+      component: ApproveSuccessComponent,
+      cssClass: 'fullscreen',
+      componentProps: {
+        message,
+      },
+    });
+    await modal.present();
   }
 
   ionViewDidLeave() {

@@ -24,3 +24,6 @@
 .ion-card {
   justify-content: center;
 }
+.sc-ion-modal-ios-h:first-of-type {
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
+}

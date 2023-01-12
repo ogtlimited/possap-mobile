@@ -48,32 +48,35 @@ export class RequestsPage implements OnInit {
     this.authS.currentUser$.subscribe((val) => {
       console.log(val);
       this.officer = val;
-      this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
-        this.data = req.data.map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
-        this.filteredData = this.data;
-        this.pending = req.data
-          .filter((e) => e.status === 'pending')
-          .map((e) => ({
-            ...e,
-            bg: this.getRandomColor(),
-          }));
-        this.inProgress = req.data.filter((e) => e.status === 'in progress');
-        this.completed = req.data
-          .filter((e) => e.status === 'approved')
-          .map((e) => ({
-            ...e,
-            bg: this.getRandomColor(),
-          }));
-      });
+      this.getOfficerRequest(val.id);
     });
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers.map((e) => ({
         ...e,
         bg: this.getRandomColor(),
       }));
+    });
+  }
+  getOfficerRequest(officerId) {
+    this.possapS.getOfficerRequests(officerId).subscribe((req: any) => {
+      this.data = req.data.map((e) => ({
+        ...e,
+        bg: this.getRandomColor(),
+      }));
+      this.filteredData = this.data;
+      this.pending = req.data
+        .filter((e) => e.status === 'pending')
+        .map((e) => ({
+          ...e,
+          bg: this.getRandomColor(),
+        }));
+      this.inProgress = req.data.filter((e) => e.status === 'in progress');
+      this.completed = req.data
+        .filter((e) => e.status === 'approved')
+        .map((e) => ({
+          ...e,
+          bg: this.getRandomColor(),
+        }));
     });
   }
 
@@ -118,8 +121,11 @@ export class RequestsPage implements OnInit {
               timeOfApproval: date,
               comment: data.message,
             };
-            this.possapS.approveRequests(id, payload).subscribe((res) => {
+            this.possapS.approveRequests(id, payload).subscribe((res: any) => {
               console.log(res);
+              const message = res?.data?.message;
+              this.getOfficerRequest(this.officer.id);
+              this.globalS.presentModal(message);
             });
             this.handlerMessage = `${val} submitted`;
             console.log(payload);

@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { PossapServiceService } from './../../../core/services/possap-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ApproveSuccessComponent } from './approve-success/approve-success.component';
 
 @Component({
   selector: 'app-request-details',
@@ -73,7 +71,7 @@ export class RequestDetailsComponent implements OnInit {
               (res: any) => {
                 console.log(res);
                 const message = res?.data?.message;
-                this.presentModal(message);
+                this.globalS.presentModal(message);
               },
               (error) => {
                 this.alertController.create({
@@ -100,16 +98,6 @@ export class RequestDetailsComponent implements OnInit {
     await alert.present();
   }
 
-  async presentModal(message) {
-    const modal = await this.modalController.create({
-      component: ApproveSuccessComponent,
-      cssClass: 'fullscreen',
-      componentProps: {
-        message,
-      },
-    });
-    await modal.present();
-  }
 
   ionViewDidLeave() {
     this.globalS.showTabs$.next(true);

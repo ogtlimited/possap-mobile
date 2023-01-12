@@ -4,29 +4,43 @@ import { RequestService } from './../../request/request.service';
 import { GoogleMapUrl, serverBaseUrl } from './../../config/endpoints';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { ApproveSuccessComponent } from 'src/app/pages/requests/request-details/approve-success/approve-success.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalService {
   ABSOLUTE_URL_REGEX = /^(?:[a-z]+:)?\/\//;
-  showTabs$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    true
-  );
-  constructor(private reqS: RequestService, private alertController: AlertController, private appT: TranslateConfigService) {}
+  showTabs$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  constructor(
+    private reqS: RequestService,
+    private alertController: AlertController,
+    private appT: TranslateConfigService,
+    private modalController: ModalController
+  ) {}
 
-  getTranslateObject(){
+  getTranslateObject() {
     const lang = this.appT.getDefaultLanguage();
-    return this.reqS.get('/assets/i18n/' + lang + '.json' ).toPromise();
-
+    return this.reqS.get('/assets/i18n/' + lang + '.json').toPromise();
   }
 
-  nearestPlaces(searchText){
-   const key =  environment.mapsKey;
-   const url = GoogleMapUrl + searchText + '&inputtype=textquery&key=' + key;
-   return this.reqS.get(url);
+  async presentModal(message) {
+    const modal = await this.modalController.create({
+      component: ApproveSuccessComponent,
+      cssClass: 'successModal',
+      componentProps: {
+        message,
+      },
+    });
+    await modal.present();
+  }
+
+  nearestPlaces(searchText) {
+    const key = environment.mapsKey;
+    const url = GoogleMapUrl + searchText + '&inputtype=textquery&key=' + key;
+    return this.reqS.get(url);
   }
 
   getUrlString(path, queryParams = {}) {

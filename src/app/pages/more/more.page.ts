@@ -21,11 +21,11 @@ export class MorePage implements OnInit {
       path: '/support',
       icon: 'settings-outline',
     },
-    {
-      title: 'salaryPayments',
-      path: '/salary-payment',
-      icon: 'cash-outline',
-    },
+    // {
+    //   title: 'salaryPayments',
+    //   path: '/salary-payment',
+    //   icon: 'cash-outline',
+    // },
     {
       title: 'privacyPolicy',
       path: '/privacy',

@@ -13,6 +13,7 @@ import { TranslateConfigService } from '../../translate-config.service';
 export class SupportPage {
   submitted = false;
   supportMessage: string;
+  dark = false;
   applanguage = this.appT.getDefaultLanguage() || 'en';
   customActionSheetOptions = {
     header: 'Language',
@@ -49,10 +50,16 @@ export class SupportPage {
       await toast.present();
     }
   }
+
   langchange(evt) {
     console.log(evt.detail.value);
     this.applanguage = evt.detail.value;
     this.appT.setLanguage(evt.detail.value);
+  }
+
+  toggleDarkTheme(shouldAdd) {
+    console.log(shouldAdd);
+    document.body.classList.toggle('dark', !shouldAdd);
   }
 
   // If the user enters text in the support question and then navigates

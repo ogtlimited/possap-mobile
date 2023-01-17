@@ -2,7 +2,7 @@
   [isHome]="true"
   [showProfile]="true"
   [showSos]="true"
-  title="Home"
+  title="{{'home' | translate}}"
 ></app-header>
 
 <ion-content>
@@ -11,10 +11,10 @@
       <ion-label color="dark" lines="none">
         <h2>
           <ion-text color="dark" weight="bold"
-            >Hello, {{user?.fullName}}</ion-text
+            >{{'hello' | translate}}, {{user?.fullName}}</ion-text
           >
         </h2>
-        <p><ion-text color="dark">Good to see you again!</ion-text></p>
+        <p><ion-text color="dark">{{'GoodToSeeYou' | translate}}!</ion-text></p>
       </ion-label>
     </ion-item>
 

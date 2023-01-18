@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AlertController, ToastController } from '@ionic/angular';
 import { TranslateConfigService } from '../../translate-config.service';
+import { Preferences as Storage } from '@capacitor/preferences';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { TranslateConfigService } from '../../translate-config.service';
   templateUrl: 'support.html',
   styleUrls: ['./support.scss'],
 })
-export class SupportPage {
+export class SupportPage implements OnInit {
   submitted = false;
   supportMessage: string;
   dark = false;
@@ -58,8 +59,22 @@ export class SupportPage {
   }
 
   toggleDarkTheme(shouldAdd) {
-    console.log(shouldAdd);
+    const mode = shouldAdd ? 'light' : 'dark';
+    Storage.set({key: 'themeMode', value: mode });
     document.body.classList.toggle('dark', !shouldAdd);
+  }
+
+  ngOnInit() {
+    const setToggle = async () => {
+      const themeMode = await Storage.get({key: 'themeMode'});
+      if(themeMode.value){
+        this.dark = themeMode.value === 'light' ? false : true;
+        document.body.classList.toggle('dark', this.dark);
+      }else{
+        Storage.set({key: 'themeMode', value: 'light'});
+      }
+    };
+    setToggle();
   }
 
   // If the user enters text in the support question and then navigates

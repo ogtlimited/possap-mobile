@@ -50,82 +50,72 @@
         >
       </ion-card-header> -->
         <ion-card-content>
-          <ion-list lines="none">
-            <ion-item>
-              <ion-label
+          <ion-grid>
+            <ion-row class="profilecard">
+              <ion-col
+                size="5.5"
                 color="dark"
                 class="edge-align"
                 style="margin-inline-start: 0px; overflow: visible"
               >
                 AP NUMBER :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
+              </ion-col>
+              <ion-col size="6.5" class="edge-align" color="dark"
                 >{{user?.apNumber}}
-              </ion-text>
-            </ion-item>
-            <ion-item>
-              <ion-label
-                color="dark"
+              </ion-col>
+            </ion-row>
+            <ion-row class="profilecard">
+              <ion-col
+                size="5.5"
+                color="black"
                 class="edge-align"
                 style="margin-inline-start: 0; overflow: visible"
               >
                 FORMATION :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
+              </ion-col>
+              <ion-col size="6.5" class="edge-align" color="dark"
                 >{{user?.primaryCommandInfo?.officerFormation}}
-              </ion-text>
-            </ion-item>
-            <ion-item>
-              <ion-label
+              </ion-col>
+            </ion-row>
+            <ion-row class="profilecard">
+              <ion-col
+                size="5.5"
                 color="dark"
                 style="margin-inline-start: 0; overflow: visible"
               >
                 DEPARTMENT :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
+              </ion-col>
+              <ion-col size="6.5" class="edge-align" color="dark"
                 >{{user?.primaryCommandInfo?.officerDepartment}}
-              </ion-text>
-            </ion-item>
+              </ion-col>
+            </ion-row>
 
-            <ion-item>
-              <ion-label
+            <ion-row class="profilecard">
+              <ion-col
+                size="5.5"
                 color="dark"
                 style="margin-inline-start: 0px; overflow: visible"
               >
                 SECTION :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
+              </ion-col>
+              <ion-col size="6.5" class="edge-align" color="dark"
                 >{{user?.primaryCommandInfo?.officerSection}}
-              </ion-text>
-            </ion-item>
+              </ion-col>
+            </ion-row>
 
-            <ion-item>
-              <ion-label
+            <ion-row class="profilecard">
+              <ion-col
+                size="5.5"
                 color="dark"
                 style="margin-inline-start: 0; overflow: visible"
               >
                 ROLE:
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
+              </ion-col>
+              <ion-col size="6.5" class="edge-align" color="dark"
                 >{{user?.access?.role}}
-              </ion-text>
-            </ion-item>
-          </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-card-content>
       </ion-card>
     </ion-row>

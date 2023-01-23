@@ -19,22 +19,17 @@
           <img [src]="avater" />
           <label for="profile-image" class="camera">
             <ion-icon name="camera"></ion-icon>
-            <input
-              (change)="onChange($event)"
-              type="file"
-              id="profile-image"
-              hidden
-            />
+            <input (change)="onChange($event)" type="file" id="profile-image" hidden />
           </label>
         </ion-avatar>
         <div class="flex user-label flex-column">
           <ion-text class="pb-5">{{user?.fullName}}</ion-text>
-          <ion-text class="pb-5"
-            ><ion-text>{{user?.phoneNumber}}</ion-text></ion-text
-          >
           <ion-text class="pb-5">
-            <ion-text>{{user?.email}}</ion-text></ion-text
-          >
+            <ion-text>{{user?.phoneNumber}}</ion-text>
+          </ion-text>
+          <ion-text class="pb-5">
+            <ion-text>{{user?.email}}</ion-text>
+          </ion-text>
         </div>
       </div>
     </div>
@@ -42,109 +37,47 @@
 </ion-header>
 <ion-content>
   <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-card>
-        <!-- <ion-card-header>
+
+    <ion-card>
+      <!-- <ion-card-header>
         <ion-card-title class="ion-text-center"
           >{{user?.fullName}}</ion-card-title
         >
       </ion-card-header> -->
-        <ion-card-content>
-          <ion-list lines="none">
-            <ion-item>
-              <ion-label
-                color="dark"
-                class="edge-align"
-                style="margin-inline-start: 0px; overflow: visible"
-              >
-                AP NUMBER :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
-                >{{user?.apNumber}}
-              </ion-text>
-            </ion-item>
-            <ion-item>
-              <ion-label
-                color="dark"
-                class="edge-align"
-                style="margin-inline-start: 0; overflow: visible"
-              >
-                FORMATION :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
-                >{{user?.primaryCommandInfo?.officerFormation}}
-              </ion-text>
-            </ion-item>
-            <ion-item>
-              <ion-label
-                color="dark"
-                style="margin-inline-start: 0; overflow: visible"
-              >
-                DEPARTMENT :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
-                >{{user?.primaryCommandInfo?.officerDepartment}}
-              </ion-text>
-            </ion-item>
+      <ion-card-content>
+        <ion-row class="pb-12">
+          <ion-col size="5">AP Number :</ion-col>
+          <ion-col class="ion-text-end" size="7">{{user?.apNumber}}</ion-col>
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Formation :</ion-col>
+          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerFormation | titlecase}}</ion-col>
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Department :</ion-col>
+          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerDepartment | titlecase}}</ion-col>
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Section:</ion-col>
+          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerSection | titlecase}}</ion-col>
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Role :</ion-col>
+          <ion-col class="ion-text-end" size="7">{{user?.access?.role}}</ion-col>
+        </ion-row>
 
-            <ion-item>
-              <ion-label
-                color="dark"
-                style="margin-inline-start: 0px; overflow: visible"
-              >
-                SECTION :
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
-                >{{user?.primaryCommandInfo?.officerSection}}
-              </ion-text>
-            </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-            <ion-item>
-              <ion-label
-                color="dark"
-                style="margin-inline-start: 0; overflow: visible"
-              >
-                ROLE:
-              </ion-label>
-              <ion-text
-                class="edge-align"
-                color="dark"
-                style="margin-inline-start: 20px"
-                >{{user?.access?.role}}
-              </ion-text>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
-    </ion-row>
-    <ion-row>
-      <ion-col class="no-margin-padding">
-        <ion-card *ngFor="let p of items">
-          <ion-card-header class="custom-header"
-            ><ion-icon [name]="p.icon"></ion-icon
-          ></ion-card-header>
-          <ion-item
-            lines="none"
-            [routerLink]="p.url"
-            routerDirection="root"
-            routerLinkActive="active-item"
-          >
-            <ion-label class="custom-header"> {{ p.title }} </ion-label>
-          </ion-item>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+
+    <ion-card class="pb-8" *ngFor="let p of items">
+      <ion-card-header class="custom-header pb-0">
+        <ion-icon [name]="p.icon"></ion-icon>
+      </ion-card-header>
+      <ion-item lines="none" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item">
+        <ion-label class="custom-header"> {{ p.title }} </ion-label>
+      </ion-item>
+    </ion-card>
+
   </ion-grid>
 </ion-content>

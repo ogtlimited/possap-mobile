@@ -29,12 +29,12 @@
         </ion-avatar>
         <div class="flex user-label flex-column">
           <ion-text class="pb-5">{{user?.fullName}}</ion-text>
-          <ion-text class="pb-5"
-            ><ion-text>{{user?.phoneNumber}}</ion-text></ion-text
-          >
           <ion-text class="pb-5">
-            <ion-text>{{user?.email}}</ion-text></ion-text
-          >
+            <ion-text>{{user?.phoneNumber}}</ion-text>
+          </ion-text>
+          <ion-text class="pb-5">
+            <ion-text>{{user?.email}}</ion-text>
+          </ion-text>
         </div>
       </div>
     </div>
@@ -42,99 +42,57 @@
 </ion-header>
 <ion-content>
   <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-card>
-        <!-- <ion-card-header>
+    <ion-card>
+      <!-- <ion-card-header>
         <ion-card-title class="ion-text-center"
           >{{user?.fullName}}</ion-card-title
         >
       </ion-card-header> -->
-        <ion-card-content>
-          <ion-grid>
-            <ion-row class="profilecard">
-              <ion-col
-                size="5.5"
-                color="dark"
-                class="edge-align"
-                style="margin-inline-start: 0px; overflow: visible"
-              >
-                AP NUMBER :
-              </ion-col>
-              <ion-col size="6.5" class="edge-align" color="dark"
-                >{{user?.apNumber}}
-              </ion-col>
-            </ion-row>
-            <ion-row class="profilecard">
-              <ion-col
-                size="5.5"
-                color="black"
-                class="edge-align"
-                style="margin-inline-start: 0; overflow: visible"
-              >
-                FORMATION :
-              </ion-col>
-              <ion-col size="6.5" class="edge-align" color="dark"
-                >{{user?.primaryCommandInfo?.officerFormation}}
-              </ion-col>
-            </ion-row>
-            <ion-row class="profilecard">
-              <ion-col
-                size="5.5"
-                color="dark"
-                style="margin-inline-start: 0; overflow: visible"
-              >
-                DEPARTMENT :
-              </ion-col>
-              <ion-col size="6.5" class="edge-align" color="dark"
-                >{{user?.primaryCommandInfo?.officerDepartment}}
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="profilecard">
-              <ion-col
-                size="5.5"
-                color="dark"
-                style="margin-inline-start: 0px; overflow: visible"
-              >
-                SECTION :
-              </ion-col>
-              <ion-col size="6.5" class="edge-align" color="dark"
-                >{{user?.primaryCommandInfo?.officerSection}}
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="profilecard">
-              <ion-col
-                size="5.5"
-                color="dark"
-                style="margin-inline-start: 0; overflow: visible"
-              >
-                ROLE:
-              </ion-col>
-              <ion-col size="6.5" class="edge-align" color="dark"
-                >{{user?.access?.role}}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    </ion-row>
-    <ion-row>
-      <ion-col class="no-margin-padding">
-        <ion-card *ngFor="let p of items">
-          <ion-card-header class="custom-header"
-            ><ion-icon [name]="p.icon"></ion-icon
-          ></ion-card-header>
-          <ion-item
-            lines="none"
-            [routerLink]="p.url"
-            routerDirection="root"
-            routerLinkActive="active-item"
+      <ion-card-content>
+        <ion-row class="pb-12">
+          <ion-col size="5">AP Number :</ion-col>
+          <ion-col class="ion-text-end" size="7">{{user?.apNumber}}</ion-col>
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Formation :</ion-col>
+          <ion-col class="ion-text-end" size="7"
+            >{{user?.primaryCommandInfo?.officerFormation | titlecase}}</ion-col
           >
-            <ion-label class="custom-header"> {{ p.title }} </ion-label>
-          </ion-item>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Department :</ion-col>
+          <ion-col class="ion-text-end" size="7"
+            >{{user?.primaryCommandInfo?.officerDepartment |
+            titlecase}}</ion-col
+          >
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Section:</ion-col>
+          <ion-col class="ion-text-end" size="7"
+            >{{user?.primaryCommandInfo?.officerSection | titlecase}}</ion-col
+          >
+        </ion-row>
+        <ion-row class="pb-12">
+          <ion-col size="5">Role :</ion-col>
+          <ion-col class="ion-text-end" size="7"
+            >{{user?.access?.role}}</ion-col
+          >
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="pb-8" *ngFor="let p of items">
+      <ion-card-header class="custom-header pb-0">
+        <ion-icon [name]="p.icon"></ion-icon>
+      </ion-card-header>
+      <ion-item
+        lines="none"
+        [routerLink]="p.url"
+        routerDirection="root"
+        routerLinkActive="active-item"
+      >
+        <ion-label class="custom-header"> {{ p.title }} </ion-label>
+      </ion-item>
+    </ion-card>
   </ion-grid>
 </ion-content>

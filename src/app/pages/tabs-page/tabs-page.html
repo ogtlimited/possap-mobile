@@ -1,10 +1,10 @@
-<ion-tabs>
+<ion-tabs >
   <!-- <div (click)="presentModal()" class="outcast-button">
     <div class="outcast-inner"></div>
     <ion-icon name="target"></ion-icon>
     <ion-label>{{'policeEye' | translate}}</ion-label>
   </div> -->
-  <ion-tab-bar slot="bottom">
+  <ion-tab-bar *ngIf="showTabs" slot="bottom">
     <ion-tab-button tab="home">
       <ion-icon name="custom-home"></ion-icon>
       <ion-label>{{'home' | translate}}</ion-label>
@@ -25,7 +25,7 @@
 
     <ion-tab-button tab="more">
       <ion-icon name="align-left"></ion-icon>
-      <ion-label>More</ion-label>
+      <ion-label>{{'more' | translate}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

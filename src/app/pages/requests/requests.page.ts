@@ -18,6 +18,7 @@ export class RequestsPage implements OnInit {
   requests: any[] = [];
   completed: any[] = [];
   inProgress: any[] = [];
+  searchText = '';
   pending: any[] = [];
   data: any[] = [];
   filteredData: any[] = [];
@@ -47,31 +48,35 @@ export class RequestsPage implements OnInit {
     this.authS.currentUser$.subscribe((val) => {
       console.log(val);
       this.officer = val;
-      this.possapS.getOfficerRequests(val.id).subscribe((req: any) => {
-
-        this.data = req.data.map((e) => ({
-          ...e,
-          bg:this.getRandomColor()
-        }));
-        this.filteredData = this.data;
-        this.pending = req.data.filter((e) => e.status === 'pending').map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
-        this.inProgress = req.data.filter((e) => e.status === 'in progress');
-        this.completed = req.data
-          .filter((e) => e.status === 'approved')
-          .map((e) => ({
-            ...e,
-            bg: this.getRandomColor(),
-          }));
-      });
+      this.getOfficerRequest(val.id);
     });
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers.map((e) => ({
         ...e,
         bg: this.getRandomColor(),
       }));
+    });
+  }
+  getOfficerRequest(officerId) {
+    this.possapS.getOfficerRequests(officerId).subscribe((req: any) => {
+      this.data = req.data.map((e) => ({
+        ...e,
+        bg: this.getRandomColor(),
+      }));
+      this.filteredData = this.data;
+      this.pending = req.data
+        .filter((e) => e.status === 'pending')
+        .map((e) => ({
+          ...e,
+          bg: this.getRandomColor(),
+        }));
+      this.inProgress = req.data.filter((e) => e.status === 'in progress');
+      this.completed = req.data
+        .filter((e) => e.status === 'approved')
+        .map((e) => ({
+          ...e,
+          bg: this.getRandomColor(),
+        }));
     });
   }
 
@@ -94,7 +99,7 @@ export class RequestsPage implements OnInit {
     console.log(event.detail.value);
     this.currentTab = event.detail.value;
   }
-  async presentAlert(val) {
+  async presentAlert(val, id) {
     const alert = await this.alertController.create({
       header: val,
       buttons: [
@@ -108,10 +113,30 @@ export class RequestsPage implements OnInit {
         {
           text: 'Submit',
           role: 'confirm',
-          handler: () => {
+          handler: (data) => {
+            const date = new Date();
+            const payload = {
+              officerId: this.officer.id,
+              status: `${val}`,
+              timeOfApproval: date,
+              comment: data.message,
+            };
+            this.possapS.approveRequests(id, payload).subscribe((res: any) => {
+              console.log(res);
+              const message = res?.data?.message;
+              this.getOfficerRequest(this.officer.id);
+              this.globalS.presentModal(message);
+            });
             this.handlerMessage = `${val} submitted`;
-            console.log(this.handlerMessage);
+            console.log(payload);
           },
+        },
+      ],
+      inputs: [
+        {
+          type: 'textarea',
+          name: 'message',
+          placeholder: 'message',
         },
       ],
     });
@@ -126,17 +151,20 @@ export class RequestsPage implements OnInit {
       breakpoints: [0.25],
       componentProps: {
         selected: this.selected,
-      }
-
+      },
     });
     modal.present();
     const selectedData = await modal.onWillDismiss();
     this.selectedFilter = selectedData.data;
-    this.filteredData = selectedData.data ? this.data.filter((e) => e.status.toLowerCase() === this.selectedFilter.toLowerCase()) : this.data;
+    this.filteredData = selectedData.data
+      ? this.data.filter(
+          (e) => e.status.toLowerCase() === this.selectedFilter.toLowerCase()
+        )
+      : this.data;
   }
 
-  clearFilter(){
-    this.selectedFilter =null;
+  clearFilter() {
+    this.selectedFilter = null;
     this.filteredData = this.data;
   }
 }

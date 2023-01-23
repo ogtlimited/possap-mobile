@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { MostUsedComponent } from './most-used.component';
+import { ApproveSuccessComponent } from './approve-success.component';
 
-describe('MostUsedComponent', () => {
-  let component: MostUsedComponent;
-  let fixture: ComponentFixture<MostUsedComponent>;
+describe('ApproveSuccessComponent', () => {
+  let component: ApproveSuccessComponent;
+  let fixture: ComponentFixture<ApproveSuccessComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MostUsedComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ApproveSuccessComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MostUsedComponent);
+    fixture = TestBed.createComponent(ApproveSuccessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

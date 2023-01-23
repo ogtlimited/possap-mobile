@@ -7,7 +7,7 @@
           <ion-list>
             <ion-item>
               <ion-icon slot="start" name="globe"></ion-icon>
-              <ion-label>{{ 'changeLang' | translate}}</ion-label>
+              <ion-label>{{ 'changeLanguage' | translate}}</ion-label>
               <ion-select [value]="applanguage" (ionChange)="langchange($event)" [interfaceOptions]="customActionSheetOptions"
                 interface="action-sheet" placeholder="Change Language">
                 <ion-select-option value="en">English</ion-select-option>
@@ -20,6 +20,13 @@
               <ion-icon slot="start" name="bell-f"></ion-icon>
               <ion-label>{{'notification' | translate}}</ion-label>
               <ion-toggle color="primary"></ion-toggle>
+            </ion-item>
+            <ion-item class="item">
+              <ion-icon slot="start" name="moon-outline"></ion-icon>
+              <ion-label>
+                Dark Mode
+              </ion-label>
+              <ion-toggle (ngModelChange)="toggleDarkTheme(dark)" [(ngModel)]="dark"></ion-toggle>
             </ion-item>
           </ion-list>
         </ion-card-content>

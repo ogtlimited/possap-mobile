@@ -86,6 +86,7 @@ export class LoginPage implements OnInit {
     console.log(obj);
     this.authService.validateOTP(obj).subscribe(
       async (res) => {
+        this.showOTPPage = false;
         console.log(res);
         await loading.dismiss();
         this.router.navigate(['app/tabs/home']);

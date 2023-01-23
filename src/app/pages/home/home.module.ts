@@ -9,9 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { MostUsedComponent } from './components/most-used/most-used.component';
 import { MyMapComponent } from './components/my-map/my-map.component';
-import { ReportIncidenceComponent } from './components/report-incidence/report-incidence.component';
 
 @NgModule({
   imports: [
@@ -20,8 +18,8 @@ import { ReportIncidenceComponent } from './components/report-incidence/report-i
     IonicModule,
     HomePageRoutingModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [HomePage, MostUsedComponent, MyMapComponent, ReportIncidenceComponent]
+  declarations: [HomePage, MyMapComponent],
 })
 export class HomePageModule {}

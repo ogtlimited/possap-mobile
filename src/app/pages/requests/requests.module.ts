@@ -11,6 +11,7 @@ import { IonicModule } from '@ionic/angular';
 import { RequestsPageRoutingModule } from './requests-routing.module';
 
 import { RequestsPage } from './requests.page';
+import { FilterPipe } from './../../core/pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -19,8 +20,14 @@ import { RequestsPage } from './requests.page';
     IonicModule,
     RequestsPageRoutingModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [RequestsPage, AbbrevPipe, RequestDetailsComponent, PreviewTableComponent]
+  declarations: [
+    RequestsPage,
+    AbbrevPipe,
+    RequestDetailsComponent,
+    PreviewTableComponent,
+    FilterPipe,
+  ],
 })
 export class RequestsPageModule {}

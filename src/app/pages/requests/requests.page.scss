@@ -1,5 +1,5 @@
 ion-content {
-  --background: #f4f6f8;
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
   background: #ebf0f6;
 }
 

@@ -1,6 +1,6 @@
 {
     "appName": "POSSAP",
-    "home": "Gida",
+    "home": "Shafin Farko",
     "service": "Sabis",
     "about": "Batun Al'amari",
     "request" : "Buƙata",
@@ -62,5 +62,7 @@
     "checkApplicationId": "Bincika cewa aikace-aikacen ref id daidai ne",
     "editRequest": "Kuna iya shirya buƙatu kafin matsayinta ya canza zuwa aiki",
     "SOS": "Siginar taimakon gaggawa",
-    "sendSOS": "Aika Siginar taimakon gaggawa"
+    "sendSOS": "Aika Siginar taimakon gaggawa",
+    "hello": "Sannu",
+    "GoodToSeeYou": "Barkan mu da Saduwa"
 }

@@ -54,7 +54,16 @@ ion-icon {
   justify-content: center;
   align-items: center;
 }
-
+.profilecard {
+  margin-bottom: 10px;
+  color: black;
+}
+ion-card {
+  width: 90%;
+}
+ion-row {
+  color: black;
+}
 ion-avatar {
   width: 80px;
   height: 80px;

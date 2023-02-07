@@ -19,12 +19,7 @@
           <img [src]="avater" />
           <label for="profile-image" class="camera">
             <ion-icon name="camera"></ion-icon>
-            <input
-              (change)="onChange($event)"
-              type="file"
-              id="profile-image"
-              hidden
-            />
+            <input (change)="onChange($event)" type="file" id="profile-image" hidden />
           </label>
         </ion-avatar>
         <div class="flex user-label flex-column">
@@ -50,33 +45,37 @@
       </ion-card-header> -->
       <ion-card-content>
         <ion-row class="pb-12">
-          <ion-col size="5">AP Number :</ion-col>
+          <ion-col size="5">
+            <ion-label color="dark">
+
+
+              AP Number :
+
+            </ion-label>
+          </ion-col>
           <ion-col class="ion-text-end" size="7">{{user?.apNumber}}</ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Formation :</ion-col>
-          <ion-col class="ion-text-end" size="7"
-            >{{user?.primaryCommandInfo?.officerFormation | titlecase}}</ion-col
-          >
+          <ion-col class="ion-text-end" size="7">
+            <ion-text>
+              {{user?.primaryCommandInfo?.officerFormation | titlecase}}
+
+            </ion-text>
+          </ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Department :</ion-col>
-          <ion-col class="ion-text-end" size="7"
-            >{{user?.primaryCommandInfo?.officerDepartment |
-            titlecase}}</ion-col
-          >
+          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerDepartment |
+            titlecase}}</ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Section:</ion-col>
-          <ion-col class="ion-text-end" size="7"
-            >{{user?.primaryCommandInfo?.officerSection | titlecase}}</ion-col
-          >
+          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerSection | titlecase}}</ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Role :</ion-col>
-          <ion-col class="ion-text-end" size="7"
-            >{{user?.access?.role}}</ion-col
-          >
+          <ion-col class="ion-text-end" size="7">{{user?.access?.role}}</ion-col>
         </ion-row>
       </ion-card-content>
     </ion-card>
@@ -85,12 +84,7 @@
       <ion-card-header class="custom-header pb-0">
         <ion-icon [name]="p.icon"></ion-icon>
       </ion-card-header>
-      <ion-item
-        lines="none"
-        [routerLink]="p.url"
-        routerDirection="root"
-        routerLinkActive="active-item"
-      >
+      <ion-item lines="none" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item">
         <ion-label class="custom-header"> {{ p.title }} </ion-label>
       </ion-item>
     </ion-card>

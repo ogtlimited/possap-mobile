@@ -57,24 +57,33 @@ export class LoginPage implements OnInit {
 
     this.authService.login(val).subscribe(
       async (res) => {
-        this.showOTPPage = true;
+        console.log(res);
+        if (res?.Error) {
+          this.showAlert(res);
+        } else {
+          console.log('login success');
+          this.router.navigate(['app/tabs/home']);
+        }
+        // this.showOTPPage = true;
         await loading.dismiss();
-        // this.router.navigate(['menu/home']);
       },
       async (res) => {
         console.log(res);
         await loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Login failed',
-          message: res.error.error,
-          buttons: ['OK'],
-        });
-
-        await alert.present();
+        this.showAlert(res);
       }
     );
   }
+  async showAlert(res) {
+    console.log(res);
+    const alert = await this.alertController.create({
+      header: 'Login failed',
+      message: res?.error?.ResponseObject || res?.ResponseObject,
+      buttons: ['OK'],
+    });
 
+    await alert.present();
+  }
   async validateOTP(val) {
     const loading = await this.loadingController.create();
     await loading.present();

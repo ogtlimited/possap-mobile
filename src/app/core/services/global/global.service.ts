@@ -1,7 +1,7 @@
 import { TranslateConfigService } from './../../../translate-config.service';
 import { RequestService } from './../../request/request.service';
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GoogleMapUrl, serverBaseUrl } from './../../config/endpoints';
+import { GoogleMapUrl, serverBaseUrl, serviceEndpoint } from './../../config/endpoints';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -109,5 +109,49 @@ export class GlobalService {
     });
 
     await alert.present();
+  }
+
+  getEndpoint(name) {
+    if (name === 'POLICE EXTRACT') {
+      return serviceEndpoint.approveExtract;
+    } else if (name === 'POLICE CHARACTER CERTIFICATE') {
+      return serviceEndpoint.approveExtract;
+    }
+  }
+
+  computeCBSBody(
+    method,
+    url,
+    headers,
+    hashField = '',
+    hashmessage = '',
+    body = null
+  ) {
+    return {
+
+      requestObject: {
+        body,
+        headers: {
+          ...headers,
+        },
+        helpers: {
+          method,
+          url,
+          hashField,
+          hashmessage,
+          clientSecret: environment.clientSecret,
+        },
+      }
+    };
+  }
+  startEnd() {
+    const From = new Date(new Date().getFullYear(), 0, 1).toLocaleDateString(
+      'en-GB'
+    );
+    const End = new Date().toLocaleDateString('en-GB');
+    return {
+      From,
+      End,
+    };
   }
 }

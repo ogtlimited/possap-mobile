@@ -1,4 +1,10 @@
-import { requestEndpoints, baseEndpoints } from './../config/endpoints';
+/* eslint-disable @typescript-eslint/naming-convention */
+import {
+  requestEndpoints,
+  baseEndpoints,
+  serviceEndpoint,
+  middlewareEndpoints,
+} from './../config/endpoints';
 import { Injectable } from '@angular/core';
 import { RequestService } from '../request/request.service';
 import { GlobalService } from './global/global.service';
@@ -12,13 +18,18 @@ export class PossapServiceService {
   getAllServices() {
     return this.reqS.get('');
   }
-  getRequest(id) {
-    return this.reqS.get(baseEndpoints.possapSserviceFields + '/' + id);
+  getRequestDetails(id) {
+    return this.reqS.get(requestEndpoints.requestDetails + '/' + id);
   }
-  getOfficerRequests(officerId) {
-    return this.reqS.get(requestEndpoints.officerRequest + '/' + officerId);
+  getOfficerRequests(body) {
+    return this.reqS.post(middlewareEndpoints.fetchRequest, body);
   }
-  approveRequests(officerId, data) {
-    return this.reqS.put(requestEndpoints.approveReject + '/' + officerId, data);
+  approveRequests(endpoint, officerId, data) {
+    return this.reqS.post(endpoint + '/' + officerId, data);
   }
+  rejectRequests(endpoint, officerId, data) {
+    return this.reqS.post(endpoint + '/' + officerId, data);
+  }
+
+
 }

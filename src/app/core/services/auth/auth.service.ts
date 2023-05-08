@@ -8,11 +8,12 @@ import {
 import { RequestService } from './../../request/request.service';
 import { Injectable } from '@angular/core';
 import { map, tap, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { Preferences as Storage } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpHeaders } from '@angular/common/http';
 
 const TOKEN_KEY = 'my-token';
 const CURRENT_USER = 'current-user';
@@ -35,15 +36,15 @@ export class AuthService {
   }
 
   async loadToken() {
-    const token = await Storage.get({ key: TOKEN_KEY });
+    const user = await Storage.get({ key: CURRENT_USER });
     const jwtHelper = new JwtHelperService();
 
-    if (token && token.value) {
-      this.token = token.value;
-      const expirationDate = jwtHelper.getTokenExpirationDate(this.token);
-      console.log(expirationDate instanceof Date, 'expiration Date');
-      const isExpired = expirationDate < new Date();
-      this.isAuthenticated.next(!isExpired);
+    if (user && user.value) {
+      // this.token = token.value;
+      // const expirationDate = jwtHelper.getTokenExpirationDate(this.token);
+      // console.log(expirationDate instanceof Date, 'expiration Date');
+      // const isExpired = expirationDate < new Date();
+      this.isAuthenticated.next(true);
     } else {
       this.isAuthenticated.next(false);
     }
@@ -53,17 +54,34 @@ export class AuthService {
     return token && token.value ? token.value : null;
   }
 
-  login(credentials: { apNumber }): Observable<any> {
-    return this.reqS.post(officerEndpoints.login, credentials).pipe(
+  login(credentials): Observable<any> {
+    const body = new URLSearchParams();
+    body.set('UserName', credentials.UserName);
+    body.set('Password', credentials.Password);
+
+    const options = {
+      headers: new HttpHeaders().set(
+        'Content-Type',
+        'application/x-www-form-urlencoded'
+      ),
+    };
+    return this.reqS.post(authEndpoints.login, body, options).pipe(
       switchMap((res: any) => {
         console.log(res);
-        this.currentUser$.next(res.data);
-        return from(
-          Storage.set({ key: CURRENT_USER, value: JSON.stringify(res.data) })
-        );
-      }),
-      tap((_) => {
-        this.isAuthenticated.next(false);
+        // this.currentUser$.next(res.data);
+        if (res.Error) {
+          this.isAuthenticated.next(false);
+          return of(res);
+
+        } else {
+          this.isAuthenticated.next(true);
+          return from(
+            Storage.set({
+              key: CURRENT_USER,
+              value: JSON.stringify(res.ResponseObject),
+            })
+          );
+        }
       })
     );
   }

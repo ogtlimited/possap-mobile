@@ -36,7 +36,7 @@ export class RequestDetailsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((param) => {
       const id = param.get('id');
-      this.possapS.getRequest(id).subscribe((res: any) => {
+      this.possapS.getRequestDetails(id).subscribe((res: any) => {
         console.log(res.data);
         this.request = res.data;
       });
@@ -67,7 +67,8 @@ export class RequestDetailsComponent implements OnInit {
               timeOfApproval: date,
               comment: data.message,
             };
-            this.possapS.approveRequests(id, payload).subscribe(
+            const endpoint = this.globalS.getEndpoint(this.request.name);
+            this.possapS.approveRequests(endpoint, id, payload).subscribe(
               (res: any) => {
                 console.log(res);
                 const message = res?.data?.message;
@@ -97,7 +98,6 @@ export class RequestDetailsComponent implements OnInit {
 
     await alert.present();
   }
-
 
   ionViewDidLeave() {
     this.globalS.showTabs$.next(true);

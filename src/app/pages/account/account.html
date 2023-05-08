@@ -23,12 +23,12 @@
           </label>
         </ion-avatar>
         <div class="flex user-label flex-column">
-          <ion-text class="pb-5">{{user?.fullName}}</ion-text>
+          <ion-text class="pb-5">{{user?.Fullname}}</ion-text>
           <ion-text class="pb-5">
-            <ion-text>{{user?.phoneNumber}}</ion-text>
+            <ion-text>{{user?.PhoneNumber}}</ion-text>
           </ion-text>
           <ion-text class="pb-5">
-            <ion-text>{{user?.email}}</ion-text>
+            <ion-text>{{user?.Email}}</ion-text>
           </ion-text>
         </div>
       </div>
@@ -49,33 +49,33 @@
             <ion-label color="dark">
 
 
-              AP Number :
+              User Name :
 
             </ion-label>
           </ion-col>
-          <ion-col class="ion-text-end" size="7">{{user?.apNumber}}</ion-col>
+          <ion-col class="ion-text-start" size="7">{{user?.Username}}</ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Formation :</ion-col>
-          <ion-col class="ion-text-end" size="7">
+          <ion-col class="ion-text-start" size="7">
             <ion-text>
-              {{user?.primaryCommandInfo?.officerFormation | titlecase}}
+              {{user?.OfficerFormation | titlecase}}
 
             </ion-text>
           </ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Department :</ion-col>
-          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerDepartment |
+          <ion-col class="ion-text-start" size="7">{{user?.OfficerDepartment |
             titlecase}}</ion-col>
         </ion-row>
         <ion-row class="pb-12">
           <ion-col size="5">Section:</ion-col>
-          <ion-col class="ion-text-end" size="7">{{user?.primaryCommandInfo?.officerSection | titlecase}}</ion-col>
+          <ion-col class="ion-text-start" size="7">{{user?.OfficerSection | titlecase}}</ion-col>
         </ion-row>
         <ion-row class="pb-12">
-          <ion-col size="5">Role :</ion-col>
-          <ion-col class="ion-text-end" size="7">{{user?.access?.role}}</ion-col>
+          <ion-col size="5">Sub Section :</ion-col>
+          <ion-col class="ion-text-start" size="7">{{user?.OfficerSubSection}}</ion-col>
         </ion-row>
       </ion-card-content>
     </ion-card>

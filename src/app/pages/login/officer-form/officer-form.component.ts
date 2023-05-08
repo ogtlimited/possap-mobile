@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -26,11 +27,15 @@ export class OfficerFormComponent implements OnInit {
 
   ngOnInit() {
     this.officerForm = this.fb.group({
-      apNumber: ['', [Validators.required]],
+      UserName: ['', [Validators.required]],
+      Password: ['', [Validators.required]],
     });
   }
-  get apNumber() {
-    return this.officerForm.get('apNumber');
+  get UserName() {
+    return this.officerForm.get('UserName');
+  }
+  get Password() {
+    return this.officerForm.get('Password');
   }
 
   async login() {

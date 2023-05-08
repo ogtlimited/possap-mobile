@@ -1,4 +1,8 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,8 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { languageLoader } from './LanguageLoader';
 import { LocalStorageService } from './core/services/storage/LocalStorage.service';
-
-
+import { RequestInterceptor } from './core/interceptors/RequestInterceptor';
 
 @NgModule({
   imports: [
@@ -22,7 +25,7 @@ import { LocalStorageService } from './core/services/storage/LocalStorage.servic
     HttpClientModule,
     FormsModule,
     IonicModule.forRoot({
-      mode: 'ios'
+      mode: 'ios',
     }),
     TranslateModule.forRoot({
       loader: {
@@ -33,7 +36,11 @@ import { LocalStorageService } from './core/services/storage/LocalStorage.servic
     }),
   ],
   declarations: [AppComponent],
-  providers: [LocalStorageService, { provide: 'Window', useValue: window }],
-  bootstrap: [AppComponent]
+  providers: [
+    LocalStorageService,
+    { provide: 'Window', useValue: window },
+    // { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

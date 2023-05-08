@@ -4,7 +4,7 @@
     <img src="assets/custom-icons/possap-icon.svg" alt="Ionic logo" />
     <!-- <ion-label color="primary" class="pos-abs" slot="end">Sign up</ion-label> -->
   </div>
-  <ion-row *ngIf="!showOTPPage" class="px-16 mb-20">
+  <ion-row  class="px-16 mb-20">
     <ion-col>
       <h4 class="signin">Sign in to POSSAP</h4>
       <ion-label class="enterDetails"> Please log in with your AP Number</ion-label>
@@ -12,11 +12,11 @@
   </ion-row>
 
 
-  <div *ngIf="!showOTPPage" class="container">
+  <!-- <div *ngIf="!showOTPPage" class="container"> -->
     <app-officer-form (emitForm)="login($event)"></app-officer-form>
-  </div>
-  <div *ngIf="showOTPPage" class="container">
+  <!-- </div> -->
+  <!-- <div *ngIf="showOTPPage" class="container">
     <app-passcode (doPassForm)="validateOTP($event)"></app-passcode>
-  </div>
+  </div> -->
 
 </ion-content>

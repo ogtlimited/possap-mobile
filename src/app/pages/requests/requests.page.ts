@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PossapServiceService } from './../../core/services/possap-service.service';
 import { GlobalService } from './../../core/services/global/global.service';
@@ -6,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { AlertController, ModalController } from '@ionic/angular';
 import { SelectModalComponent } from 'src/app/components/select-modal/select-modal.component';
+import { middlewareEndpoints, requestEndpoints } from 'src/app/core/config/endpoints';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-requests',
@@ -48,7 +51,7 @@ export class RequestsPage implements OnInit {
     this.authS.currentUser$.subscribe((val) => {
       console.log(val);
       this.officer = val;
-      this.getOfficerRequest(val.id);
+      this.getOfficerRequest(val.UserPartId);
     });
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers.map((e) => ({
@@ -58,25 +61,44 @@ export class RequestsPage implements OnInit {
     });
   }
   getOfficerRequest(officerId) {
-    this.possapS.getOfficerRequests(officerId).subscribe((req: any) => {
-      this.data = req.data.map((e) => ({
-        ...e,
-        bg: this.getRandomColor(),
-      }));
-      this.filteredData = this.data;
-      this.pending = req.data
-        .filter((e) => e.status === 'pending')
-        .map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
-      this.inProgress = req.data.filter((e) => e.status === 'in progress');
-      this.completed = req.data
-        .filter((e) => e.status === 'approved')
-        .map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+    const headerObj = {
+      CLIENTID: environment.clientId,
+      // PAYERID: 'BC-0001',
+      USERID: officerId,
+    };
+    const hashString = `${officerId}${headerObj.CLIENTID}`;
+    const url = requestEndpoints.allRequest;
+    const obj = this.globalS.startEnd();
+    console.log(url);
+    const body = this.globalS.computeCBSBody(
+      'POST',
+      url,
+      headerObj,
+      'SIGNATURE',
+      hashString,
+      obj
+    );
+    console.log(body);
+    this.possapS.getOfficerRequests(body).subscribe((req: any) => {
+      console.log(req);
+      // this.data = req.data.map((e) => ({
+      //   ...e,
+      //   bg: this.getRandomColor(),
+      // }));
+      // this.filteredData = this.data;
+      // this.pending = req.data
+      //   .filter((e) => e.status === 'pending')
+      //   .map((e) => ({
+      //     ...e,
+      //     bg: this.getRandomColor(),
+      //   }));
+      // this.inProgress = req.data.filter((e) => e.status === 'in progress');
+      // this.completed = req.data
+      //   .filter((e) => e.status === 'approved')
+      //   .map((e) => ({
+      //     ...e,
+      //     bg: this.getRandomColor(),
+      //   }));
     });
   }
 
@@ -121,12 +143,15 @@ export class RequestsPage implements OnInit {
               timeOfApproval: date,
               comment: data.message,
             };
-            this.possapS.approveRequests(id, payload).subscribe((res: any) => {
-              console.log(res);
-              const message = res?.data?.message;
-              this.getOfficerRequest(this.officer.id);
-              this.globalS.presentModal(message);
-            });
+            // const endpoint = this.globalS.getEndpoint(this.request.name);
+            this.possapS
+              .approveRequests('', id, payload)
+              .subscribe((res: any) => {
+                console.log(res);
+                const message = res?.data?.message;
+                this.getOfficerRequest(this.officer.id);
+                this.globalS.presentModal(message);
+              });
             this.handlerMessage = `${val} submitted`;
             console.log(payload);
           },

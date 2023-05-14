@@ -1,3 +1,4 @@
+import { PossapServiceService } from './../possap-service.service';
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
   authEndpoints,
@@ -14,9 +15,12 @@ import { Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
+import { IOfficerDetails } from '../../models/login.interface';
 
 const TOKEN_KEY = 'my-token';
 const CURRENT_USER = 'current-user';
+const OFFICER_DETAILS = 'officer_details';
 @Injectable({
   providedIn: 'root',
 })
@@ -25,18 +29,28 @@ export class AuthService {
     null
   );
   currentUser$: BehaviorSubject<any> = new BehaviorSubject<boolean>(null);
+  currentOfficerDetails$: BehaviorSubject<IOfficerDetails> =
+    new BehaviorSubject<IOfficerDetails>(null);
   token = '';
 
-  constructor(private reqS: RequestService, private globalS: GlobalService) {
+  constructor(
+    private reqS: RequestService,
+    private globalS: GlobalService,
+    private possapS: PossapServiceService
+  ) {
     this.loadToken();
     this.currentUser().subscribe((e) => {
       console.log(e);
       this.currentUser$.next(JSON.parse(e.value));
     });
+    this.currentOfficerDetails().subscribe((e) => {
+      const officer: IOfficerDetails = JSON.parse(e.value);
+      this.currentOfficerDetails$.next(officer);
+    });
   }
 
   async loadToken() {
-    const user = await Storage.get({ key: CURRENT_USER });
+    const user = await Storage.get({ key: OFFICER_DETAILS });
     const jwtHelper = new JwtHelperService();
 
     if (user && user.value) {
@@ -72,9 +86,8 @@ export class AuthService {
         if (res.Error) {
           this.isAuthenticated.next(false);
           return of(res);
-
         } else {
-          this.isAuthenticated.next(true);
+          // this.isAuthenticated.next(true);
           return from(
             Storage.set({
               key: CURRENT_USER,
@@ -160,11 +173,49 @@ export class AuthService {
   currentUser(): Observable<any> {
     return from(Storage.get({ key: CURRENT_USER }));
   }
+  currentOfficerDetails(): Observable<any> {
+    return from(Storage.get({ key: OFFICER_DETAILS }));
+  }
 
   logout(): Promise<void> {
     this.isAuthenticated.next(false);
     Storage.remove({ key: CURRENT_USER });
-    Storage.remove({ key: 'my_cart' });
+    Storage.remove({ key: OFFICER_DETAILS });
     return Storage.remove({ key: TOKEN_KEY });
+  }
+
+  async getOfficerLog(apNumber) {
+    const headerObj = {
+      CLIENTID: environment.clientId,
+    };
+    const hashString = `${apNumber}${headerObj.CLIENTID}`;
+    const endpoint = miscEndpoint.policeOfficerDetails + '/' + apNumber;
+    const body = this.globalS.computeCBSBody(
+      'get',
+      endpoint,
+      headerObj,
+      'SIGNATURE',
+      hashString,
+      null
+    );
+    console.log(body);
+    return this.possapS.postRequests(body).pipe(
+      switchMap((res: any) => {
+        console.log(res);
+        // this.currentUser$.next(res.data);
+        if (res.data.Error) {
+          this.isAuthenticated.next(false);
+          return of(res);
+        } else {
+          this.isAuthenticated.next(true);
+          return from(
+            Storage.set({
+              key: OFFICER_DETAILS,
+              value: JSON.stringify(res.data.ResponseObject),
+            })
+          );
+        }
+      })
+    );
   }
 }

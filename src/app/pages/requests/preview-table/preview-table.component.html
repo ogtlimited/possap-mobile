@@ -1,7 +1,8 @@
-<ion-grid class="ion-margin">
+<ion-grid *ngIf="data.ServiceName === 'POLICE EXTRACT'" class="ion-margin">
 
   <ion-row *ngFor="let k of keys; index as i">
     <ion-col>{{ k | titlecase }}</ion-col>
     <ion-col>{{ values[i] }}</ion-col>
   </ion-row>
+ 
 </ion-grid>

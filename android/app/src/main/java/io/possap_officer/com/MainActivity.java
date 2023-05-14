@@ -1,0 +1,5 @@
+package io.possap_officer.com;
+
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {}

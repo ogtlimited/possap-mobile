@@ -62,9 +62,9 @@ export class LoginPage implements OnInit {
           this.showAlert(res);
         } else {
           console.log('login success');
-          this.router.navigate(['app/tabs/home']);
+          // this.router.navigate(['app/tabs/home']);
+          this.showOTPPage = true;
         }
-        // this.showOTPPage = true;
         await loading.dismiss();
       },
       async (res) => {
@@ -85,15 +85,16 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
   async validateOTP(val) {
+    console.log(val);
     const loading = await this.loadingController.create();
     await loading.present();
-    const obj = {
-      code: val.value.passcode,
-      phone: this.officer.phoneNumber,
-      apNumber: this.officer.apNumber,
-    };
-    console.log(obj);
-    this.authService.validateOTP(obj).subscribe(
+    // const obj = {
+    //   code: val.value.passcode,
+    //   phone: this.officer.phoneNumber,
+    // };
+    const apNumber = 'ap'+  val.value.passcode;
+    console.log(apNumber);
+    (await this.authService.getOfficerLog(apNumber)).subscribe(
       async (res) => {
         this.showOTPPage = false;
         console.log(res);

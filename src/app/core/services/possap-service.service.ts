@@ -8,6 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { RequestService } from '../request/request.service';
 import { GlobalService } from './global/global.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +19,10 @@ export class PossapServiceService {
   getAllServices() {
     return this.reqS.get('');
   }
-  getRequestDetails(id) {
-    return this.reqS.get(requestEndpoints.requestDetails + '/' + id);
+  getRequestDetails(id, obj) {
+    return this.reqS.post(requestEndpoints.requestDetails, obj);
   }
-  getOfficerRequests(body) {
+  postRequests(body): Observable<any> {
     return this.reqS.post(middlewareEndpoints.fetchRequest, body);
   }
   approveRequests(endpoint, officerId, data) {

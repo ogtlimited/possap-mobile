@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export const middleWareBaseUrl = 'http://localhost:3000/api/v1';
-export const serverBaseUrl = 'http://pss.cbs/api/v1/pss';
-// export const serverBaseUrl = 'https://test.possap.ng/api/v1/pss';
+export const middleWareBaseUrl = 'https://possap-api.ogtlprojects.com/api/v1';
+// export const middleWareBaseUrl = 'http://localhost:3000/api/v1';
+// export const serverBaseUrl = 'http://pss.cbs/api/v1/pss';
+export const serverBaseUrl = 'https://test.possap.ng/api/v1/pss';
 // export const serverBaseUrl = 'https://possap.herokuapp.com/api/v1';
 
 export const GoogleMapUrl = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=';
@@ -11,7 +12,7 @@ export const baseEndpoints = {
     upload: serverBaseUrl + '/upload',
     nin: serverBaseUrl + '/helper/verifyNIN',
     extractApproval: serverBaseUrl + '/extract-approval',
-
+    utility: serverBaseUrl + '/utility',
     apNumber: serverBaseUrl + '/helper/verifyAPNumber',
     services: serverBaseUrl + '/possap-services',
     possapSserviceFields: serverBaseUrl + '/possap-service-fields'
@@ -45,10 +46,11 @@ export const authEndpoints = {
 
 export const serviceEndpoint = {
     getExtracts: baseEndpoints.extractApproval + '/request-approval',
-    approveExtract: baseEndpoints.extractApproval + '/approve-request',
-    rejectExtract: baseEndpoints.extractApproval + '/reject-request',
+    approveExtract: baseEndpoints.extractApproval + '/approve',
+    rejectExtract: baseEndpoints.extractApproval + '/reject',
 };
 export const miscEndpoint = {
+    policeOfficerDetails: baseEndpoints.utility + '/get-police-officer-details',
     mediaUpload: baseEndpoints.upload + '/uploadMedia',
     policeData: baseEndpoints + '/police-data',
     tacticalPath: baseEndpoints + '/tactical-squad',

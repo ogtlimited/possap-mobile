@@ -1,10 +1,20 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { AuthService } from './../../../core/services/auth/auth.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { GlobalService } from './../../../core/services/global/global.service';
 import { Component, OnInit } from '@angular/core';
 import { PossapServiceService } from './../../../core/services/possap-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { requestEndpoints } from 'src/app/core/config/endpoints';
+import { environment } from 'src/environments/environment.prod';
+import { IOfficerRequestDetails } from 'src/app/core/models/officerReqDetails.interface';
+import { ExtractApproversService } from 'src/app/core/services/extract-approvers.service';
+import { IOfficerDetails } from 'src/app/core/models/login.interface';
 
 @Component({
   selector: 'app-request-details',
@@ -16,88 +26,91 @@ export class RequestDetailsComponent implements OnInit {
   request: any = null;
   handlerMessage: string;
   officer: any;
+  officerDetails: IOfficerDetails;
+  hashString = '';
+  headerObj: {
+    CLIENTID: string;
+    // PAYERID: 'BC-0001',
+    USERID: any;
+  };
   constructor(
     public activatedRoute: ActivatedRoute,
     public router: Router,
     public alertController: AlertController,
     public modalController: ModalController,
+    public loadingController: LoadingController,
     private possapS: PossapServiceService,
     private globalS: GlobalService,
-    private authS: AuthService
+    private authS: AuthService,
+    private extractS: ExtractApproversService
   ) {}
 
-  ionViewDidEnter() {
+  async ngOnInit() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+    this.authS.currentOfficerDetails$.subscribe(
+      (e) => (this.officerDetails = e)
+    );
     this.authS.currentUser$.subscribe((val) => {
       console.log(val);
       this.officer = val;
-    });
-  }
-
-  ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((param) => {
-      const id = param.get('id');
-      this.possapS.getRequestDetails(id).subscribe((res: any) => {
-        console.log(res.data);
-        this.request = res.data;
+      this.activatedRoute.paramMap.subscribe((param) => {
+        const id = param.get('id');
+        //requestEndpoints.requestDetails
+        this.headerObj = {
+          CLIENTID: environment.clientId,
+          // PAYERID: 'BC-0001',
+          USERID: this.officer.UserPartId,
+        };
+        this.hashString = `${this.headerObj.USERID}${id}${this.headerObj.CLIENTID}`;
+        const url = requestEndpoints.requestDetails + '/' + id;
+        const obj = this.globalS.startEnd();
+        console.log(url);
+        const body = this.globalS.computeCBSBody(
+          'get',
+          url,
+          this.headerObj,
+          'SIGNATURE',
+          this.hashString,
+          null
+        );
+        console.log(body);
+        this.possapS
+          .postRequests(body)
+          .subscribe((res: IOfficerRequestDetails) => {
+            console.log(res.data.ResponseObject);
+            loading.dismiss();
+            this.request = res.data.ResponseObject;
+          });
+        console.log(param.get('id'));
       });
-      console.log(param.get('id'));
     });
-    console.log(window.history.state);
   }
 
-  async presentAlert(val, id) {
-    const alert = await this.alertController.create({
-      header: val,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            this.handlerMessage = `${val} canceled`;
-          },
-        },
-        {
-          text: 'Submit',
-          role: 'confirm',
-          handler: (data) => {
-            const date = new Date();
-            const payload = {
-              officerId: this.officer.id,
-              status: `${val}`,
-              timeOfApproval: date,
-              comment: data.message,
-            };
-            const endpoint = this.globalS.getEndpoint(this.request.name);
-            this.possapS.approveRequests(endpoint, id, payload).subscribe(
-              (res: any) => {
-                console.log(res);
-                const message = res?.data?.message;
-                this.globalS.presentModal(message);
-              },
-              (error) => {
-                this.alertController.create({
-                  header: 'error',
-                  message: 'Something went wrong',
-                  buttons: ['OK'],
-                });
-              }
-            );
-            this.handlerMessage = `${val} submitted`;
-            console.log(payload);
-          },
-        },
-      ],
-      inputs: [
-        {
-          type: 'textarea',
-          name: 'message',
-          placeholder: 'message',
-        },
-      ],
-    });
-
-    await alert.present();
+  async presentAlert(val, request) {
+    if (request?.ServiceName === 'POLICE EXTRACT') {
+      if (val === 'Approve' && request.IsLastApprover === false) {
+        this.extractS.extractFirstApprover(
+          this.officer.UserPartId,
+          request,
+          this.hashString,
+          this.headerObj
+        );
+      } else if (val === 'Approve' && request.IsLastApprover === true) {
+        console.log('last approver', this.officerDetails);
+        this.extractS.extractLastApprover(
+          this.officer.UserPartId,
+          this.officerDetails.PoliceOfficerLogId,
+          request,
+          this.hashString,
+          this.headerObj
+        );
+      } else {
+        console.log('object');
+      }
+    }
   }
+
 
   ionViewDidLeave() {
     this.globalS.showTabs$.next(true);

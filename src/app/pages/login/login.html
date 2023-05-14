@@ -5,18 +5,22 @@
     <!-- <ion-label color="primary" class="pos-abs" slot="end">Sign up</ion-label> -->
   </div>
   <ion-row  class="px-16 mb-20">
-    <ion-col>
+    <ion-col *ngIf="!showOTPPage">
       <h4 class="signin">Sign in to POSSAP</h4>
-      <ion-label class="enterDetails"> Please log in with your AP Number</ion-label>
+      <ion-label class="enterDetails"> Please log in with your User name</ion-label>
+    </ion-col>
+    <ion-col *ngIf="showOTPPage">
+      <h4 class="signin">Verify Officer Details</h4>
+      <ion-label class="enterDetails"> Please enter your AP Number</ion-label>
     </ion-col>
   </ion-row>
 
 
-  <!-- <div *ngIf="!showOTPPage" class="container"> -->
+  <div *ngIf="!showOTPPage" class="container">
     <app-officer-form (emitForm)="login($event)"></app-officer-form>
-  <!-- </div> -->
-  <!-- <div *ngIf="showOTPPage" class="container">
+  </div>
+  <div *ngIf="showOTPPage" class="container">
     <app-passcode (doPassForm)="validateOTP($event)"></app-passcode>
-  </div> -->
+  </div>
 
 </ion-content>

@@ -7,8 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { AlertController, ModalController } from '@ionic/angular';
 import { SelectModalComponent } from 'src/app/components/select-modal/select-modal.component';
-import { middlewareEndpoints, requestEndpoints } from 'src/app/core/config/endpoints';
+import {
+  middlewareEndpoints,
+  requestEndpoints,
+} from 'src/app/core/config/endpoints';
 import { environment } from 'src/environments/environment.prod';
+import { IOfficerRequest } from 'src/app/core/models/officerRequest.interface';
+import { ExtractApproversService } from 'src/app/core/services/extract-approvers.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-requests',
@@ -43,8 +49,10 @@ export class RequestsPage implements OnInit {
     private globalS: GlobalService,
     private alertController: AlertController,
     private possapS: PossapServiceService,
+    private extractS: ExtractApproversService,
     private modal: ModalController,
-    private authS: AuthService
+    private authS: AuthService,
+    private router: Router
   ) {}
 
   ionViewDidEnter() {
@@ -52,12 +60,6 @@ export class RequestsPage implements OnInit {
       console.log(val);
       this.officer = val;
       this.getOfficerRequest(val.UserPartId);
-    });
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
-      this.speakers = speakers.map((e) => ({
-        ...e,
-        bg: this.getRandomColor(),
-      }));
     });
   }
   getOfficerRequest(officerId) {
@@ -71,7 +73,7 @@ export class RequestsPage implements OnInit {
     const obj = this.globalS.startEnd();
     console.log(url);
     const body = this.globalS.computeCBSBody(
-      'POST',
+      'get',
       url,
       headerObj,
       'SIGNATURE',
@@ -79,19 +81,20 @@ export class RequestsPage implements OnInit {
       obj
     );
     console.log(body);
-    this.possapS.getOfficerRequests(body).subscribe((req: any) => {
-      console.log(req);
-      // this.data = req.data.map((e) => ({
-      //   ...e,
-      //   bg: this.getRandomColor(),
-      // }));
-      // this.filteredData = this.data;
-      // this.pending = req.data
-      //   .filter((e) => e.status === 'pending')
-      //   .map((e) => ({
-      //     ...e,
-      //     bg: this.getRandomColor(),
-      //   }));
+    this.possapS.postRequests(body).subscribe((req: IOfficerRequest) => {
+      console.log(req.data.ResponseObject.Requests);
+      this.data = req.data.ResponseObject.Requests.map((e) => ({
+        ...e,
+        bg: this.getRandomColor(),
+      }));
+      this.filteredData = this.data;
+      this.pending = req.data.ResponseObject.Requests.filter(
+        (e) => e.Status === 4
+      ).map((e) => ({
+        ...e,
+        bg: this.getRandomColor(),
+      }));
+      console.log(this.pending);
       // this.inProgress = req.data.filter((e) => e.status === 'in progress');
       // this.completed = req.data
       //   .filter((e) => e.status === 'approved')
@@ -103,6 +106,7 @@ export class RequestsPage implements OnInit {
   }
 
   async ngOnInit() {
+
     this.languaageObj = await this.globalS.getTranslateObject();
     console.log(this.languaageObj);
   }
@@ -191,5 +195,9 @@ export class RequestsPage implements OnInit {
   clearFilter() {
     this.selectedFilter = null;
     this.filteredData = this.data;
+  }
+
+  navigate(request, id){
+    this.router.navigate(['/app/tabs/requests/' + id]);
   }
 }

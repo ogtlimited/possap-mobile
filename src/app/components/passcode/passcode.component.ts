@@ -40,7 +40,7 @@ export class PasscodeComponent implements OnInit {
     if (this.digitsLength > 6) {
       const value = this.passCode.value ? this.passCode.value : '';
       try {
-        this.passCode.setValue(value.substring(0, 6), { emitEvent: false });
+        this.passCode.setValue(value.substring(0, 6), { emitEvent: true });
       } catch (e) {}
     }
   }

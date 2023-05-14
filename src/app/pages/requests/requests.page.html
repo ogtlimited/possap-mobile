@@ -128,18 +128,18 @@
     >
       <ion-card-content>
         <ion-item
-          [routerLink]="['/app/tabs/requests' , item.id]"
+          [routerLink]="['/app/tabs/requests' , item.Id]"
           [state]="item"
           lines="none"
           button
         >
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
-            {{item.service.slug}}
+            {{item.ServiceName | abbrev}}
           </div>
           <ion-label class="ion-text-wrap">
-            <b>{{item.service.name}}</b>
-            <h6>{{item.location}}</h6>
-            <p>Date: {{item?.createdAt | date}}</p>
+            <b>{{item?.ServiceName}}</b>
+            <h6>{{item?.location}}</h6>
+            <p>Date: {{item?.RequestDate | date}}</p>
           </ion-label>
         </ion-item>
       </ion-card-content>

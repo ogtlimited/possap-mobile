@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "latest-templat",
+	"appId": "io.possap_officer.com",
+	"appName": "Possap Officer",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }

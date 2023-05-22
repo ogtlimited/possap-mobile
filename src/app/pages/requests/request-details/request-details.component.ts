@@ -106,7 +106,11 @@ export class RequestDetailsComponent implements OnInit {
           this.headerObj
         );
       } else {
-        console.log('object');
+        this.extractS.rejectExtrct(
+          request,
+          this.hashString,
+          this.headerObj
+        );
       }
     }
   }

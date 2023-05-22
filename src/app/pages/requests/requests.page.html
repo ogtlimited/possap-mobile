@@ -18,14 +18,11 @@
   <ion-grid fixed *ngIf="currentTab === 'inProgress'">
     <ion-row>
       <ion-col size="10">
-        <ion-searchbar
-          placeholder="search for request"
-          [(ngModel)]="searchText"
-        ></ion-searchbar>
+        <ion-searchbar placeholder="Search by File Number" [(ngModel)]="searchText"></ion-searchbar>
       </ion-col>
 
       <ion-col size="2">
-        <ion-button fill="clear" class="filter-btn mr-2" (click)="openModal()">
+        <ion-button fill="clear" class="filter-btn mr-2" id="filter-modal">
           <ion-icon name="filter"></ion-icon>
         </ion-button>
       </ion-col>
@@ -36,28 +33,13 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-slides
-        *ngIf="inProgress.length > 0 "
-        pager="false"
-        [options]="slideOpts"
-      >
-        <ion-slide
-          *ngFor="let item of inProgress | appFilter: searchText; let i = index"
-        >
+      <ion-slides *ngIf="inProgress.length > 0 " pager="false" [options]="slideOpts">
+        <ion-slide *ngFor="let item of inProgress | appFilter: searchText; let i = index">
           <ion-card>
             <ion-item lines="none">
-              <ion-icon
-                color="warning"
-                name="file-text"
-                slot="start"
-              ></ion-icon>
-              <ion-icon
-                color="primary"
-                name="eye"
-                slot="end"
-                [state]="item"
-                [routerLink]="['/app/tabs/requests' , item.id]"
-              ></ion-icon>
+              <ion-icon color="warning" name="file-text" slot="start"></ion-icon>
+              <ion-icon color="primary" name="eye" slot="end" [state]="item"
+                [routerLink]="['/app/tabs/requests' , item.id]"></ion-icon>
               <ion-label>{{item.service.slug}}</ion-label>
             </ion-item>
             <ion-card-content class="pt-0">
@@ -71,12 +53,10 @@
 
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13"
-                        >Approval Stage: {{item.approvalLevel |
+                      <span class="fs13">Approval Stage: {{item.approvalLevel |
                         nextApprovalLevel:
                         item.service.workFlow[0].WorkFlowApprovalLevel :
-                        'current'}}</span
-                      >
+                        'current'}}</span>
                     </div>
                     <div class="ion-text-left">
                       <b><small>Approved: {{item.updatedAt | date}}</small></b>
@@ -92,11 +72,9 @@
                   </div>
                   <div class="content">
                     <div class="ion-text-left">
-                      <span class="fs13"
-                        >Next Stage: {{item.approvalLevel | nextApprovalLevel:
+                      <span class="fs13">Next Stage: {{item.approvalLevel | nextApprovalLevel:
                         item.service.workFlow[0].WorkFlowApprovalLevel :
-                        'next'}}</span
-                      >
+                        'next'}}</span>
                     </div>
                     <div class="ion-text-left">
                       <b><small>Approved: pending</small></b>
@@ -105,34 +83,19 @@
                 </div>
               </div>
               <ion-row class="ion-justify-content-between">
-                <ion-button
-                  class="btn-success"
-                  [disabled]="officer.access.accessType !== 'Approver'"
-                  (click)="presentAlert('Approve', item.id)"
-                  >Approve</ion-button
-                >
-                <ion-button
-                  [disabled]="officer.access.accessType !== 'Approver'"
-                  class="btn-danger"
-                  (click)="presentAlert('Reject', item.id)"
-                  >Reject</ion-button
-                >
+                <ion-button class="btn-success" [disabled]="officer.access.accessType !== 'Approver'"
+                  (click)="presentAlert('Approve', item.id)">Approve</ion-button>
+                <ion-button [disabled]="officer.access.accessType !== 'Approver'" class="btn-danger"
+                  (click)="presentAlert('Reject', item.id)">Reject</ion-button>
               </ion-row>
             </ion-card-content>
           </ion-card>
         </ion-slide>
       </ion-slides>
     </ion-row>
-    <ion-card
-      *ngFor="let item of pending | appFilter: searchText; let i = index"
-    >
+    <ion-card *ngFor="let item of pending | appFilter: searchText; let i = index">
       <ion-card-content>
-        <ion-item
-          [routerLink]="['/app/tabs/requests' , item.Id]"
-          [state]="item"
-          lines="none"
-          button
-        >
+        <ion-item [routerLink]="['/app/tabs/requests' , item.Id]" [state]="item" lines="none" button>
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.ServiceName | abbrev}}
           </div>
@@ -147,9 +110,7 @@
   </ion-grid>
 
   <ion-grid fixed *ngIf="currentTab === 'completed'">
-    <ion-card
-      *ngFor="let item of completed | appFilter: searchText; let i = index"
-    >
+    <ion-card *ngFor="let item of completed | appFilter: searchText; let i = index">
       <ion-card-content>
         <ion-label class="pos-absolute">
           <ion-badge color="success"> Completed </ion-badge>
@@ -164,15 +125,75 @@
             <h6>{{item.location}}</h6>
             <p>Date: {{item?.createdAt | date}}</p>
           </ion-label>
-          <ion-button
-            [routerLink]="['/app/tabs/requests' , item.id]"
-            [state]="item"
-            fill="outline"
-          >
-            Open</ion-button
-          >
+          <ion-button [routerLink]="['/app/tabs/requests' , item.id]" [state]="item" fill="outline">
+            Open</ion-button>
         </ion-item>
       </ion-card-content>
     </ion-card>
+
+
   </ion-grid>
+  <ion-modal trigger="filter-modal" [initialBreakpoint]="0.95" [breakpoints]="[0, 0.25, 0.5, 0.95]"
+    handleBehavior="cycle">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <form (ngSubmit)="submitFilter()" [formGroup]="filterForm" class="ion-margin-top filter-form">
+          <ion-item mode="md">
+            <ion-label position="stacked">From</ion-label>
+            <ion-input type="date" formControlName="from" placeholder="Enter text"></ion-input>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-label position="stacked">To</ion-label>
+            <ion-input type="date" formControlName="end" placeholder="Enter text"></ion-input>
+          </ion-item>
+          <ion-item mode="md" class="select" lines="none">
+            <ion-label class="text-nowrap ">Request Type</ion-label>
+            <ion-select mode="ios" formControlName="serviceType" placeholder="Make a Selection">
+              <ion-select-option *ngFor="let i of ServiceRequestTypes" [value]="i.Id">{{i.Name | titlecase}}
+              </ion-select-option>
+
+            </ion-select>
+          </ion-item>
+          <ion-item-divider>
+
+          </ion-item-divider>
+          <ion-item mode="md">
+            <ion-label position="stacked">Request Phase</ion-label>
+            <ion-select mode="ios" formControlName="selectedRequestPhase" placeholder="Make a Selection">
+              <ion-select-option value="0">New</ion-select-option>
+              <ion-select-option value="1">On Going</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-label position="stacked">State</ion-label>
+            <ion-select mode="ios" formControlName="state" placeholder="Select State">
+              <ion-select-option *ngFor="let state of States" [value]="state.Id">{{state.Name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-label position="stacked">LGA</ion-label>
+            <ion-select mode="ios" formControlName="lga" placeholder="Select LGA">
+              <ion-select-option *ngFor="let lga of LGAs" [value]="lga.Id">{{lga.Name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-label position="stacked">Select Command</ion-label>
+            <ion-select mode="ios" formControlName="selectedCommand" placeholder="Make a Selection">
+              <ion-select-option *ngFor="let c of Commands" [value]="c.Id">{{c.Name}}</ion-select-option>
+
+            </ion-select>
+          </ion-item>
+          <ion-row class="mt-20">
+
+            <ion-col>
+              <ion-button (click)="dismiss()" fill="outline" expand="block" color="danger">Dismiss</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" type="submit" color="primary">Search</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

@@ -60,7 +60,6 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(async () => {
       if (this.platform.is('hybrid')) {
-        StatusBar.hide();
         SplashScreen.hide();
       }
       const themeMode = await Storage.get({key: 'themeMode'});

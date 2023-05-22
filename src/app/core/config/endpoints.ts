@@ -51,6 +51,7 @@ export const serviceEndpoint = {
 };
 export const miscEndpoint = {
     policeOfficerDetails: baseEndpoints.utility + '/get-police-officer-details',
+    getLgaAreaAndDivisionalCommand: baseEndpoints.utility + '/get-lga-area-and-divisional-commands',
     mediaUpload: baseEndpoints.upload + '/uploadMedia',
     policeData: baseEndpoints + '/police-data',
     tacticalPath: baseEndpoints + '/tactical-squad',

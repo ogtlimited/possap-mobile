@@ -94,3 +94,118 @@ export interface LGAs {
     UpdatedAtUtc: Date;
     State:        null;
 }
+
+
+export interface Ipcc {
+    Tribe:                                    null;
+    CountryOfOrigin:                          string;
+    StateOfOrigin:                            null;
+    DateOfBirth:                              string;
+    PlaceOfBirth:                             string;
+    DestinationCountry:                       string;
+    IsPreviouslyConvicted:                    string;
+    IsBiometricsEnrolled:                     boolean;
+    PreviousConvictionHistory:                string;
+    PassportPhotographFileName:               string;
+    InternationalPassportDataPageFileName:    string;
+    SignatureFileName:                        null;
+    PassportPhotographFilePath:               string;
+    InternationalPassportDataPageFilePath:    string;
+    SignatureFilePath:                        null;
+    PassportPhotographContentType:            string;
+    InternationalPassportDataPageContentType: string;
+    SignatureContentType:                     null;
+    PassportPhotographBlob:                   string;
+    InternationalPassportDataPageBlob:        string;
+    SignatureBlob:                            null;
+    CountryOfPassport:                        string;
+    PassportNumber:                           string;
+    PlaceOfIssuance:                          string;
+    DateOfIssuance:                           string;
+    RefNumber:                                null;
+    ShowReferenceNumberForm:                  boolean;
+    DefinitionId:                             number;
+    DefinitionLevelId:                        number;
+    Position:                                 number;
+    IsLastApprover:                           boolean;
+    SelectedCPCCR:                            null;
+    SelectedCPCCRPoliceOfficerLogId:          number;
+    RequestStages:                            RequestStage[];
+    SelectedRequestStage:                     number;
+    TaxEntity:                                ITaxEntity;
+    CategorySettings:                         null;
+    Comment:                                  null;
+    FileRefNumber:                            string;
+    Status:                                   number;
+    ServiceTypeId:                            number;
+    RequestId:                                number;
+    ViewName:                                 string;
+    ApprovalStatus:                           number;
+    ApproverId:                               number;
+    ServiceName:                              string;
+    Reason:                                   string;
+    StateName:                                string;
+    LGAName:                                  string;
+    CommandName:                              string;
+    CommandAddress:                           string;
+    ServiceVM:                                null;
+    DisplayDetailsForApproval:                boolean;
+    RequestDate:                              Date;
+    ApprovalDate:                             Date;
+    ApprovalNumber:                           null;
+    ApprovalButtonName:                       string;
+    CanInviteApplicant:                       boolean;
+    IsApplicantInvitedForCapture:             boolean;
+    ApprovalPartialName:                      string;
+    CbsUser:                                  CbsUser;
+    LocationName:                             null;
+}
+
+export interface CbsUser {
+    Name:            string;
+    Id:              number;
+    Verified:        boolean;
+    Email:           string;
+    PhoneNumber:     string;
+    IsAdministrator: boolean;
+    TaxEntity:       null;
+}
+
+export interface RequestStage {
+    Id:                    number;
+    Position:              number;
+    PositionName:          string;
+    PositionDescription:   null;
+    RequestDirectionValue: number;
+    ApprovalButtonName:    null;
+    DefinitionName:        string;
+    DefinitionId:          number;
+    ServiceId:             number;
+}
+
+export interface ITaxEntity {
+    Recipient:                    string;
+    Email:                        string;
+    Address:                      string;
+    PhoneNumber:                  string;
+    TaxPayerIdentificationNumber: null;
+    ExternalBillNumber:           null;
+    PayerId:                      null;
+    Id:                           number;
+    CashflowCustomerId:           number;
+    CategoryId:                   number;
+    CategoryName:                 null;
+    ExpertSystemId:               number;
+    SelectedState:                number;
+    SelectedStateLGA:             number;
+    RCNumber:                     null;
+    SelectedStateName:            string;
+    SelectedLGAName:              string;
+    ContactPersonName:            null;
+    ContactPersonEmail:           null;
+    ContactPersonPhoneNumber:     null;
+    IdType:                       number;
+    IdNumber:                     null;
+    DefaultLGAId:                 number;
+    Gender:                       number;
+}

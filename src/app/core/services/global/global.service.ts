@@ -1,7 +1,11 @@
 import { TranslateConfigService } from './../../../translate-config.service';
 import { RequestService } from './../../request/request.service';
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GoogleMapUrl, serverBaseUrl, serviceEndpoint } from './../../config/endpoints';
+import {
+  GoogleMapUrl,
+  serverBaseUrl,
+  serviceEndpoint,
+} from './../../config/endpoints';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -128,7 +132,6 @@ export class GlobalService {
     body = null
   ) {
     return {
-
       requestObject: {
         body,
         headers: {
@@ -141,13 +144,14 @@ export class GlobalService {
           hashmessage,
           clientSecret: environment.clientSecret,
         },
-      }
+      },
     };
   }
   startEnd() {
-    const From = new Date(new Date().getFullYear(), 0, 1).toLocaleDateString(
+    const today = new Date();
+    const From = new Date(new Date().setDate(today.getDate() - 90)).toLocaleDateString(
       'en-GB'
-    );
+      );
     const End = new Date().toLocaleDateString('en-GB');
     return {
       From,

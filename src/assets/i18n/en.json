@@ -1,5 +1,5 @@
 {
-  "appName": "POSSAP",
+  "appName": "POSSAP Officer",
   "home": "Home",
   "service": "Service",
   "about": "About",
@@ -9,7 +9,7 @@
   "salaryPayments": "Salary Payments",
   "privacyPolicy": "Privacy Policy",
   "logout": "Logout",
-  "possapServices": "POSSAP Services",
+  "possapServices": "POSSAP Officer Services",
   "incidentBooking": "Incident Booking",
   "applyForIncidentBooking": "Apply for Incident Booking",
   "vehicleServices": "Vehicle Services",
@@ -61,7 +61,7 @@
   "sendSOS": "Send SOS",
   "legal": "Legal",
   "beProcessed": "To be processed",
-  "completed": "Completed",
+  "completed": "Request Reports",
   "hello": "Hello",
   "GoodToSeeYou": "Good to see you again"
 }

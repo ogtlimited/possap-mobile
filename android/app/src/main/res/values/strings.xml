@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Possap Officer</string>
-    <string name="title_activity_main">Possap Officer</string>
+    <string name="app_name">POSSAP Officer</string>
+    <string name="title_activity_main">POSSAP Officer</string>
     <string name="package_name">io.possap_officer.com</string>
     <string name="custom_url_scheme">io.possap_officer.com</string>
 </resources>

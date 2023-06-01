@@ -6,15 +6,16 @@ import {
   ModalController,
 } from '@ionic/angular';
 import { GlobalService } from './../../../core/services/global/global.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PossapServiceService } from './../../../core/services/possap-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { requestEndpoints } from 'src/app/core/config/endpoints';
+import { DownloadUrl, requestEndpoints } from 'src/app/core/config/endpoints';
 import { environment } from 'src/environments/environment.prod';
 import { IOfficerRequestDetails } from 'src/app/core/models/officerReqDetails.interface';
 import { ExtractApproversService } from 'src/app/core/services/extract-approvers.service';
 import { IOfficerDetails } from 'src/app/core/models/login.interface';
+import { PccApproverService } from 'src/app/core/services/approvers/pcc-approver.service';
 
 @Component({
   selector: 'app-request-details',
@@ -24,6 +25,8 @@ import { IOfficerDetails } from 'src/app/core/models/login.interface';
 export class RequestDetailsComponent implements OnInit {
   state$: Observable<object>;
   request: any = null;
+  status = 'pending';
+  serviceName = '';
   handlerMessage: string;
   officer: any;
   officerDetails: IOfficerDetails;
@@ -42,7 +45,9 @@ export class RequestDetailsComponent implements OnInit {
     private possapS: PossapServiceService,
     private globalS: GlobalService,
     private authS: AuthService,
-    private extractS: ExtractApproversService
+    private extractS: ExtractApproversService,
+    private pccS: PccApproverService,
+    private cdref: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -54,7 +59,9 @@ export class RequestDetailsComponent implements OnInit {
     this.authS.currentUser$.subscribe((val) => {
       console.log(val);
       this.officer = val;
+
       this.activatedRoute.paramMap.subscribe((param) => {
+        console.log(param);
         const id = param.get('id');
         //requestEndpoints.requestDetails
         this.headerObj = {
@@ -81,6 +88,9 @@ export class RequestDetailsComponent implements OnInit {
             console.log(res.data.ResponseObject);
             loading.dismiss();
             this.request = res.data.ResponseObject;
+            this.serviceName =
+              res.data.ResponseObject.ServiceName.toLowerCase();
+            this.cdref.detectChanges();
           });
         console.log(param.get('id'));
       });
@@ -106,15 +116,42 @@ export class RequestDetailsComponent implements OnInit {
           this.headerObj
         );
       } else {
-        this.extractS.rejectExtrct(
+        this.extractS.rejectExtrct(request, this.hashString, this.headerObj);
+      }
+    } else if (request.ServiceName === 'POLICE CHARACTER CERTIFICATE') {
+      if (val === 'Approve') {
+        if (
+          request.ApprovalPartialName.includes(
+            'PSSCharacterCertificateRoutingPartial'
+          )
+        ) {
+          this.pccS.routePCC(
+            this.officer.UserPartId,
+            request,
+            this.hashString,
+            this.headerObj
+          );
+        } else {
+          this.pccS.approvePCC(
+            this.officer.UserPartId,
+            request,
+            this.hashString,
+            this.headerObj,
+            this.request.ShowReferenceNumberForm,
+            this.officerDetails.PoliceOfficerLogId
+          );
+        }
+      } else {
+        this.pccS.rejectPCC(
+          this.officer.UserPartId,
           request,
           this.hashString,
-          this.headerObj
+          this.headerObj,
+          this.officerDetails.PoliceOfficerLogId
         );
       }
     }
   }
-
 
   ionViewDidLeave() {
     this.globalS.showTabs$.next(true);
@@ -122,5 +159,36 @@ export class RequestDetailsComponent implements OnInit {
   ionViewWillEnter() {
     console.log('enter');
     this.globalS.showTabs$.next(false);
+    this.activatedRoute.queryParamMap.subscribe((query) => {
+      this.status = query.get('status');
+      console.log(status, 'status');
+    });
+  }
+
+  async downloadFile(path, fileName) {
+    const url = DownloadUrl + '/' + path;
+    console.log(url);
+    const loading = await this.loadingController.create();
+    await loading.present();
+    fetch(url, {
+      method: 'get',
+      mode: 'no-cors',
+      referrerPolicy: 'no-referrer',
+    })
+      .then((res) => res.blob())
+      .then((res) => {
+        const aElement = document.createElement('a');
+        aElement.setAttribute('download', fileName);
+        const href = URL.createObjectURL(res);
+        aElement.href = href;
+        // aElement.setAttribute('href', href);
+        aElement.setAttribute('target', '_blank');
+        aElement.click();
+        URL.revokeObjectURL(href);
+        loading.dismiss();
+      })
+      .catch((err) => {
+        loading.dismiss();
+      });
   }
 }

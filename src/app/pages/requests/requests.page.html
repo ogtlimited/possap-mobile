@@ -94,7 +94,7 @@
       </ion-slides>
     </ion-row>
     <ion-card *ngFor="let item of pending | appFilter: searchText; let i = index">
-      <ion-card-content>
+      <ion-card-content class="pl-5">
         <ion-item [routerLink]="['/app/tabs/requests' , item.Id]" [state]="item" lines="none" button>
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
             {{item.ServiceName | abbrev}}
@@ -111,22 +111,16 @@
 
   <ion-grid fixed *ngIf="currentTab === 'completed'">
     <ion-card *ngFor="let item of completed | appFilter: searchText; let i = index">
-      <ion-card-content>
-        <ion-label class="pos-absolute">
-          <ion-badge color="success"> Completed </ion-badge>
-        </ion-label>
-
-        <ion-item lines="none">
+      <ion-card-content class="pl-5">
+        <ion-item [routerLink]="['/app/tabs/requests' , item.Id]" [queryParams]="{status: 'completed'}" [state]="item" lines="none" button>
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
-            {{item.service.slug}}
+            {{item.ServiceName | abbrev}}
           </div>
           <ion-label class="ion-text-wrap">
-            <b>{{item.service.name}}</b>
-            <h6>{{item.location}}</h6>
-            <p>Date: {{item?.createdAt | date}}</p>
+            <b>{{item?.ServiceName}}</b>
+            <h6>{{item?.location}}</h6>
+            <p>Date: {{item?.RequestDate | date}}</p>
           </ion-label>
-          <ion-button [routerLink]="['/app/tabs/requests' , item.id]" [state]="item" fill="outline">
-            Open</ion-button>
         </ion-item>
       </ion-card-content>
     </ion-card>

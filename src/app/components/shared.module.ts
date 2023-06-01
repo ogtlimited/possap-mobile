@@ -11,6 +11,7 @@ import { FormComponent } from './dynamic-form/form/form.component';
 import { NextApprovalLevelPipe } from '../core/pipes/next-approval-level.pipe';
 import { SelectModalComponent } from './select-modal/select-modal.component';
 import { ApproveSuccessComponent } from '../pages/requests/request-details/approve-success/approve-success.component';
+import { PccApproversComponent } from './pcc-approvers/pcc-approvers.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +22,14 @@ import { ApproveSuccessComponent } from '../pages/requests/request-details/appro
     NextApprovalLevelPipe,
     SelectModalComponent,
     ApproveSuccessComponent,
+    PccApproversComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     IonicModule,
     TranslateModule,
+    // FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     HeaderComponent,
@@ -37,6 +39,7 @@ import { ApproveSuccessComponent } from '../pages/requests/request-details/appro
     NextApprovalLevelPipe,
     SelectModalComponent,
     ApproveSuccessComponent,
+    PccApproversComponent
   ],
 })
 export class SharedModule {}

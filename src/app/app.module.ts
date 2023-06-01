@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { languageLoader } from './LanguageLoader';
 import { LocalStorageService } from './core/services/storage/LocalStorage.service';
@@ -24,6 +24,7 @@ import { RequestInterceptor } from './core/interceptors/RequestInterceptor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot({
       mode: 'ios',
     }),

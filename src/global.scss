@@ -77,3 +77,23 @@ ion-item.forms {
   --height: 45% !important;
   --border-radius: 16px;
 }
+.pccModal{
+  --width: fit-content;
+  --min-width: 90%;
+  --height: 55% !important;
+  --border-radius: 16px;
+}
+.pccModal  ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: white;
+}
+
+.item.sc-ion-label-md-h, .item .sc-ion-label-md-h{
+  white-space: normal !important;
+}
+
+//or just 
+
+.sc-ion-label-md-h{
+  white-space: normal !important;
+}

@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.possap_officer.com',
-  appName: 'Possap Officer',
+  appName: 'POSSAP Officer',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {

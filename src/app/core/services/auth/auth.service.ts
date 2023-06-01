@@ -82,12 +82,12 @@ export class AuthService {
     return this.reqS.post(authEndpoints.login, body, options).pipe(
       switchMap((res: any) => {
         console.log(res);
-        // this.currentUser$.next(res.data);
         if (res.Error) {
           this.isAuthenticated.next(false);
           return of(res);
         } else {
           // this.isAuthenticated.next(true);
+          this.currentUser$.next(res.ResponseObject);
           return from(
             Storage.set({
               key: CURRENT_USER,
@@ -208,6 +208,7 @@ export class AuthService {
           return of(res);
         } else {
           this.isAuthenticated.next(true);
+          this.currentOfficerDetails$.next(res.data.ResponseObject);
           return from(
             Storage.set({
               key: OFFICER_DETAILS,

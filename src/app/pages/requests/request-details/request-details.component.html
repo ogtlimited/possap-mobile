@@ -19,41 +19,16 @@
     </ion-item>
   </ion-row>
   <ion-row>
-    <ion-card >
-      <ion-card-header  class="ion-text-center" lines="none" text-wrap>
-        <ion-card-subtitle>REQUEST DETAILS</ion-card-subtitle>
+    <ion-card class="w-100">
+      <ion-card-header class="ion-text-center pb-0" lines="none" text-wrap>
+        <ion-label class="s16-h22 text-weight-bold" color="dark">REQUEST DETAILS</ion-label>
       </ion-card-header>
 
       <app-preview-table [data]="request" [service]="request">
       </app-preview-table>
     </ion-card>
   </ion-row>
-  <ion-card>
-    <ion-card-content>
-      <ion-item lines="none">
-        <h6 class="h2C">APPLICANT INFORMATION</h6>
-      </ion-item>
-      <ion-item lines="none">
-        <div slot="start" class="notice">Name</div>
-        <div slot="start" class="notice">
-          {{ request?.TaxEntity?.Recipient }}
-        </div>
-      </ion-item>
-      <ion-item lines="none">
-        <div slot="start" class="notice">Phone</div>
-        <div slot="start" class="notice">
-          {{ request?.TaxEntity?.PhoneNumber }}
-        </div>
-      </ion-item>
-      <ion-item lines="none">
-        <div slot="start" class="notice">Email</div>
-        <div slot="start" class="notice">
-          {{ request?.TaxEntity?.Email }}
-        </div>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-list>
+  <ion-list *ngIf="status !== 'completed'">
     <ion-item lines="none">
       <H6 class="h2C"> Approver Log </H6>
     </ion-item>
@@ -66,7 +41,7 @@
       </ion-avatar> -->
     </ion-item>
   </ion-list>
-  <ion-list class="mt-16">
+  <ion-list class="mt-16" *ngIf="status !== 'completed'">
     <ion-item lines="none">
       <H6 class="h2C"> Approval Proccess </H6>
     </ion-item>
@@ -96,14 +71,30 @@
   </ion-list>
 </ion-content>
 <ion-footer *ngIf="request">
-  <ion-row>
+  <ion-row *ngIf="status !== 'completed'">
     <ion-col>
-      <ion-button (click)="presentAlert('Approve', request)" expand="block" color="primary" fill="solid">Approve
+      <ion-button (click)="presentAlert('Approve', request)" expand="block" color="primary" fill="solid">
+        {{request.ApprovalButtonName}}
       </ion-button>
     </ion-col>
     <ion-col>
       <ion-button (click)="presentAlert('Reject', request)" color="danger" fill="outline" expand="block">Reject
       </ion-button>
     </ion-col>
+  </ion-row>
+  <ion-row *ngIf="status === 'completed'">
+    <ion-col *ngIf="serviceName.includes('extract')">
+      <ion-button (click)="downloadFile('Extract/'+ request.FileRefNumber , 'extract')" expand="block" color="primary" fill="solid">
+        <ion-icon slot="start" name="download-cloud"></ion-icon>
+        Download Extract
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="serviceName.includes('character')">
+      <ion-button (click)="downloadFile('CharacterCertificate/'+ request.FileRefNumber, 'certificate')" expand="block" color="primary" fill="solid">
+        <ion-icon slot="start" name="download-cloud"></ion-icon>
+        Download Character Certificate
+      </ion-button>
+    </ion-col>
+
   </ion-row>
 </ion-footer>

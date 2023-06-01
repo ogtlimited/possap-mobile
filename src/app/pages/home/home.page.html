@@ -1,7 +1,7 @@
 <app-header
   [isHome]="true"
   [showProfile]="true"
-  [showSos]="true"
+  [showSos]="false"
   title="{{'home' | translate}}"
 ></app-header>
 
@@ -11,7 +11,7 @@
       <ion-label color="dark" lines="none">
         <h2>
           <ion-text color="dark" weight="bold"
-            >{{'hello' | translate}}, {{user?.fullName}}</ion-text
+            >{{'hello' | translate}}, {{user?.Fullname}}</ion-text
           >
         </h2>
         <p><ion-text color="dark">{{'GoodToSeeYou' | translate}}!</ion-text></p>
@@ -75,6 +75,6 @@
         </ion-card> -->
       </ion-col>
     </ion-row>
-    <app-my-map></app-my-map>
+    <!-- <app-my-map></app-my-map> -->
   </ion-grid>
 </ion-content>

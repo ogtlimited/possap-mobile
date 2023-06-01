@@ -24,7 +24,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
-
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.page.html',
@@ -117,16 +116,23 @@ export class RequestsPage implements OnInit {
       this.officer = val;
       const query = this.globalS.startEnd();
       this.getOfficerRequest(val.UserPartId, query);
+      this.getOfficerRequest(val.UserPartId, query, 'approved');
     });
   }
-  async getOfficerRequest(officerId, query) {
+  async getOfficerRequest(officerId, query, path = 'list') {
     const headerObj = {
       CLIENTID: environment.clientId,
       // PAYERID: 'BC-0001',
       USERID: officerId,
     };
     const hashString = `${officerId}${headerObj.CLIENTID}`;
-    const url = this.globalS.getUrlString(requestEndpoints.allRequest, query);
+    console.log(hashString);
+    const endpoint =
+      path === 'list'
+        ? requestEndpoints.allRequest
+        : requestEndpoints.requestReport;
+    const q = path === 'list' ? query : { status: 'Approved' };
+    const url = this.globalS.getUrlString(endpoint, q);
     console.log(url);
     const body = this.globalS.computeCBSBody(
       'get',
@@ -147,30 +153,32 @@ export class RequestsPage implements OnInit {
     this.possapS.postRequests(body).subscribe(
       (req: IOfficerRequest) => {
         console.log(req.data.ResponseObject);
-        const { StateLGAs, ServiceRequestTypes } = req.data.ResponseObject;
-        this.States = StateLGAs;
-        this.ServiceRequestTypes = ServiceRequestTypes;
-        console.log(this.States);
-        this.data = req.data.ResponseObject.Requests.map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
-        this.filteredData = this.data;
-        loading.dismiss();
-        this.pending = req.data.ResponseObject.Requests.filter(
-          (e) => e.Status === 4
-        ).map((e) => ({
-          ...e,
-          bg: this.getRandomColor(),
-        }));
+        if (path === 'list') {
+          const { StateLGAs, ServiceRequestTypes } = req.data.ResponseObject;
+          this.States = StateLGAs;
+          this.ServiceRequestTypes = ServiceRequestTypes;
+          console.log(this.States);
+          this.data = req.data.ResponseObject.Requests.map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
+          this.filteredData = this.data;
+          loading.dismiss();
+          this.pending = req.data.ResponseObject.Requests.filter(
+            (e) => e.Status === 4
+          ).map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
+        } else {
+          // this.inProgress = req.data.filter((e) => e.status === 'in progress');
+          this.completed = req.data.ResponseObject.Requests.map((e) => ({
+            ...e,
+            bg: this.getRandomColor(),
+          }));
+        }
+        this.dismiss();
         console.log(this.pending);
-        // this.inProgress = req.data.filter((e) => e.status === 'in progress');
-        // this.completed = req.data
-        //   .filter((e) => e.status === 'approved')
-        //   .map((e) => ({
-        //     ...e,
-        //     bg: this.getRandomColor(),
-        //   }));
       },
       async () => {
         const alert = await this.alertController.create({

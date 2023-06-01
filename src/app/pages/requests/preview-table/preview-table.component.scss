@@ -7,16 +7,17 @@ ion-grid {
     //   background-color:  #2dd36f;
     //   font-weight: bold;
     // }
+    ion-row:nth-child(even) {background-color: #eee;}
     ion-col {
-      border: 1px solid black;
+      border: 2px solid #eee;
       border-bottom: 0;
       border-right: 0;
     }
     ion-col:last-child {
-      border-right: 1px solid black;
+      // border-right: 2px solid #eee;
     }
     
     ion-row:last-child {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid #eee;
     }
 }

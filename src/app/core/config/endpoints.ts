@@ -2,6 +2,7 @@
 export const middleWareBaseUrl = 'https://possap-api.ogtlprojects.com/api/v1';
 // export const middleWareBaseUrl = 'http://localhost:3000/api/v1';
 // export const serverBaseUrl = 'http://pss.cbs/api/v1/pss';
+export const DownloadUrl = 'https://test.possap.ng/Admin/Police/Request/Details';
 export const serverBaseUrl = 'https://test.possap.ng/api/v1/pss';
 // export const serverBaseUrl = 'https://possap.herokuapp.com/api/v1';
 
@@ -12,6 +13,7 @@ export const baseEndpoints = {
     upload: serverBaseUrl + '/upload',
     nin: serverBaseUrl + '/helper/verifyNIN',
     extractApproval: serverBaseUrl + '/extract-approval',
+    pccApproval: serverBaseUrl + '/character-certificate-approval',
     utility: serverBaseUrl + '/utility',
     apNumber: serverBaseUrl + '/helper/verifyAPNumber',
     services: serverBaseUrl + '/possap-services',
@@ -20,6 +22,7 @@ export const baseEndpoints = {
 
 export const requestEndpoints = {
     allRequest: serverBaseUrl + '/request-approval/list',
+    requestReport: serverBaseUrl + '/request-approval/request-reports',
     requestDetails: serverBaseUrl + '/request-approval/details',
 
 };
@@ -48,6 +51,9 @@ export const serviceEndpoint = {
     getExtracts: baseEndpoints.extractApproval + '/request-approval',
     approveExtract: baseEndpoints.extractApproval + '/approve',
     rejectExtract: baseEndpoints.extractApproval + '/reject',
+    routePcc: baseEndpoints.pccApproval + '/approval-routing',
+    approvePcc: baseEndpoints.pccApproval + '/approve',
+    rejectPcc: baseEndpoints.pccApproval + '/reject',
 };
 export const miscEndpoint = {
     policeOfficerDetails: baseEndpoints.utility + '/get-police-officer-details',

@@ -1,12 +1,26 @@
+ion-content{
+ 
+  --background: url('/assets/img/PossapLogo.svg') 50% 0/67% 118%  no-repeat;
+  --background-size: contain;
+  //background-position: 50% 20;
+  // left: 33%;
+  // right: 0;
+  // top: 48%;
+  // bottom: 0;
+  // position: absolute;
+  // z-index: -1;
+  // background: #000;
+}
+ion-grid{
+  // background: var(--ion-item-background, var(--ion-background-color, #fff));
+  background: rgb(235, 240, 246, 0.2);
+}
 .item-card {
   background-size: cover !important;
   background-position: 0 0 !important;
   height: 200px;
   color: #fff;
   border-radius: 24px;
-}
-.welcome h2 {
-  font-weight: bold;
 }
 .opacity-60 {
   opacity: 0.6 !important;
@@ -64,4 +78,90 @@ ion-list {
 }
 .zIndex {
   z-index: 10;
+}
+.serviceTitle {
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+.service-card {
+  border-radius: 24px;
+
+  h5 {
+    font-weight: 700;
+  }
+  ion-text, span {
+    font-size: 11px;
+    line-height: 0;
+  }
+  ion-icon{
+    font-size: 18px;
+    color: #fff;
+  }
+}
+.pos-absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30;
+  height: 30px;
+  background: var(--ion-color-primary);
+  color: #fff;
+  border-radius: 0px 0px 5px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-searchbar {
+  --border-radius: 20px;
+  --padding-left: 28px;
+  margin-left: 5%;
+  // --background: #fff
+}
+.icon-bg {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.icon-bg {
+  align-items: center;
+  appearance: none;
+  background-color: #3eb2fd;
+  background-image: linear-gradient(1deg, #4f58fd, #149bf3 99%);
+  background-size: calc(100% + 20px) calc(100% + 20px);
+  border-radius: 12px;
+  border-width: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  font-family: CircularStd, sans-serif;
+  font-size: 1rem;
+  height: auto;
+  justify-content: center;
+  line-height: 1.5;
+  padding: 20px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s, background-position 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.icon-bg-info{
+    background-image: linear-gradient(1deg, #4e865a, #48f314 99%); 
 }

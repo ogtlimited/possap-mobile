@@ -3,7 +3,13 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PossapServiceService } from './../../core/services/possap-service.service';
 import { GlobalService } from './../../core/services/global/global.service';
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import {
   AlertController,
@@ -20,7 +26,7 @@ import {
 import { environment } from 'src/environments/environment.prod';
 import { IOfficerRequest } from 'src/app/core/models/officerRequest.interface';
 import { ExtractApproversService } from 'src/app/core/services/extract-approvers.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
@@ -58,6 +64,7 @@ export class RequestsPage implements OnInit {
   States = [];
   LGAs = [];
   Commands = [];
+  isModalOpen = false;
 
   constructor(
     private fb: FormBuilder,
@@ -69,7 +76,9 @@ export class RequestsPage implements OnInit {
     private modal: ModalController,
     private authS: AuthService,
     private router: Router,
-    private loader: LoadingController
+    private route: ActivatedRoute,
+    private loader: LoadingController,
+    private cdref: ChangeDetectorRef
   ) {
     this.filterForm = this.fb.group({
       from: [
@@ -111,12 +120,24 @@ export class RequestsPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.authS.currentUser$.subscribe((val) => {
-      console.log(val);
-      this.officer = val;
-      const query = this.globalS.startEnd();
-      this.getOfficerRequest(val.UserPartId, query);
-      this.getOfficerRequest(val.UserPartId, query, 'approved');
+    this.route.queryParams.subscribe((params) => {
+      console.log(params);
+      this.authS.currentUser$.subscribe((val) => {
+        // console.log(val);
+        this.officer = val;
+        const query: any = {
+          From: new Date(new Date().getFullYear(), 0, 1).toLocaleDateString(
+            'en-GB'
+          ),
+          End: new Date().toLocaleDateString('en-GB'),
+        };
+        if (params.service) {
+          query.serviceType = parseInt(params.service, 10);
+        }
+        console.log(query, 'query');
+        this.getOfficerRequest(val.UserPartId, query, 'list');
+        this.getOfficerRequest(val.UserPartId, query, 'approved');
+      });
     });
   }
   async getOfficerRequest(officerId, query, path = 'list') {
@@ -153,15 +174,18 @@ export class RequestsPage implements OnInit {
     this.possapS.postRequests(body).subscribe(
       (req: IOfficerRequest) => {
         console.log(req.data.ResponseObject);
+        console.log(path);
         if (path === 'list') {
+          console.log('listpath');
           const { StateLGAs, ServiceRequestTypes } = req.data.ResponseObject;
           this.States = StateLGAs;
           this.ServiceRequestTypes = ServiceRequestTypes;
-          console.log(this.States);
+          // console.log(this.States);
           this.data = req.data.ResponseObject.Requests.map((e) => ({
             ...e,
             bg: this.getRandomColor(),
           }));
+          console.log(this.data, 'data');
           this.filteredData = this.data;
           loading.dismiss();
           this.pending = req.data.ResponseObject.Requests.filter(
@@ -178,7 +202,7 @@ export class RequestsPage implements OnInit {
           }));
         }
         this.dismiss();
-        console.log(this.pending);
+        // console.log(this.pending);
       },
       async () => {
         const alert = await this.alertController.create({
@@ -194,11 +218,11 @@ export class RequestsPage implements OnInit {
 
   async ngOnInit() {
     this.languaageObj = await this.globalS.getTranslateObject();
-    console.log(this.languaageObj);
+    // console.log(this.languaageObj);
     this.state.valueChanges.subscribe((v) => {
-      console.log(v);
+      // console.log(v);
       this.LGAs = this.States.filter((s) => s.Id === v)[0].LGAs;
-      console.log(this.LGAs);
+      // console.log(this.LGAs);
     });
     this.lga.valueChanges.subscribe((v) => {
       const body = this.globalS.computeCBSBody(
@@ -211,7 +235,7 @@ export class RequestsPage implements OnInit {
       );
       console.log(body);
       this.possapS.postRequests(body).subscribe((res) => {
-        console.log(res.data.ResponseObject.stateLga);
+        // console.log(res.data.ResponseObject.stateLga);
         this.Commands = res.data.ResponseObject.stateLga;
       });
       // this.LGAs = this.States.filter(s => s.Id === v)[0].LGAs;
@@ -301,6 +325,7 @@ export class RequestsPage implements OnInit {
   }
 
   dismiss() {
+    this.isModalOpen = false;
     this.inlineModal.dismiss();
   }
   submitFilter() {
@@ -321,5 +346,10 @@ export class RequestsPage implements OnInit {
 
   navigate(request, id) {
     this.router.navigate(['/app/tabs/requests/' + id]);
+  }
+  setOpen(isOpen: boolean) {
+    console.log(isOpen);
+    this.isModalOpen = isOpen;
+    this.cdref.detectChanges();
   }
 }

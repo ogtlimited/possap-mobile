@@ -22,7 +22,7 @@
       </ion-col>
 
       <ion-col size="2">
-        <ion-button fill="clear" class="filter-btn mr-2" id="filter-modal">
+        <ion-button fill="clear" class="filter-btn mr-2" (click)="setOpen(true)">
           <ion-icon name="filter"></ion-icon>
         </ion-button>
       </ion-col>
@@ -127,8 +127,8 @@
 
 
   </ion-grid>
-  <ion-modal trigger="filter-modal" [initialBreakpoint]="0.95" [breakpoints]="[0, 0.25, 0.5, 0.95]"
-    handleBehavior="cycle">
+  <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false" [initialBreakpoint]="0.95" [breakpoints]="[0, 0.25, 0.5, 0.95]"
+    >
     <ng-template>
       <ion-content class="ion-padding">
         <form (ngSubmit)="submitFilter()" [formGroup]="filterForm" class="ion-margin-top filter-form">

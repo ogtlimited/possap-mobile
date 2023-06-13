@@ -25,7 +25,6 @@ import { FilterPipe } from './../../core/pipes/filter.pipe';
   ],
   declarations: [
     RequestsPage,
-    AbbrevPipe,
     RequestDetailsComponent,
     PreviewTableComponent,
     FilterPipe,

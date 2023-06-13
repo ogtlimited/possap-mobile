@@ -12,6 +12,7 @@ import { NextApprovalLevelPipe } from '../core/pipes/next-approval-level.pipe';
 import { SelectModalComponent } from './select-modal/select-modal.component';
 import { ApproveSuccessComponent } from '../pages/requests/request-details/approve-success/approve-success.component';
 import { PccApproversComponent } from './pcc-approvers/pcc-approvers.component';
+import { AbbrevPipe } from '../core/pipes/abbrev.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PccApproversComponent } from './pcc-approvers/pcc-approvers.component';
     NextApprovalLevelPipe,
     SelectModalComponent,
     ApproveSuccessComponent,
-    PccApproversComponent
+    PccApproversComponent,
+    AbbrevPipe
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { PccApproversComponent } from './pcc-approvers/pcc-approvers.component';
     NextApprovalLevelPipe,
     SelectModalComponent,
     ApproveSuccessComponent,
-    PccApproversComponent
+    PccApproversComponent,
+    AbbrevPipe
   ],
 })
 export class SharedModule {}

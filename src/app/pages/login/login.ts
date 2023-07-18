@@ -62,8 +62,8 @@ export class LoginPage implements OnInit {
           this.showAlert(res);
         } else {
           console.log('login success');
-          // this.router.navigate(['app/tabs/home']);
-          this.showOTPPage = true;
+          this.router.navigate(['app/tabs/home']);
+          // this.showOTPPage = true;
         }
         await loading.dismiss();
       },

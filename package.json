@@ -24,6 +24,7 @@
     "@capacitor/app": "4.0.1",
     "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "4.1.0",
+    "@capacitor/filesystem": "^4.1.0",
     "@capacitor/geolocation": "^4.0.1",
     "@capacitor/google-maps": "^4.0.1",
     "@capacitor/haptics": "4.0.1",

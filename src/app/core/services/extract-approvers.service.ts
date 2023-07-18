@@ -31,7 +31,8 @@ export class ExtractApproversService {
     };
 
     const alert = await this.alertController.create({
-      subHeader: 'First Extract Approver',
+      subHeader: 'Approve',
+      message: 'First Extract Approver',
       buttons: [
         {
           text: 'Cancel',
@@ -128,7 +129,8 @@ export class ExtractApproversService {
     headerObj
   ) {
     const alert = await this.alertController.create({
-      subHeader: 'Last Extract Approver',
+      subHeader: 'Approve',
+      message: 'Last Extract Approver',
       buttons: [
         {
           text: 'Cancel',

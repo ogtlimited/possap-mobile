@@ -30,6 +30,7 @@ export const requestEndpoints = {
 };
 export const middlewareEndpoints = {
   fetchRequest: middleWareBaseUrl + '/cbs-routes/fetch-data',
+  download: middleWareBaseUrl + '/helper/download',
 };
 
 export const officerEndpoints = {

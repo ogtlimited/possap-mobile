@@ -22,6 +22,9 @@ export class PossapServiceService {
   getRequestDetails(id, obj) {
     return this.reqS.post(requestEndpoints.requestDetails, obj);
   }
+  downloadApprovedRequest(body) {
+    return this.reqS.post(middlewareEndpoints.download, body);
+  }
   postRequests(body): Observable<any> {
     return this.reqS.post(middlewareEndpoints.fetchRequest, body);
   }

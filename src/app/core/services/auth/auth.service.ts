@@ -86,7 +86,7 @@ export class AuthService {
           this.isAuthenticated.next(false);
           return of(res);
         } else {
-          // this.isAuthenticated.next(true);
+          this.isAuthenticated.next(true);
           this.currentUser$.next(res.ResponseObject);
           return from(
             Storage.set({
@@ -207,7 +207,6 @@ export class AuthService {
           this.isAuthenticated.next(false);
           return of(res);
         } else {
-          this.isAuthenticated.next(true);
           this.currentOfficerDetails$.next(res.data.ResponseObject);
           return from(
             Storage.set({

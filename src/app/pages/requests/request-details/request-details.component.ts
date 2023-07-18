@@ -16,7 +16,7 @@ import { IOfficerRequestDetails } from 'src/app/core/models/officerReqDetails.in
 import { ExtractApproversService } from 'src/app/core/services/extract-approvers.service';
 import { IOfficerDetails } from 'src/app/core/models/login.interface';
 import { PccApproverService } from 'src/app/core/services/approvers/pcc-approver.service';
-
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
@@ -91,6 +91,9 @@ export class RequestDetailsComponent implements OnInit {
             this.serviceName =
               res.data.ResponseObject.ServiceName.toLowerCase();
             this.cdref.detectChanges();
+            if (this.request.IsLastApprover) {
+              this.requestApNumber();
+            }
           });
         console.log(param.get('id'));
       });
@@ -161,34 +164,100 @@ export class RequestDetailsComponent implements OnInit {
     this.globalS.showTabs$.next(false);
     this.activatedRoute.queryParamMap.subscribe((query) => {
       this.status = query.get('status');
-      console.log(status, 'status');
     });
   }
 
   async downloadFile(path, fileName) {
+    //const url = 'https://file-examples.com/wp-content/storage/2017/10/file-sample_150kB.pdf';
     const url = DownloadUrl + '/' + path;
     console.log(url);
+
     const loading = await this.loadingController.create();
     await loading.present();
-    fetch(url, {
-      method: 'get',
-      mode: 'no-cors',
-      referrerPolicy: 'no-referrer',
-    })
-      .then((res) => res.blob())
-      .then((res) => {
-        const aElement = document.createElement('a');
-        aElement.setAttribute('download', fileName);
-        const href = URL.createObjectURL(res);
-        aElement.href = href;
-        // aElement.setAttribute('href', href);
-        aElement.setAttribute('target', '_blank');
-        aElement.click();
-        URL.revokeObjectURL(href);
+    const obj = {
+      url,
+    };
+    this.possapS.downloadApprovedRequest(obj).subscribe(
+      async (res: any) => {
+        console.log(res.data);
+        //const val = this.base64ToPdf(res.data, fileName);
+        await Filesystem.writeFile({
+          path: fileName + '.pdf',
+          data: res.data,
+          directory: Directory.Documents,
+        });
+        this.showSuccess('Successfully download file', fileName + '.pdf');
         loading.dismiss();
-      })
-      .catch((err) => {
+      },
+      (err) => {
+        console.log(err);
+        this.showSuccess('Error downloading file', err.message);
         loading.dismiss();
-      });
+      }
+    );
+  }
+  blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  async showSuccess(res, msg) {
+    const alert = await this.alertController.create({
+      header: msg,
+      message: res,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  async requestApNumber() {
+    const alert = await this.alertController.create({
+      message: 'Enter your AP Number',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            // this.handlerMessage = `${val} canceled`;
+            this.router.navigate(['app/tabs/requests']);
+          },
+        },
+        {
+          text: 'Submit',
+          role: 'confirm',
+          handler: async (data) => {
+            console.log(data);
+            (await this.authS.getOfficerLog(data.apNumber)).subscribe(
+              async (res) => {
+                console.log(res);
+              },
+              async (res) => {
+                console.log(res);
+                const errorAlert = await this.alertController.create({
+                  header: 'Login failed',
+                  message: res.error.error,
+                  buttons: ['OK'],
+                });
+
+                await errorAlert.present();
+              }
+            );
+          },
+        },
+      ],
+      inputs: [
+        {
+          type: 'text',
+          name: 'apNumber',
+          placeholder: 'AP Number',
+        },
+      ],
+    });
+
+    await alert.present();
   }
 }

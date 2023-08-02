@@ -1,0 +1,100 @@
+<ion-content>
+  <form [formGroup]="pccForm" class="form-container">
+
+    <ion-item *ngIf="partialName === 'PSSEscortDCPPartial'">
+      <ion-label position="floating">LGA</ion-label>
+      <ion-select (ionChange)="getStateFormation($event)"  mode="ios" placeholder="Select a stage">
+        <ion-select-option *ngFor="let i of request.Partials[0].PartialModel
+          .LGAs" [value]="i.Id">{{i.Name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="partialName === 'PSSEscortAssignFormationsPartial'">
+      <ion-label position="floating">State</ion-label>
+      <ion-select (ionChange)="getStateFormation($event)"  mode="ios" placeholder="Select a stage">
+        <ion-select-option *ngFor="let i of request.Partials[0].PartialModel
+          .States" [value]="i.Id">{{i.Name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ng-container formArrayName="FormationsSelection">
+      <div *ngFor="let _ of FormationsSelection.controls.slice(-1); index as i">
+        <ng-container [formGroupName]="i">
+          {{FormationsSelection.controls.values | json}}
+          <ion-item>
+            <ion-label position="floating">Formation</ion-label>
+            <ion-select formControlName="FormationId" mode="ios" placeholder="Select a stage">
+              <ion-select-option *ngFor="let i of formationOptions" [value]="i.Id">{{i.Name.split(' - ')[1] }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="ml-16">
+            <ion-note class="text-small" color="danger" *ngIf="FormationIdError !== ''">{{FormationIdError}}
+            </ion-note>
+          </div>
+          <ion-item class="">
+            <ion-label position="floating">Number of Officers</ion-label>
+            <ion-input formControlName="NumberofOfficers"></ion-input>
+          </ion-item>
+          <div class="ml-16 ">
+
+            <ion-note class="text-small" color="danger" *ngIf="NumberofOfficersError !== ''">{{NumberofOfficersError}}
+            </ion-note>
+          </div>
+
+        </ng-container>
+      </div>
+
+
+    </ng-container>
+    <ion-row lines="none">
+      <ion-col class="px-32">
+        <ion-button class="mt-12" expand="block" (click)="addSquad()">Add Formation</ion-button>
+
+      </ion-col>
+
+    </ion-row>
+
+
+
+
+
+    <ion-item>
+      <ion-label position="floating">Comment</ion-label>
+      <ion-textarea formControlName="Comment"></ion-textarea>
+    </ion-item>
+    <div *ngIf="(Comment.dirty || Comment.touched) && Comment.errors" class="errors">
+      <span *ngIf="Comment.errors?.required">Comment is required</span>
+    </div>
+
+
+
+
+  </form>
+
+  <ion-grid class="ion-text-center mt-15" *ngIf="selectedFormationList.length > 0">
+    <ion-label class="ion-text-center s18-h24">Selected Formation</ion-label>
+    <ion-list>
+      <ion-item *ngFor="let item of selectedFormationListLabel">
+        <ion-label>
+          <h6>{{item.Name}}</h6>
+          <p>No. of Officers Requested- {{item.NumberofOfficers}}</p>
+        </ion-label>
+        <ion-icon (click)="removeSquad(item)" color="danger" name="trash" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="dissmissModal()" fill="outline" expand="block">Cancel</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="submitForm()" [disabled]="!pccForm.valid" expand="block">Submit</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

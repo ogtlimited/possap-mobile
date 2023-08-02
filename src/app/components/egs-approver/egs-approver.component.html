@@ -1,36 +1,39 @@
 <div class="ion-page">
   <ion-header>
     <ion-toolbar>
-      <ion-title class="p-10">
+      <ion-title>
         <div class="ion-text-wrap s13-h15">{{request.ServiceName}}</div>
       </ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content *ngIf="request" class="ion-no-padding px-10">
-    <form  [formGroup]="pccForm" class="form-container">
+    <form [formGroup]="pccForm" class="form-container">
       <ion-item class="">
         <ion-label position="floating">Request ID</ion-label>
         <ion-input [disabled]="true" [value]="request.RequestId"></ion-input>
       </ion-item>
-      <ion-item *ngIf="showRequestStage" >
-        <ion-label position="floating">Request Stage</ion-label>
-        <ion-select mode="ios" formControlName="SelectedRequestStage" placeholder="Select a stage">
-          <ion-select-option *ngFor="let i of request.RequestStages" [value]="i.Id">{{i.PositionName | titlecase}}
+      <ion-item *ngIf="showRequestStage && selectedCommandTypeName !== 'Tactical'">
+        <ion-label position="floating">Stage State</ion-label>
+        <ion-select (ionChange)="getRequestStage($event)" mode="ios" placeholder="Select a stage">
+          <ion-select-option *ngFor="let i of request.RequestStages.slice(0,37)" [value]="i.Id">
+            {{i.Name.split(' ')[0] }}
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <div *ngIf="showRequestStage &&(SelectedRequestStage.dirty || SelectedRequestStage.touched) && SelectedRequestStage.errors"
+      <ion-item *ngIf="showRequestStage">
+        <ion-label position="floating">Request Stage</ion-label>
+        <ion-select mode="ios" interface="action-sheet" formControlName="SelectedRequestStage"
+          placeholder="Select a stage">
+          <ion-select-option *ngFor="let i of requestStageOptions" [value]="i.Id">{{i.Name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div
+        *ngIf="showRequestStage &&(SelectedRequestStage.dirty || SelectedRequestStage.touched) && SelectedRequestStage.errors"
         class="errors">
         <span *ngIf="SelectedRequestStage.errors?.required">SelectedRequestStage is required</span>
       </div>
 
-      <ion-item *ngIf="ShowReferenceNumberForm">
-        <ion-label position="floating">Policy File Reference Number</ion-label>
-        <ion-input formControlName="RefNumber"></ion-input>
-      </ion-item>
-      <div *ngIf="ShowReferenceNumberForm && (RefNumber.dirty || RefNumber.touched) && RefNumber.errors" class="errors">
-        <span *ngIf="RefNumber.errors?.required">Reference Number is required</span>
-      </div>
       <ion-item>
         <ion-label position="floating">Comment</ion-label>
         <ion-textarea formControlName="Comment"></ion-textarea>
@@ -39,10 +42,13 @@
         <span *ngIf="Comment.errors?.required">Comment is required</span>
       </div>
 
-    
+
 
 
     </form>
+
+
+
 
   </ion-content>
   <ion-footer class="ion-padding">

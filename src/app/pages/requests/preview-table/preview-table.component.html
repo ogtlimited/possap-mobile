@@ -1,20 +1,30 @@
-<ion-grid  class="ion-margin">
+<ion-grid class="ion-margin">
   <h6> APPLICANT INFO</h6>
   <ion-row class="mt-5" *ngFor="let k of applicantKey; index as i">
     <ion-col>{{ k | titlecase }}</ion-col>
     <ion-col>{{ applicantValue[i] }}</ion-col>
   </ion-row>
 
-  
- 
+
+
 </ion-grid>
-<ion-grid  class="ion-margin">
+<ion-grid class="ion-margin">
   <h6> Details of {{data.ServiceName | titlecase}}</h6>
   <ion-row class="mt-5" *ngFor="let k of keys; index as i">
     <ion-col>{{ k | titlecase }}</ion-col>
     <ion-col>{{ values[i] }}</ion-col>
   </ion-row>
 
-  
- 
+
+
+</ion-grid>
+<ion-grid *ngIf="data.ServiceName === 'ESCORT AND GUARD SERVICES'" class="ion-margin">
+  <h6> Applicant selected command to provide service</h6>
+  <ion-row class="mt-5" *ngFor="let k of egsSelectedCommandKeys; index as i">
+    <ion-col>{{ k | titlecase }}</ion-col>
+    <ion-col>{{ egsSelectedCommandValues[i] }}</ion-col>
+  </ion-row>
+
+
+
 </ion-grid>

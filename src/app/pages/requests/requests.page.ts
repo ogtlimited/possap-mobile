@@ -65,6 +65,7 @@ export class RequestsPage implements OnInit {
   LGAs = [];
   Commands = [];
   isModalOpen = false;
+  egsAbbrev = 'ESCORT GUARD SERVICES';
 
   constructor(
     private fb: FormBuilder,
@@ -183,6 +184,7 @@ export class RequestsPage implements OnInit {
           // console.log(this.States);
           this.data = req.data.ResponseObject.Requests.map((e) => ({
             ...e,
+            ServiceNameModified: e.ServiceName.toLowerCase().includes('escort') ? this.egsAbbrev : e.ServiceName,
             bg: this.getRandomColor(),
           }));
           console.log(this.data, 'data');
@@ -192,8 +194,10 @@ export class RequestsPage implements OnInit {
             (e) => e.Status === 4
           ).map((e) => ({
             ...e,
+            ServiceNameModified: e.ServiceName.toLowerCase().includes('escort') ? this.egsAbbrev : e.ServiceName,
             bg: this.getRandomColor(),
           }));
+          console.log(this.pending);
         } else {
           // this.inProgress = req.data.filter((e) => e.status === 'in progress');
           this.completed = req.data.ResponseObject.Requests.map((e) => ({
@@ -204,10 +208,11 @@ export class RequestsPage implements OnInit {
         this.dismiss();
         // console.log(this.pending);
       },
-      async () => {
+      async (res) => {
+        console.log(res);
         const alert = await this.alertController.create({
           header: 'Error',
-          message: 'Error fetching request',
+          message: 'ERROR ',
           buttons: ['OK'],
         });
 
@@ -350,6 +355,6 @@ export class RequestsPage implements OnInit {
   setOpen(isOpen: boolean) {
     console.log(isOpen);
     this.isModalOpen = isOpen;
-    this.cdref.detectChanges();
+    // this.cdref.detectChanges();
   }
 }

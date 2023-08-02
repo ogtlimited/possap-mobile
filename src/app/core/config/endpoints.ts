@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export const middleWareBaseUrl = 'https://possap-api.ogtlprojects.com/api/v1';
-// export const middleWareBaseUrl = 'http://localhost:3000/api/v1';
+
+/** Middle ware proxy url */
+export const middleWareBaseUrl = 'https://possapbackend-development.ogtlprojects.com/api/v1';
+// export const middleWareBaseUrl = 'http://localhost:5000/api/v1';
+
+/** CBS BASE URL */
 // export const serverBaseUrl = 'http://pss.cbs/api/v1/pss';
-export const CBSDomainUrl = 'https://test.possap.ng';
+export const serverBaseUrl = 'https://test.possap.ng/api/v1/pss';
+
+// export const CBSDomainUrl = 'https://test.possap.ng';
 export const DownloadUrl =
   'https://test.possap.ng/Admin/Police/Request/Details';
-export const serverBaseUrl = 'https://test.possap.ng/api/v1/pss';
-// export const serverBaseUrl = 'https://possap.herokuapp.com/api/v1';
 
 export const GoogleMapUrl =
   'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=';
@@ -17,6 +21,7 @@ export const baseEndpoints = {
   nin: serverBaseUrl + '/helper/verifyNIN',
   extractApproval: serverBaseUrl + '/extract-approval',
   pccApproval: serverBaseUrl + '/character-certificate-approval',
+  EGSApproval: serverBaseUrl + '/escort-approval',
   utility: serverBaseUrl + '/utility',
   apNumber: serverBaseUrl + '/helper/verifyAPNumber',
   services: serverBaseUrl + '/possap-services',
@@ -52,6 +57,8 @@ export const utilityEndpoint = {
   services: baseEndpoints.utility + '/get-services',
   countries: baseEndpoints.utility + '/get-countries',
   paymentRef: baseEndpoints.utility + '/get-payment-reference',
+  adminFormation: baseEndpoints.utility + '/get-commands-for-admin-in-state',
+  lgaFormation: baseEndpoints.utility + '/get-lga-area-and-divisional-commands',
 };
 
 export const serviceEndpoint = {
@@ -61,6 +68,9 @@ export const serviceEndpoint = {
   routePcc: baseEndpoints.pccApproval + '/approval-routing',
   approvePcc: baseEndpoints.pccApproval + '/approve',
   rejectPcc: baseEndpoints.pccApproval + '/reject',
+  routeEGS: baseEndpoints.EGSApproval + '/approval-routing',
+  approveEGS: baseEndpoints.EGSApproval + '/approve',
+  finalEGSApprover: baseEndpoints.EGSApproval + '/final-approval',
 };
 export const miscEndpoint = {
   policeOfficerDetails: baseEndpoints.utility + '/get-police-officer-details',

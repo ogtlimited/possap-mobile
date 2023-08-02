@@ -1,0 +1,64 @@
+<app-header title="Schedule Officer" [showBack]="false"></app-header>
+<ion-content>
+  <form [formGroup]="pccForm" class="form-container">
+
+    <ion-item class="">
+      <ion-label position="floating">Enter AP/Force Number </ion-label>
+      <ion-input formControlName="apNumber"></ion-input>
+    </ion-item>
+   
+    <ion-row lines="none">
+      <ion-col class="px-32">
+        <ion-button [disabled]="apNumber.value === ''" class="mt-12" expand="block" (click)="addSquad()">Add officer</ion-button>
+
+      </ion-col>
+
+    </ion-row>
+
+
+
+
+
+    <ion-item>
+      <ion-label position="floating">Comment</ion-label>
+      <ion-textarea formControlName="Comment"></ion-textarea>
+    </ion-item>
+    <div *ngIf="(Comment.dirty || Comment.touched) && Comment.errors" class="errors">
+      <span *ngIf="Comment.errors?.required">Comment is required</span>
+    </div>
+
+
+
+
+  </form>
+
+  <ion-grid class="ion-text-center mt-15" *ngIf="selectedOfficers.length > 0">
+    <ion-label class="ion-text-center s18-h24">Selected Officers</ion-label>
+    <ion-list>
+      <ion-item *ngFor="let item of selectedOfficersLabel">
+        <ion-label>
+          <h6>{{item.Name}}</h6>
+          <p>Rank- {{item.RankCode}}</p>
+          <p>Command- {{item?.CommandName.split(' - ')[1]}}</p>
+          <p>Force Number- {{item.IdNumber}}</p>
+          <p>IPPIS- {{item.IppisNumber}}</p>
+          <p>Account No. - {{item.AccountNumber}}</p>
+        </ion-label>
+        <ion-icon (click)="removeSquad(item)" color="danger" name="trash" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="dissmissModal()" fill="outline" expand="block">Cancel</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="submitForm()" [disabled]="!pccForm.valid" expand="block">Submit</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

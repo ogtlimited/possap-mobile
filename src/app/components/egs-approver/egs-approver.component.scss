@@ -1,0 +1,30 @@
+ion-backdrop {
+    opacity: 0.5;
+    background: var(--ion-color-primary);
+  }
+  #box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    width: 90%;
+    height: 50vh;
+    border-radius: 10px;
+  }
+  .toolbar-title {
+    text-overflow: inherit;
+    white-space: normal;
+ }
+ ion-item {
+    --min-height: 16px !important;
+}
+form{
+  ion-label{
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,36 @@
+<ion-footer *ngIf="request">
+  <ion-row *ngIf="status !== 'completed'">
+    <ion-col>
+      <ion-button (click)="presentAlert('Approve', request)" expand="block" color="primary" fill="solid">
+        {{request.ApprovalButtonName}}
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="presentAlert('Reject', request)" color="danger" fill="outline" expand="block">Reject
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="request.ServiceName === 'ESCORT AND GUARD SERVICES' ">
+    <ion-col *ngIf="(request?.Partials[0]?.PartialName === 'PSSEscortAssignFormationsPartial') || (request?.Partials[0]?.PartialName === 'PSSEscortDCPPartial')">
+      <ion-button (click)="eGSFinalApproval(request)" expand="block" color="primary" fill="solid">
+        Approve Request
+      </ion-button>
+    </ion-col>
+  </ion-row>
+   <ion-row *ngIf="status === 'completed'">
+    <ion-col *ngIf="request.serviceName.includes('extract')">
+      <ion-button (click)="downloadFile('Extract/'+ request.FileRefNumber , 'extract')" expand="block" color="primary" fill="solid">
+        <ion-icon slot="start" name="download-cloud"></ion-icon>
+        Download Extract
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="request.serviceName.includes('character')">
+      <ion-button (click)="downloadFile('CharacterCertificate/'+ request.FileRefNumber, 'certificate')" expand="block" color="primary" fill="solid">
+        <ion-icon slot="start" name="download-cloud"></ion-icon>
+        Download Character Certificate
+      </ion-button>
+    </ion-col>
+
+  </ion-row>
+</ion-footer>
+

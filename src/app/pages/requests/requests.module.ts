@@ -12,6 +12,7 @@ import { RequestsPageRoutingModule } from './requests-routing.module';
 
 import { RequestsPage } from './requests.page';
 import { FilterPipe } from './../../core/pipes/filter.pipe';
+import { RequestDetailsFooterComponent } from './request-details/components/request-details-footer/request-details-footer.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { FilterPipe } from './../../core/pipes/filter.pipe';
     RequestDetailsComponent,
     PreviewTableComponent,
     FilterPipe,
+    RequestDetailsFooterComponent
   ],
 })
 export class RequestsPageModule {}

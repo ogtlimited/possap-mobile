@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { ApproveSuccessComponent } from 'src/app/pages/requests/request-details/approve-success/approve-success.component';
+import { ApproveSuccessComponent } from 'src/app/pages/requests/request-details/components/approve-success/approve-success.component';
 
 @Injectable({
   providedIn: 'root',

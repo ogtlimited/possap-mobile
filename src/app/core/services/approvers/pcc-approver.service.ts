@@ -57,12 +57,14 @@ export class PccApproverService {
           const message = res?.data?.message;
           this.globalS.presentModal(message);
         },
-        (error) => {
-          this.alertController.create({
+        async (error) => {
+          loading.dismiss();
+          const alert = await this.alertController.create({
             header: 'error',
             message: 'Something went wrong',
             buttons: ['OK'],
           });
+          alert.present();
         }
       );
     }
@@ -113,13 +115,14 @@ export class PccApproverService {
           this.globalS.presentModal(message);
           loading.dismiss();
         },
-        (error) => {
+        async (error) => {
           loading.dismiss();
-          this.alertController.create({
+          const alert = await this.alertController.create({
             header: 'error',
             message: 'Something went wrong',
             buttons: ['OK'],
           });
+          alert.present();
         }
       );
     }
@@ -167,13 +170,14 @@ export class PccApproverService {
           this.globalS.presentModal(message);
           loading.dismiss();
         },
-        (error) => {
+        async (error) => {
           loading.dismiss();
-          this.alertController.create({
+          const alert = await this.alertController.create({
             header: 'error',
             message: 'Something went wrong',
             buttons: ['OK'],
           });
+          alert.present();
         }
       );
     }

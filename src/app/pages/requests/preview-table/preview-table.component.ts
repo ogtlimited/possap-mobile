@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, Input, OnInit } from '@angular/core';
+import { IEGSResponse } from 'src/app/core/models/egsResponse.interface';
 import { ITaxEntity, Ipcc } from 'src/app/core/models/officerRequest.interface';
 
 @Component({
@@ -12,18 +13,21 @@ export class PreviewTableComponent implements OnInit {
   @Input() service;
   keys = [];
   values = [];
+  egsSelectedCommandKeys = [];
+  egsSelectedCommandValues = [];
   applicantKey;
   applicantValue;
   constructor() {}
 
   ngOnInit() {
-    console.log(this.data);
-    console.log(this.service);
     this.formatApplicant(this.data.TaxEntity);
     if (this.data.ServiceName === 'POLICE EXTRACT') {
       this.formatExtract(this.data);
     } else if (this.data.ServiceName === 'POLICE CHARACTER CERTIFICATE') {
       this.formatPCC(this.data);
+    }
+     else if (this.data.ServiceName === 'ESCORT AND GUARD SERVICES') {
+      this.formatEGS(this.data);
     }
   }
 
@@ -58,6 +62,32 @@ export class PreviewTableComponent implements OnInit {
       ['Date of Issuance']: data.DateOfIssuance,
     };
     const { keys, values } = this.getKeyValue(pcc);
+    this.keys = keys;
+    this.values = values;
+  }
+  formatEGS(data: IEGSResponse) {
+    const egs = {
+      ['State']: data.EscortInfo.StateName,
+      ['LGA']: data.EscortInfo.LGAName,
+      ['Address']: data.EscortInfo.Address,
+      ['Start Date']: data.EscortInfo.StartDate,
+      ['End Date']: data.EscortInfo.EndDate,
+      ['Duration']: data.EscortInfo.DurationNumber,
+      ['Requester Category']: data.EscortInfo.TaxEntitySubSubCategoryName,
+      ['Service Category']: data.EscortInfo.ServiceCategoryName,
+      ['Service Category Type']: data.EscortInfo.ServiceCategoryTypeName,
+    };
+    const selectedCommands = {
+      ['State']: data.EscortInfo.StateName,
+      ['LGA']: data.EscortInfo.LGAName,
+      ['Unit']: data.EscortInfo.Address,
+      ['Search Command']: data.EscortInfo.CommandName,
+      ['Number of Officers Required by applicant']: data.EscortInfo.NumberOfOfficers,
+    };
+    const { keys, values } = this.getKeyValue(egs);
+    const vals = this.getKeyValue(selectedCommands);
+    this.egsSelectedCommandKeys = vals.keys;
+    this.egsSelectedCommandValues = vals.values;
     this.keys = keys;
     this.values = values;
   }

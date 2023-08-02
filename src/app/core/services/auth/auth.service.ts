@@ -40,7 +40,6 @@ export class AuthService {
   ) {
     this.loadToken();
     this.currentUser().subscribe((e) => {
-      console.log(e);
       this.currentUser$.next(JSON.parse(e.value));
     });
     this.currentOfficerDetails().subscribe((e) => {
@@ -50,7 +49,7 @@ export class AuthService {
   }
 
   async loadToken() {
-    const user = await Storage.get({ key: OFFICER_DETAILS });
+    const user = await Storage.get({ key: CURRENT_USER });
     const jwtHelper = new JwtHelperService();
 
     if (user && user.value) {

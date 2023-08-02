@@ -70,31 +70,4 @@
     </ion-radio-group>
   </ion-list>
 </ion-content>
-<ion-footer *ngIf="request">
-  <ion-row *ngIf="status !== 'completed'">
-    <ion-col>
-      <ion-button (click)="presentAlert('Approve', request)" expand="block" color="primary" fill="solid">
-        {{request.ApprovalButtonName}}
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button (click)="presentAlert('Reject', request)" color="danger" fill="outline" expand="block">Reject
-      </ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="status === 'completed'">
-    <ion-col *ngIf="serviceName.includes('extract')">
-      <ion-button (click)="downloadFile('Extract/'+ request.FileRefNumber , 'extract')" expand="block" color="primary" fill="solid">
-        <ion-icon slot="start" name="download-cloud"></ion-icon>
-        Download Extract
-      </ion-button>
-    </ion-col>
-    <ion-col *ngIf="serviceName.includes('character')">
-      <ion-button (click)="downloadFile('CharacterCertificate/'+ request.FileRefNumber, 'certificate')" expand="block" color="primary" fill="solid">
-        <ion-icon slot="start" name="download-cloud"></ion-icon>
-        Download Character Certificate
-      </ion-button>
-    </ion-col>
-
-  </ion-row>
-</ion-footer>
+<app-request-details-footer  [officerDetails]="officerDetails" [officer]="officer" [request]="request" [status]="status" [hashString]="hashString" [headerObj]="headerObj"></app-request-details-footer>

@@ -97,7 +97,7 @@
       <ion-card-content class="pl-5">
         <ion-item [routerLink]="['/app/tabs/requests' , item.Id]" [state]="item" lines="none" button>
           <div class="abbrev" slot="start" [ngStyle]="{background: item.bg}">
-            {{item.ServiceName | abbrev}}
+            {{item.ServiceNameModified | abbrev}}
           </div>
           <ion-label class="ion-text-wrap">
             <b>{{item?.ServiceName}}</b>
